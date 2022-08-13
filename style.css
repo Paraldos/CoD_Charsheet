@@ -14,16 +14,34 @@
   margin: 0;
 }
 
+/*=======================
+diceBox
+=======================*/
+.diceBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100vw;
+  height: 100vh;
+  border: var(--borderSize) var(--borderColor) solid;
+}
+
+.diceBox_value {
+  padding: 1rem;
+}
+
+.dice_btn {
+  padding: 1rem;
+}
+
+/*=======================
+???
+=======================*/
 #headerBox {
   display: none;
   border: var(--borderSize) var(--borderColor) solid;
   font-size: 3rem;
-}
-
-#diceBox {
-  width: 100vw;
-  height: 100vh;
-  border: var(--borderSize) var(--borderColor) solid;
 }
 
 #conceptBox {
