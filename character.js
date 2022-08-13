@@ -1,0 +1,62 @@
+const CHARACTER = {
+  concepts: {
+    name: "",
+    age: "",
+    player: "",
+    virtue: "",
+    vice: "",
+    concept: "",
+    chronicle: "",
+    faction: "",
+    groupName: "",
+  },
+  attributes: {
+    mental: {
+      intelligence: 1,
+      wits: 1,
+      resolve: 1,
+    },
+    physical: {
+      strength: 1,
+      dexterity: 1,
+      stamina: 1,
+    },
+    social: {
+      presence: 1,
+      manipulation: 1,
+      composure: 1,
+    },
+  },
+  skills: {
+    mental: {
+      academics: 0,
+      computer: 0,
+      crafts: 0,
+      investigation: 0,
+      medicine: 0,
+      occult: 0,
+      politics: 0,
+      science: 0,
+    },
+    physical: {
+      athletics: 0,
+      brawl: 0,
+      drive: 0,
+      firearms: 0,
+      larceny: 0,
+      stealth: 0,
+      survival: 0,
+      weaponry: 0,
+    },
+    social: {
+      animalKen: 0,
+      empathy: 0,
+      expression: 0,
+      intimidation: 0,
+      persuasion: 0,
+      socialize: 0,
+      streetwise: 0,
+      subterfuge: 0,
+    },
+  },
+};
