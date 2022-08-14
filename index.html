@@ -8,31 +8,45 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="headerBox">
+    <div id="mainBox">
+      <div id="headerBox">
         <p>CoD - Character Sheet</h1>
+      </div>
+
+      <div id="diceBox">
+        <div id="diceBox_btns" >
+          <button id="diceBox_setToZero">Set to Zero</button>
+          <button id="diceBox_minus5">-5</button>
+          <button id="diceBox_minus1">-1</button>
+          <button id="diceBox_rollBtn">Roll 0</span></button>
+          <button id="diceBox_plus1">+1</button>
+          <button id="diceBox_plus5">+5</button>
+          <button id="diceBox_reroll">10-again</button>
+        </div>
+
+        <div id="diceBox_results">
+          <div id="diceBox_results_successes">0</div>
+          <div id="diceBox_results_text">Successes</div>
+          <div id="diceBox_results_dice"></div>
+        </div>
+      </div>
+
+      <ul id="conceptBox">
+        <li>Name:</li>
+        <li>Virtue:</li>
+        <li>Chronicle:</li>
+
+        <li>Age:</li>
+        <li>Vice:</li>
+        <li>Faction:</li>
+
+        <li>Player:</li>
+        <li>Concept:</li>
+        <li>Group Name:</li>
+      </ul>
+      <div id="attributesBox"></div>
+      <div id="skillsBox"></div>
     </div>
-
-    <div class="diceBox">
-      <button class="dice_btn diceBox_minus">-</button>
-      <p class="diceBox_value">Value</p>
-      <button class="dice_btn diceBox_plus">+</button>
-    </div>
-
-    <ul id="conceptBox">
-      <li>Name:</li>
-      <li>Virtue:</li>
-      <li>Chronicle:</li>
-
-      <li>Age:</li>
-      <li>Vice:</li>
-      <li>Faction:</li>
-
-      <li>Player:</li>
-      <li>Concept:</li>
-      <li>Group Name:</li>
-    </ul>
-    <div id="attributesBox"></div>
-    <div id="skillsBox"></div>
 
     <script src="https://kit.fontawesome.com/a6b82af64a.js" crossorigin="anonymous"></script>
     <script src="database.js"></script>
