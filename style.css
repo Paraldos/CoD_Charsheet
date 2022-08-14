@@ -7,7 +7,8 @@
   --c4: #fefcfb;
 
   /* ==== font sizes ==== */
-  --fontSize_big: 2rem;
+  --fontSize_veryBig: 2rem;
+  --fontSize_big: 1.4rem;
   --fontSize_normal: 20px;
   --fontSize_small: 0.7rem;
   --borderSize: 0.1rem;
@@ -42,14 +43,13 @@ body {
   width: 100vw;
   min-height: 100vh;
   max-width: 900px;
-  padding: 0 1rem 0 1rem;
 }
 
 button {
   background-color: var(--c3);
   color: var(--c4);
   border: none;
-  padding: 0.3rem;
+  padding: 0.2rem 0.5rem;
   border-radius: 5px;
 }
 
@@ -64,53 +64,62 @@ diceBox
 ================================== */
 #diceBox {
   width: 100%;
-  padding: 15px 25px;
-  display: grid;
-  grid-gap: 5px;
-  grid-template-rows: auto auto;
+  padding: 10px;
+  /* ========================= */
+  border-top: 5px solid var(--c3);
+  border-bottom: 5px solid var(--c3);
 }
 
 /* ==== diceBox_btns ==== */
 #diceBox_btns {
   display: grid;
-  grid-gap: var(--fontSize_normal);
-  grid-template-columns: 1fr 1fr 1fr 3fr 1fr 1fr 1fr;
+  gap: 10px;
+  grid-template-columns: repeat(7, 1fr);
 }
 
-/* ==== diceBox_result ==== */
-#diceBox_results {
+#diceBox_successes {
+  border: solid var(--c3) 5px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
   display: grid;
-  grid-gap: 10px;
-  grid-template-columns: min-content min-content auto;
+  grid-row: span 2;
+}
+#diceBox_successes span {
+  font-size: 60px;
+  align-self: center;
+  justify-self: center;
 }
 
-#diceBox_results_successes {
+#diceBox_reset,
+#diceBox_reroll {
+  grid-column: span 3;
+}
+
+#diceBox_rollBtn {
+  grid-column: span 2;
   font-size: var(--fontSize_big);
 }
 
-#diceBox_results_text {
+#diceBox_results {
+  grid-column: span 7;
   font-size: var(--fontSize_small);
-  display: grid;
-  align-items: center;
+  text-align: center;
 }
-
-#diceBox_results_dice {
-  font-size: var(--fontSize_small);
-  display: flex;
-  justify-content: end;
-  align-items: center;
-}
-
-#diceBox_results_dice span {
+#diceBox_results span {
   font-size: var(--fontSize_small);
 }
 
 .dice_success {
-  color: orange;
+  color: rgb(0, 167, 14);
 }
 
 .dice_crit {
-  color: red;
+  color: rgb(0, 255, 42);
+}
+
+.dice_fail {
+  color: rgb(155, 0, 0);
 }
 
 /* ==================================
