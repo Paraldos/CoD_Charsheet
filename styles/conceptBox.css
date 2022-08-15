@@ -1,0 +1,17 @@
+.conceptBox {
+  padding: 10px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.conceptBox li {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: min-content auto;
+}
+
+.conceptBox img {
+  width: var(--fs_0);
+}

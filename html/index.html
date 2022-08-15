@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CoD Character Sheet</title>
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/naxBox.css" />
+    <link rel="stylesheet" href="../styles/attributesBox.css" />
+    <link rel="stylesheet" href="../styles/conceptBox.css" />
+    <link rel="stylesheet" href="../styles/diceBox.css" />
+    <link rel="stylesheet" href="../styles/change_basics.css" />
+    <link rel="stylesheet" href="../styles/notVisible.css" />
+
+  </head>
+  <body>
+    <div class="navBox">
+      <div class="navBox_logo">CoD - Character Sheet</div>
+      <ul class="navBox_options">
+        <li class="navBox_home">Home</li>
+        <li class="navBox_change_basics">Change Basics</li>
+      </ul>
+    </div>
+
+    <div id="diceBox">
+      <div id="diceBox_btns">
+        <div id="diceBox_successes"><span>0</span></div>
+        <div id="diceBox_results"><br>(nothing)</div>
+
+        <button id="diceBox_reset">Reset</button>
+        <button id="diceBox_reroll">10-again</button>
+        <button id="diceBox_minus5">-5</button>
+        <button id="diceBox_minus1">-1</button>
+        <button id="diceBox_rollBtn">Roll 0</span></button>
+        <button id="diceBox_plus1">+1</button>
+        <button id="diceBox_plus5">+5</button>
+      </div>
+    </div>
+
+    <div class="contentBox">
+      <div class="conceptBox box"></div>
+      <div class="att_box box"></div>
+      <ul class="change_basics box"></ul>
+    </div>
+
+    <script src="../scripts/database.js"></script>
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/conceptBox.js"></script>
+    <script src="../scripts/attributesBox.js"></script>
+    <script src="../scripts/dice.js"></script>
+    <script src="../scripts/change_basics.js"></script>
+    <script src="../scripts/navBox.js"></script>
+  </body>
+</html>

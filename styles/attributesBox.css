@@ -1,0 +1,38 @@
+.att_box {
+  display: grid;
+  row-gap: 10px;
+  column-gap: 30px;
+  grid-template-columns: auto repeat(3, 1fr);
+}
+
+.att_box h1 {
+  font-size: var(--fs_1);
+  width: 100%;
+  grid-column: span 4;
+  text-align: center;
+}
+
+.att_box ul {
+  list-style: none;
+}
+
+.att_box_info {
+  padding: 3px;
+  text-align: end;
+  justify-self: end;
+  font-size: var(--fs_0);
+}
+
+._att_box_attributes {
+  padding: 3px;
+  border: 1px solid var(--cFont);
+}
+
+.attribute {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+}
+
+.attribute p {
+  justify-self: end;
+}

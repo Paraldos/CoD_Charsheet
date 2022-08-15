@@ -1,0 +1,38 @@
+.navBox {
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  background-color: var(--cFont);
+  color: var(--cMainBox);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-bottom: 1px solid var(--cMainBox);
+}
+
+.navBox_logo {
+  font-size: var(--fs_2);
+  align-self: center;
+  justify-self: center;
+}
+
+.navBox_options {
+  list-style: none;
+  align-self: center;
+  justify-self: center;
+  display: inline-flex;
+}
+
+.navBox_options li {
+  width: 100%;
+  height: 100%;
+}
+
+.navBox img {
+  width: 50px;
+  justify-self: end;
+}
+
+.navBox_options li:hover {
+  cursor: pointer;
+  background-color: red;
+}

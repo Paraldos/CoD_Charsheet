@@ -1,0 +1,17 @@
+.change_basics {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  justify-content: center;
+}
+
+.change_basics li {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.change_basics label {
+  justify-self: end;
+}

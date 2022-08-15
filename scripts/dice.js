@@ -1,8 +1,5 @@
 "use strict";
 
-/* ====================
-Dice
-==================== */
 let diceBox = {
   numberOfDice: 0,
   rerollNumber: 10,
@@ -31,7 +28,7 @@ function _diceBox_reset() {
   diceBox.rerollNumber = 10;
   diceBox.reroll.innerHTML = `${diceBox.rerollNumber}-again`;
   diceBox.successes.innerHTML = `<span>${0}</span>`;
-  diceBox.results.innerHTML = "(nothing)";
+  diceBox.results.innerHTML = "<br>(nothing)";
 }
 
 /* ================================================ */
@@ -47,11 +44,17 @@ function _push_rollBtn() {
   let successes = _get_number_of_successes(diceArray);
   let htmlArray = _get_HTML_array(diceArray);
   diceBox.successes.innerHTML = `<span>${successes}</span>`;
-  diceBox.results.innerHTML = `${diceArray.length} dice (${
-    diceBox.numberOfDice
-  } base) || ${successes} Successes, ${
-    diceArray.length - successes
-  } Failures || ${htmlArray.toString()}`;
+  diceBox.results.innerHTML = _get_results_string(
+    diceArray.length,
+    diceBox.numberOfDice,
+    successes,
+    diceArray.length - successes,
+    htmlArray.toString()
+  );
+}
+
+function _get_results_string(a, b, c, d, e) {
+  return `${a} dice (${b} base), ${c} Successes, ${d} Failures <br> ${e}`;
 }
 
 function _roll_pool_of_dice() {
