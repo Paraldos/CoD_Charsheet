@@ -1,20 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 :root {
+  /* ==== font sizes ==== */
+  --fs_normal: 20px;
+  --fs_small: 0.7rem;
+  --fs_big1: 1.4rem;
+  --fs_big2: 2rem;
+
   /* ==== width and height ==== */
-  --wContentBox: 900px;
-  --hNavBox: 50px;
+  --wContentBox: 48rem;
+  --hNavBox: 4rem;
 
   /* ==== color ==== */
   --cBackground: #0a1128;
   --cMainBox: #e2e5eb;
   --cFont: #0c0c0c;
   --cButtonHover: red;
-
-  /* ==== font sizes ==== */
-  --fs_2: 1.7rem;
-  --fs_1: 1.4rem;
-  --fs_0: 20px;
-  --fs-1: 0.7rem;
 }
 
 *,
@@ -29,8 +29,10 @@ body {
   background-color: var(--cBackground);
   color: var(--cFont);
   font-family: "Roboto", sans-serif;
-  font-size: var(--fs_0);
+  font-size: var(--fs_normal);
   display: grid;
+  min-width: 100vw;
+  min-height: 100vh;
 }
 
 body::-webkit-scrollbar {
@@ -43,12 +45,13 @@ body::-webkit-scrollbar {
 }
 
 .header {
-  font-size: var(--fs_2);
+  font-size: var(--fs_big2);
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 .contentBox {
-  min-height: 100vh;
+  min-height: calc(100vh - var(--hNavBox));
   width: 100vw;
   max-width: var(--wContentBox);
   justify-self: center;

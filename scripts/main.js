@@ -1,6 +1,7 @@
 "use strict";
 const DB = {
   attributes: ATTRIBUTES,
+  skills: SKILLS,
   concepts: CONCEPTS,
 };
 

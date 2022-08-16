@@ -44,11 +44,11 @@
 
 #diceBox_results {
   grid-column: span 6;
-  font-size: var(--fs-1);
+  font-size: var(--fs_small);
   text-align: center;
 }
 #diceBox_results span {
-  font-size: var(--fs-1);
+  font-size: var(--fs_small);
 }
 
 .dice_success {
@@ -70,5 +70,5 @@
 
 #diceBox_rollBtn {
   grid-column: span 2;
-  font-size: var(--fs_2);
+  font-size: var(--fs_big2);
 }

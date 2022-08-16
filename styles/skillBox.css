@@ -1,49 +1,55 @@
 /* ======================================================
 Basics 
 ====================================================== */
-.attributeBox {
+.skillBox {
   display: grid;
   row-gap: 10px;
   column-gap: 30px;
-  grid-template-columns: auto repeat(3, 1fr);
-}
-
-.attributeBox ul {
-  list-style: none;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 /* ======================================================
 Header 
 ====================================================== */
-.attributeBox .header {
+.skillBox .header {
   width: 100%;
-  grid-column: span 4;
+  grid-column: span 3;
   text-align: center;
 }
 
 /* ======================================================
-Info 
+Section and related infos
 ====================================================== */
-.attributeBox .info {
-  padding: 3px;
-  text-align: end;
-  justify-self: end;
-  font-size: var(--fs_normal);
+.skillBox .section {
+  font-weight: bold;
+  text-align: center;
+  font-size: var(--fs_big1);
+  text-transform: uppercase;
+}
+
+.skillBox .unskilled {
+  text-align: center;
+  font-size: var(--fs_small);
 }
 
 /* ======================================================
-Attributes 
+Lists of skills
 ====================================================== */
-.attributeBox .attributes {
+.skillBox ul {
+  list-style: none;
   padding: 3px;
   border: 1px solid var(--cFont);
 }
 
-.attributeBox .attributes li {
+.skillBox li {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: min-content 1fr min-content;
 }
 
-.attributeBox .value {
+.skillBox .points {
   justify-self: end;
+}
+
+.skillBox .nr {
+  font-size: var(--fs_small);
 }

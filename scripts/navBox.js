@@ -1,24 +1,25 @@
 "use strict";
-const allBoxes = [attributeBox, maskDirgeBox, basicsBox, conceptBox];
-const navBox_home = document.querySelector(".navBox_home");
-const navBox_cBasics = document.querySelector(".navBox_cBasics");
+const allBoxes = [conceptBox, attributeBox, skillBox, maskDirgeBox, basicsBox];
+const home_btn = document.querySelector(".home_btn");
+const basics_btn = document.querySelector(".basics_btn");
 const maskDirgeBox_btn = document.querySelector(".maskDirgeBox_btn");
 
 /* ======================================================
 Define function of navBox buttons
 ====================================================== */
 /* ============ Home -> is also default ============ */
-navBox_home.addEventListener("click", () => _navBox_home());
-function _navBox_home() {
+home_btn.addEventListener("click", () => _home_btn());
+function _home_btn() {
   _notVisible_to_all();
   conceptBox.classList.remove("notVisible");
   attributeBox.classList.remove("notVisible");
+  skillBox.classList.remove("notVisible");
 }
-_navBox_home();
+_home_btn();
 
 /* ============ Basics ============ */
-navBox_cBasics.addEventListener("click", () => _navBox_change_basics());
-function _navBox_change_basics() {
+basics_btn.addEventListener("click", () => _basics_btn());
+function _basics_btn() {
   _notVisible_to_all();
   basicsBox.classList.remove("notVisible");
 }
@@ -35,7 +36,9 @@ Add notVisible class to all buttons and update all boxes
 ====================================================== */
 function _notVisible_to_all() {
   for (let i in allBoxes) allBoxes[i].classList.add("notVisible");
+  _conceptBox();
   _attributeBox();
+  _skillBox();
   _maskDirgeBox();
   _basicsBox();
   _conceptBox();

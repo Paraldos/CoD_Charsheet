@@ -13,28 +13,26 @@
 }
 
 .navBox_logo {
-  font-size: var(--fs_2);
-  align-self: center;
-  justify-self: center;
+  font-size: var(--fs_big2);
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-content: center;
+  align-content: center;
 }
 
 .navBox_options {
   list-style: none;
-  align-self: center;
-  justify-self: center;
-  display: inline-flex;
-}
-
-.navBox_options li {
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
-.navBox img {
-  width: 50px;
-  justify-self: end;
-}
-
-.navBox .btn {
-  display: inline;
+.navBox_options .btn {
+  padding: 0px 10px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
 }

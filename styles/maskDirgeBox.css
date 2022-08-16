@@ -36,7 +36,7 @@
 }
 
 .maskDirgeBox .required {
-  font-size: var(--fs-1);
+  font-size: var(--fs_small);
   justify-self: end;
   align-self: center;
 }
@@ -64,7 +64,7 @@
 
 .maskDirgeBox .buttons button {
   font-weight: bold;
-  font-size: var(--fs_0);
+  font-size: var(--fs_normal);
   padding: 10px;
   border: 1px solid black;
   border-radius: 0px;

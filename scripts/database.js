@@ -57,6 +57,39 @@ const ATTRIBUTES = {
   },
 };
 
+const SKILLS = {
+  mental: {
+    academics: { value: 0 },
+    computer: { value: 0 },
+    crafts: { value: 0 },
+    investigation: { value: 0 },
+    medicine: { value: 0 },
+    occult: { value: 0 },
+    politics: { value: 0 },
+    science: { value: 0 },
+  },
+  physical: {
+    athletics: { value: 0 },
+    brawl: { value: 0 },
+    drive: { value: 0 },
+    firearms: { value: 0 },
+    larceny: { value: 0 },
+    stealth: { value: 0 },
+    survival: { value: 0 },
+    weaponry: { value: 0 },
+  },
+  social: {
+    animalKen: { value: 0 },
+    empathy: { value: 0 },
+    expression: { value: 0 },
+    intimidation: { value: 0 },
+    persuasion: { value: 0 },
+    socialize: { value: 0 },
+    streetwise: { value: 0 },
+    subterfuge: { value: 0 },
+  },
+};
+
 MASKS_AND_DIRGES = [
   {
     label: "Authoritarian",
@@ -88,6 +121,160 @@ MASKS_AND_DIRGES = [
   },
   {
     label: "Conspirator",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Courtesan",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Cult Leader",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Deviant",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Follower",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Guru",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Idealist",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Jester",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Junkie",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Martyr",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Masochist",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Monster",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Nomad",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Nurturer",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Perfectionist",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Penitent",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Questioner",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Rebel",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Scholar",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Social Chameleon",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Spy",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Survivor",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Visionary",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
     singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
