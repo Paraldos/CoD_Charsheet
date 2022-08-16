@@ -1,73 +1,62 @@
 "use strict";
+const attributeBox = document.querySelector(".attributeBox");
 
-function _create_attributesBox() {
-  _att_box_h1();
-  _att_box_info();
-  _att_box_attributes("mental");
-  _att_box_attributes("physical");
-  _att_box_attributes("social");
+/* ======================================================
+Create attributeBox
+====================================================== */
+function _attributeBox() {
+  let dots = {
+    intelligence: _dots_for_points(DB.attributes.mental.intelligence.value),
+    wits: _dots_for_points(DB.attributes.mental.wits.value),
+    resolve: _dots_for_points(DB.attributes.mental.resolve.value),
+    //
+    strength: _dots_for_points(DB.attributes.physical.strength.value),
+    dexterity: _dots_for_points(DB.attributes.physical.dexterity.value),
+    stamina: _dots_for_points(DB.attributes.physical.stamina.value),
+    //
+    presence: _dots_for_points(DB.attributes.social.presence.value),
+    manipulation: _dots_for_points(DB.attributes.social.manipulation.value),
+    composure: _dots_for_points(DB.attributes.social.composure.value),
+  };
+  attributeBox.innerHTML = `
+  <p class="header">Attributes</p>
+  <ul class="info">
+    <li>Power</li>
+    <li>Finess</li>
+    <li>Resistance</li>
+  </ul>
+  <ul class="attributes">
+    <li>
+      <p>Intelligence</p><p class="value">${dots.intelligence}</p>
+    </li>
+    <li>
+      <p>Wits</p><p class="value">${dots.wits}</p>
+    </li>
+    <li>
+      <p>Resolve</p><p class="value">${dots.resolve}</p>
+    </li>
+  </ul>
+  <ul class="attributes">
+    <li>
+      <p>Strength</p><p class="value">${dots.strength}</p>
+    </li>
+    <li>
+      <p>Dexterity</p><p class="value">${dots.dexterity}</p>
+    </li>
+    <li>
+      <p>Stamina</p><p class="value">${dots.stamina}</p>
+    </li>
+  </ul>
+  <ul class="attributes">
+    <li>
+      <p>Presence</p><p class="value">${dots.presence}</p>
+    </li>
+    <li>
+      <p>Manipulation</p><p class="value">${dots.manipulation}</p>
+    </li>
+    <li>
+      <p>Composure</p><p class="value">${dots.composure}</p>
+    </li>
+  </ul>`;
 }
-_create_attributesBox();
-
-/* ====================================================== */
-function _att_box_h1() {
-  let newh1 = document.createElement("h1");
-  newh1.innerText = "Attributes";
-  att_box.appendChild(newh1);
-}
-
-/* ====================================================== */
-function _att_box_info() {
-  let newUl = document.createElement("ul");
-  newUl.classList = "att_box_info";
-  //
-  newUl.appendChild(_att_box_info_li("Power"));
-  newUl.appendChild(_att_box_info_li("Finesse"));
-  newUl.appendChild(_att_box_info_li("Resistance"));
-  //
-  att_box.appendChild(newUl);
-}
-
-function _att_box_info_li(txt) {
-  let newLi = document.createElement("li");
-  newLi.innerText = txt;
-  return newLi;
-}
-
-/* ====================================================== */
-function _att_box_attributes(type) {
-  let newUl = document.createElement("ul");
-  newUl.classList = "_att_box_attributes";
-  //
-  let keys = Object.keys(DB.attributes[type]);
-  for (let key of keys) newUl.appendChild(_att_box_attributes_li(type, key));
-  //
-  att_box.appendChild(newUl);
-}
-
-function _att_box_attributes_li(type, id) {
-  let DBEntry = DB.attributes[type][id];
-  let newLi = document.createElement("li");
-  newLi.classList = "attribute";
-  //
-  let newLabel = document.createElement("label");
-  newLabel.innerText = DBEntry.label;
-  newLi.appendChild(newLabel);
-  //
-  let newP = document.createElement("p");
-  newP.id = id;
-  newP.innerText = _dots_for_points(DBEntry.value);
-  newLi.appendChild(newP);
-  //
-  return newLi;
-}
-
-function _dots_for_points(value) {
-  let arr = [];
-  let returnString = "";
-  for (let i = 0; i < 5; i++) {
-    if (value > i) returnString += "●";
-    else returnString += "○";
-  }
-  return returnString;
-}
+_attributeBox();

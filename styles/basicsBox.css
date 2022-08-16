@@ -1,4 +1,4 @@
-.change_basics {
+.basicsBox {
   list-style: none;
   display: grid;
   grid-template-columns: 1fr;
@@ -6,12 +6,16 @@
   justify-content: center;
 }
 
-.change_basics li {
+.basicsBox .header {
+  text-align: center;
+}
+
+.basicsBox li {
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr 2fr 1fr;
 }
 
-.change_basics label {
+.basicsBox li p {
   justify-self: end;
 }

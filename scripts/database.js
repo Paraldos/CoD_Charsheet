@@ -6,7 +6,7 @@ const ATTRIBUTES = {
       "Mental Attributes represent a characters mental resilience, intellect, and acuity.",
     */
     intelligence: {
-      value: "3",
+      value: "1",
       label: "Intelligence",
       description: `Intelligence is your character's book smarts and ability to process data. It represents memory, general knowledge, and ability to solve complex and difficult problems.`,
     },
@@ -58,11 +58,41 @@ const ATTRIBUTES = {
 };
 
 MASKS_AND_DIRGES = [
-  { label: "Authoritarian" },
-  { label: "Child" },
-  { label: "Competitor" },
-  { label: "Conformist" },
-  { label: "Conspirator" },
+  {
+    label: "Authoritarian",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Child",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Competitor",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Conformist",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    label: "Conspirator",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut aperiam ipsum illo culpa rerum voluptatibus voluptatem. Enim porro obcaecati laborum asperiores vero fugiat nostrum! Consectetur velit itaque provident voluptatibus.",
+    singleWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    allWillpower: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
 ];
 
 CLANS = [
@@ -82,7 +112,7 @@ BLOODLINES = [
 
 const CONCEPTS = {
   name: {
-    value: "",
+    value: "Test",
     label: "Name",
     type: "input",
     aktive: true,

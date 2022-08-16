@@ -1,19 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 :root {
-  /* ==== width ==== */
-  --maxWidth: 900px;
+  /* ==== width and height ==== */
+  --wContentBox: 900px;
+  --hNavBox: 50px;
 
   /* ==== color ==== */
   --cBackground: #0a1128;
   --cMainBox: #e2e5eb;
   --cFont: #0c0c0c;
+  --cButtonHover: red;
 
   /* ==== font sizes ==== */
-  --fs_2: 2rem;
+  --fs_2: 1.7rem;
   --fs_1: 1.4rem;
   --fs_0: 20px;
   --fs-1: 0.7rem;
-  --fs-2: 0.1rem;
 }
 
 *,
@@ -41,13 +42,15 @@ body::-webkit-scrollbar {
   border-bottom: 5px solid var(--cFont);
 }
 
-/* ==================================
-contentBox
-================================== */
+.header {
+  font-size: var(--fs_2);
+  font-weight: bold;
+}
+
 .contentBox {
   min-height: 100vh;
   width: 100vw;
-  max-width: var(--maxWidth);
+  max-width: var(--wContentBox);
   justify-self: center;
   background-color: var(--cMainBox);
 }
@@ -60,8 +63,7 @@ button {
   border-radius: 5px;
 }
 
-button:hover {
-  background-color: var(--c4);
-  color: var(--c3);
+.btn:hover {
+  background-color: var(--cButtonHover);
   cursor: pointer;
 }

@@ -2,11 +2,14 @@
   position: sticky;
   top: 0;
   width: 100vw;
+  height: var(--hNavBox);
+  /* === */
   background-color: var(--cFont);
   color: var(--cMainBox);
+  border-bottom: 1px solid var(--cMainBox);
+  /* === */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  border-bottom: 1px solid var(--cMainBox);
 }
 
 .navBox_logo {
@@ -32,7 +35,6 @@
   justify-self: end;
 }
 
-.navBox_options li:hover {
-  cursor: pointer;
-  background-color: red;
+.navBox .btn {
+  display: inline;
 }

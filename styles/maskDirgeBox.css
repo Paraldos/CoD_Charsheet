@@ -1,0 +1,76 @@
+.maskDirgeBox {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.maskDirgeBox .header {
+  justify-self: center;
+  align-self: center;
+}
+
+/* =========== */
+.maskDirgeBox_status {
+  position: sticky;
+  top: var(--hNavBox);
+  background-color: var(--cMainBox);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 3px solid var(--cFont);
+}
+
+.maskDirgeBox_status p {
+  justify-self: center;
+}
+
+/* =========== */
+.maskDirgeBox_option {
+  border: 1px solid var(--cFont);
+  padding: 10px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.maskDirgeBox .required {
+  font-size: var(--fs-1);
+  justify-self: end;
+  align-self: center;
+}
+
+/* =========== */
+.maskDirgeBox_info {
+  padding: 10px 20px;
+  /* */
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
+  height: auto;
+}
+
+.maskDirgeBox_info p {
+  margin: 8px 0px;
+}
+
+/* =========== */
+.maskDirgeBox .buttons {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 15px;
+}
+
+.maskDirgeBox .buttons button {
+  font-weight: bold;
+  font-size: var(--fs_0);
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 0px;
+}
+
+/* =========== */
+.maskDirgeBox .collapsed {
+  height: 0;
+}
