@@ -15,7 +15,7 @@ Basics
 /* ======================================================
 Header 
 ====================================================== */
-.attributeBox .header {
+.attributeBox h1 {
   width: 100%;
   grid-column: span 4;
   text-align: center;

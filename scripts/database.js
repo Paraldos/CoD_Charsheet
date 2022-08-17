@@ -1,10 +1,9 @@
+"use strict";
+/* ======================================================
+Basics
+====================================================== */
 const ATTRIBUTES = {
   mental: {
-    /*
-    name: "Mental Attributes",
-    description:
-      "Mental Attributes represent a characters mental resilience, intellect, and acuity.",
-    */
     intelligence: {
       value: "1",
       label: "Intelligence",
@@ -90,7 +89,54 @@ const SKILLS = {
   },
 };
 
-MASKS_AND_DIRGES = [
+/* ======================================================
+Vampire
+====================================================== */
+const BANES = {
+  wantonCurse: {
+    label: "The Wanton Curse",
+    description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+  },
+};
+
+const DISCIPLINES = {
+  animalism: { label: "Animalism", value: 0 },
+  auspex: { label: "Auspex", value: 0 },
+  celerity: { label: "Celerity", value: 0 },
+  dominate: { label: "Dominate", value: 0 },
+  majesty: { label: "Majesty", value: 0 },
+  nightmare: { label: "Nightmare", value: 0 },
+  obfuscate: { label: "Obfuscate", value: 0 },
+  protean: { label: "Protean", value: 0 },
+  resilience: { label: "Resilience", value: 0 },
+  vigor: { label: "Vigor", value: 0 },
+};
+
+const CLANS = [
+  {
+    label: "Daeva",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores, commodi error labore ullam consequuntur officia, ipsum in earum nihil veniam saepe assumenda numquam! Nobis error, nulla numquam temporibus velit eaque!",
+    nickname: "Serpents",
+    bane: BANES.wantonCurse,
+    favoredAttributes: [ATTRIBUTES.dexterity, ATTRIBUTES.manipulation],
+    disciplines: [DISCIPLINES.celerity, DISCIPLINES.majesty, DISCIPLINES.vigor],
+  },
+];
+
+const CLANS1 = {
+  daeva: {
+    label: "Daeva",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores, commodi error labore ullam consequuntur officia, ipsum in earum nihil veniam saepe assumenda numquam! Nobis error, nulla numquam temporibus velit eaque!",
+    nickname: "Serpents",
+    bane: BANES.wantonCurse,
+    favoredAttributes: [ATTRIBUTES.dexterity, ATTRIBUTES.manipulation],
+    disciplines: [DISCIPLINES.celerity, DISCIPLINES.majesty, DISCIPLINES.vigor],
+  },
+};
+
+const MASKS_AND_DIRGES = [
   {
     label: "Authoritarian",
     description:
@@ -282,105 +328,33 @@ MASKS_AND_DIRGES = [
   },
 ];
 
-CLANS = [
-  { label: "Daeva" },
-  { label: "Gangrel" },
-  { label: "Mekhet" },
-  { label: "Nosferatu" },
-  { label: "Ventrue" },
-];
-
-BLOODLINES = [
+const BLOODLINES = [
   { label: "Test1" },
   { label: "Test2" },
   { label: "Test3" },
   { label: "Test4" },
 ];
 
-const CONCEPTS = {
-  name: {
-    value: "Test",
-    label: "Name",
-    type: "input",
-    aktive: true,
-  },
-  player: {
-    value: "",
-    label: "Player",
-    type: "input",
-    aktive: true,
-  },
-  chronicle: {
-    value: "",
-    label: "Chronicle",
-    type: "input",
-    aktive: true,
-  },
-  mask: {
-    value: 0,
-    label: "Mask",
-    type: "dropDown",
-    options: MASKS_AND_DIRGES,
-    aktive: true,
-  },
-  dirge: {
-    value: 0,
-    label: "Dirge",
-    type: "dropDown",
-    options: MASKS_AND_DIRGES,
-    aktive: true,
-  },
-  concept: {
-    value: "",
-    label: "Concept",
-    type: "input",
-    aktive: true,
-  },
-  clan: {
-    value: 0,
-    label: "Clan",
-    type: "dropDown",
-    options: CLANS,
-    aktive: true,
-  },
-  bloodline: {
-    value: 0,
-    label: "Bloodline",
-    type: "dropDown",
-    options: BLOODLINES,
-    aktive: true,
-  },
-  covenant: {
-    value: "",
-    label: "Covenant",
-    type: "input",
-    aktive: true,
-  },
-  age: {
-    value: "",
-    label: "Age",
-    type: "input",
-    aktive: false,
-  },
-  virtue: {
-    value: "",
-    label: "Virtue",
-    aktive: false,
-  },
-  vice: {
-    value: "",
-    label: "Vice",
-    aktive: false,
-  },
-  faction: {
-    value: "",
-    label: "Faction",
-    type: "input",
-    aktive: false,
-  },
-  groupName: {
-    value: "",
-    label: "Group Name",
-    aktive: false,
-  },
+const DB = {
+  name: { value: "Test", label: "Name", aktive: true },
+  age: { value: "", label: "Age", aktive: false },
+  player: { value: "", label: "Player", aktive: true },
+  chronicle: { value: "", label: "Chronicle", aktive: true },
+  concept: { value: "", label: "Concept", aktive: true },
+  covenant: { value: "", label: "Covenant", aktive: true },
+  faction: { value: "", label: "Faction", aktive: false },
+  groupName: { value: "", label: "Group Name", aktive: false },
+  //
+  aspirations: ["Test", "", ""],
+  //
+  attributes: ATTRIBUTES,
+  skills: SKILLS,
+  //
+  clans: CLANS,
+  bloodlines: BLOODLINES,
+  banes: BANES,
+  mask: { value: 0, label: "Mask", aktive: true },
+  dirge: { value: 0, label: "Dirge", aktive: true },
+  masksAndDirges: MASKS_AND_DIRGES,
+  disciplines: DISCIPLINES,
 };

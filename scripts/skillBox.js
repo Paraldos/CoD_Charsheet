@@ -1,5 +1,4 @@
 "use strict";
-
 const skillBox = document.querySelector(".skillBox");
 
 /* ======================================================
@@ -7,7 +6,7 @@ Create skillBox
 ====================================================== */
 function _skillBox() {
   skillBox.innerHTML = `
-  <p class="header">Skills</p>
+  <h1>Skills</h1>
     <ul>
         <p class="section">Mental</p>
         <p class="unskilled">(Unskilled -3)</p>
@@ -60,49 +59,49 @@ function _build_skill(skill, nr) {
 }
 
 /*
-<p class="header">Skills</p>
-    <ul>
-        <p class="section">Mental</p>
-        <p class="unskilled">(Unskilled -3)</p>
-        <li>
-            <p class="nr notVisible">1</p>
-            <p class="name">Academics</p>
-            <p class="points">${dots.academics}</p>
-        </li>
-        <li>
-            <p class="nr notVisible">2</p>
-            <p class="name">Computer</p>
-            <p class="points">${dots.computer}</p>
-        </li>
-        <li>
-            <p class="nr notVisible">3</p>
-            <p class="name">Crafts</p>
-            <p class="points">${dots.crafts}</p>
-        </li>
-        <li>
-            <p class="nr notVisible">4</p>
-            <p class="name">Investigation</p>
-            <p class="points">${dots.investigation}</p>
-        </li>
-        <li>
-            <p class="nr notVisible">5</p>
-            <p class="name">Medicine</p>
-            <p class="points">${dots.medicine}</p>
-        </li>
-        <li>
-            <p class="nr notVisible">6</p>
-            <p class="name">Occult</p>
-            <p class="points">${dots.occult}</p>
-        </li>
-        <li>
-            <p class="nr notVisible">7</p>
-            <p class="name">Politics</p>
-            <p class="points">${dots.politics}</p>
-        </li>
-        <li>
-            <p class="nr notVisible">8</p>
-            <p class="name">Science</p>
-            <p class="points">${dots.science}</p>
-        </li>
-    </ul>
+<h1>Skills</h1>
+<ul>
+    <p class="section">Mental</p>
+    <p class="unskilled">(Unskilled -3)</p>
+    <li>
+        <p class="nr notVisible">1</p>
+        <p class="name">Academics</p>
+        <p class="points">${dots.academics}</p>
+    </li>
+    <li>
+        <p class="nr notVisible">2</p>
+        <p class="name">Computer</p>
+        <p class="points">${dots.computer}</p>
+    </li>
+    <li>
+        <p class="nr notVisible">3</p>
+        <p class="name">Crafts</p>
+        <p class="points">${dots.crafts}</p>
+    </li>
+    <li>
+        <p class="nr notVisible">4</p>
+        <p class="name">Investigation</p>
+        <p class="points">${dots.investigation}</p>
+    </li>
+    <li>
+        <p class="nr notVisible">5</p>
+        <p class="name">Medicine</p>
+        <p class="points">${dots.medicine}</p>
+    </li>
+    <li>
+        <p class="nr notVisible">6</p>
+        <p class="name">Occult</p>
+        <p class="points">${dots.occult}</p>
+    </li>
+    <li>
+        <p class="nr notVisible">7</p>
+        <p class="name">Politics</p>
+        <p class="points">${dots.politics}</p>
+    </li>
+    <li>
+        <p class="nr notVisible">8</p>
+        <p class="name">Science</p>
+        <p class="points">${dots.science}</p>
+    </li>
+</ul>
 */

@@ -5,46 +5,34 @@ const basicsBox = document.querySelector(".basicsBox");
 Create basicsBox
 ====================================================== */
 function _basicsBox() {
-  basicsBox.innerHTML = `<p class="header">Basics</p>`;
-  Object.keys(DB.concepts).forEach((el) => _append_concept_options(el));
+  basicsBox.innerHTML = `<h1>Basics</h1>`;
+  _basicsBox_simpelAppend(DB.name);
+  _basicsBox_simpelAppend(DB.player);
+  _basicsBox_simpelAppend(DB.chronicle);
+  _basicsBox_simpelAppend(DB.concept);
+  _basicsBox_simpelAppend(DB.covenant);
 }
-_basicsBox();
 
 /* ======================================================
-Append concept options to basicsBox
+Append simple options to basicsBox
 ====================================================== */
-function _append_concept_options(el) {
-  if (DB.concepts[el].type != "input") return;
-  if (!DB.concepts[el].aktive) return;
-  //
+function _basicsBox_simpelAppend(el) {
   let newElement = document.createElement("li");
+  newElement.innerHTML = `<p>${el.label}: </p>`;
+  _basicsBox_get_input(el, newElement);
   basicsBox.appendChild(newElement);
-  //
-  _append_label(el, newElement);
-  _append_input(el, newElement);
-  //
 }
 
-/* ============ append label ============ */
-function _append_label(el, parent) {
-  let newElement = document.createElement("p");
-  newElement.innerText = `${DB.concepts[el].label}: `;
-  parent.appendChild(newElement);
-}
-
-/* ============ append input ============ */
-function _append_input(el, parent) {
+/* ============ get input field ============ */
+function _basicsBox_get_input(el, parent) {
   let newElement = document.createElement("input");
-  newElement.value = DB.concepts[el].value;
-  newElement.addEventListener(
-    "keyup",
-    () => (DB.concepts[el].value = newElement.value)
-  );
+  newElement.value = el.value;
+  newElement.addEventListener("keyup", () => (el.value = newElement.value));
   parent.appendChild(newElement);
 }
 
 /*
-<p class="header">Basics</p>
+<h1>Basics</h1>
 <li>
   <p>Name: </p>
   <input type="text">

@@ -1,12 +1,4 @@
 "use strict";
-const DB = {
-  attributes: ATTRIBUTES,
-  skills: SKILLS,
-  concepts: CONCEPTS,
-};
-
-// conceptBox variables
-const conceptBox = document.querySelector(".conceptBox");
 
 /* ======================================================
 Transform value into dots

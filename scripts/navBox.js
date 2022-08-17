@@ -1,5 +1,12 @@
 "use strict";
-const allBoxes = [conceptBox, attributeBox, skillBox, maskDirgeBox, basicsBox];
+const allBoxes = [
+  conceptBox,
+  aspirationBox,
+  attributeBox,
+  skillBox,
+  maskDirgeBox,
+  basicsBox,
+];
 const home_btn = document.querySelector(".home_btn");
 const basics_btn = document.querySelector(".basics_btn");
 const maskDirgeBox_btn = document.querySelector(".maskDirgeBox_btn");
@@ -14,6 +21,7 @@ function _home_btn() {
   conceptBox.classList.remove("notVisible");
   attributeBox.classList.remove("notVisible");
   skillBox.classList.remove("notVisible");
+  aspirationBox.classList.remove("notVisible");
 }
 _home_btn();
 
@@ -37,9 +45,9 @@ Add notVisible class to all buttons and update all boxes
 function _notVisible_to_all() {
   for (let i in allBoxes) allBoxes[i].classList.add("notVisible");
   _conceptBox();
+  _aspirationBox();
   _attributeBox();
   _skillBox();
   _maskDirgeBox();
   _basicsBox();
-  _conceptBox();
 }

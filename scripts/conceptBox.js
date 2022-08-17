@@ -1,42 +1,45 @@
 "use strict";
+const conceptBox = document.querySelector(".conceptBox");
 
-/* ====================================================== */
+/* ======================================================
+Create conceptBox
+====================================================== */
 function _conceptBox() {
-  _clean_conceptBox();
-  let DBKeys = Object.keys(DB.concepts);
-  DBKeys.forEach((el) => _fill_conceptBox(el));
-}
-_conceptBox();
-
-/* ====================================================== */
-function _clean_conceptBox() {
   conceptBox.innerHTML = "";
+  _add_simple_concept(DB.name);
+  _add_simple_concept(DB.age);
+  _add_simple_concept(DB.player);
+  _add_simple_concept(DB.chronicle);
+  _add_mask();
+  _add_dirge();
+  _add_simple_concept(DB.concept);
+  _add_simple_concept(DB.covenant);
+  _add_simple_concept(DB.faction);
+  _add_simple_concept(DB.groupName);
 }
 
-/* ====================================================== */
-function _fill_conceptBox(key) {
-  if (!DB.concepts[key].aktive) return;
-  let blub = DB.concepts[key];
-  //
-  let newLi = document.createElement("li");
-  conceptBox.appendChild(newLi);
-  newLi.id = "key";
-  //
-  _conceptBox_create_label(newLi, blub);
-  _conceptBox_create_txt(newLi, blub);
+/* ============ simple concept (e.g. name) ============ */
+function _add_simple_concept(el) {
+  if (!el.aktive) return;
+  conceptBox.innerHTML += `<li>${el.label}: ${el.value}</li>`;
 }
 
-/* ====================================================== */
-function _conceptBox_create_label(newLi, blub) {
-  let newLabel = document.createElement("label");
-  newLi.appendChild(newLabel);
-  newLabel.innerText = `${blub.label}: `;
+function _add_mask() {
+  if (!DB.mask.aktive) return;
+  let maskLabel = DB.masksAndDirges[DB.mask.value].label;
+  conceptBox.innerHTML += `<li>Mask: ${maskLabel}</li>`;
 }
 
-function _conceptBox_create_txt(newLi, blub) {
-  let newTxt = document.createElement("p");
-  newLi.appendChild(newTxt);
-  if (blub.type == "input") newTxt.innerText = `${blub.value}`;
-  if (blub.type == "dropDown")
-    newTxt.innerText = `${blub.options[blub.value].label}`;
+function _add_dirge() {
+  if (!DB.dirge.aktive) return;
+  let dirgLabel = DB.masksAndDirges[DB.dirge.value].label;
+  conceptBox.innerHTML += `<li>Dirge: ${dirgLabel}</li>`;
 }
+
+/*
+<ul class="conceptBox box">
+  <li>Name: Test</li>
+  <li>Player: Test</li>
+  ...
+</ul>
+*/

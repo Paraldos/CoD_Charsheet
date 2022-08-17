@@ -1,0 +1,12 @@
+.aspirationBox {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 5px 15px;
+}
+
+.aspirationBox p {
+  grid-row: span 3;
+  font-weight: bold;
+  justify-self: center;
+  align-self: center;
+}

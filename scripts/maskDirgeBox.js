@@ -2,22 +2,26 @@
 const maskDirgeBox = document.querySelector(".maskDirgeBox");
 
 /* ======================================================
-Main function for the Mask and Dirge change section
+Main function for the maskDirgeBox
 ====================================================== */
 function _maskDirgeBox() {
-  let cMaskLabel = MASKS_AND_DIRGES[DB.concepts.mask.value].label;
-  let cDirgeLabel = MASKS_AND_DIRGES[DB.concepts.dirge.value].label;
   maskDirgeBox.innerHTML = `
-    <li class="header">Mask and Dirge</h1>
+    <h1>Mask and Dirge</h1>
     <li class="maskDirgeBox_status">
-      <p><b>Current Mask:</b> ${cMaskLabel}</p>
-      <p><b>Current Mask:</b> ${cDirgeLabel}</p>
+      <p><b>Current Mask:</b> ${_get_current_mask().label}</p>
+      <p><b>Current Dirge:</b> ${_get_current_dirge().label}</p>
     </li>`;
-  MASKS_AND_DIRGES.forEach((el) => _maskDirgeBox_add_options(el));
+  DB.masksAndDirges.forEach((el, index) =>
+    _maskDirgeBox_add_options(el, index)
+  );
   _maskDirgeBox_collapse();
   _maskDirgeBox_chooseButtons();
 }
-_maskDirgeBox();
+
+/* ============ append label ============ */
+let _get_current_mask = () => DB.masksAndDirges[DB.mask.value];
+
+let _get_current_dirge = () => DB.masksAndDirges[DB.dirge.value];
 
 /* ======================================================
 Choose Buttons
@@ -25,25 +29,26 @@ Choose Buttons
 function _maskDirgeBox_chooseButtons() {
   let maskBtns = document.querySelectorAll(".maskDirgeBox_maskBtn");
   let dirgeBtns = document.querySelectorAll(".maskDirgeBox_dirgeBtn");
+
   for (let i = 0; i < maskBtns.length; i++) {
     maskBtns[i].addEventListener("click", () => {
-      DB.concepts.mask.value = i;
+      DB.mask.value = i;
       _update_currentMaskAndDirge();
     });
     dirgeBtns[i].addEventListener("click", () => {
-      DB.concepts.dirge.value = i;
+      DB.dirge.value = i;
       _update_currentMaskAndDirge();
     });
   }
 }
 
 function _update_currentMaskAndDirge() {
-  let cMaskLabel = MASKS_AND_DIRGES[DB.concepts.mask.value].label;
-  let cDirgeLabel = MASKS_AND_DIRGES[DB.concepts.dirge.value].label;
+  let cMaskLabel = _get_current_mask().label;
+  let cDirgeLabel = _get_current_dirge().label;
   let maskDirgeBox_status = document.querySelector(".maskDirgeBox_status");
   maskDirgeBox_status.innerHTML = `
   <p><b>Current Mask:</b> ${cMaskLabel}</p>
-  <p><b>Current Mask:</b> ${cDirgeLabel}</p>`;
+  <p><b>Current Dirge:</b> ${cDirgeLabel}</p>`;
 }
 
 /* ======================================================
@@ -60,21 +65,37 @@ function _maskDirgeBox_collapse() {
 /* ======================================================
 Build and add the options for the Mask and Dirge List
 ====================================================== */
-function _maskDirgeBox_add_options(el) {
+function _maskDirgeBox_add_options(el, index) {
   let newEl = document.createElement("li");
   newEl.innerHTML = `
-  <div class="maskDirgeBox_option btn">
+  <button class="maskDirgeBox_option">
     <p>${el.label}</p>
-    <p class="required">Clan Specific: --</p>
-  </div>
+    <p class="required"></p>
+  </button>
   <div class="maskDirgeBox_info collapsed"> 
     <p>${el.description}</p>
     <p><b>Single Willpower:</b> ${el.singleWillpower}</p>
     <p><b>All Willpower:</b> ${el.allWillpower}</p>
     <div class="buttons">
-      <button class="maskDirgeBox_maskBtn btn">Choose for Mask</button>
-      <button class="maskDirgeBox_dirgeBtn btn">Choose for Dirge</button>
+      <button value="${index}" class="maskDirgeBox_maskBtn">Choose for Mask</button>
+      <button value="${index}" class="maskDirgeBox_dirgeBtn">Choose for Dirge</button>
     </div>
   </div>`;
   maskDirgeBox.appendChild(newEl);
 }
+
+/*
+<div class="maskDirgeBox_option btn">
+  <p>${el.label}</p>
+  <p class="required"></p>
+</div>
+<div class="maskDirgeBox_info collapsed"> 
+  <p>${el.description}</p>
+  <p><b>Single Willpower:</b> ${el.singleWillpower}</p>
+  <p><b>All Willpower:</b> ${el.allWillpower}</p>
+  <div class="buttons">
+    <button class="maskDirgeBox_maskBtn btn">Choose for Mask</button>
+    <button class="maskDirgeBox_dirgeBtn btn">Choose for Dirge</button>
+  </div>
+</div>`;
+*/

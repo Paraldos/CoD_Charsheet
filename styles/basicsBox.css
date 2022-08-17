@@ -6,10 +6,6 @@
   justify-content: center;
 }
 
-.basicsBox .header {
-  text-align: center;
-}
-
 .basicsBox li {
   display: grid;
   gap: 10px;

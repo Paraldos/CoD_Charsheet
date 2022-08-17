@@ -19,7 +19,7 @@ function _attributeBox() {
     composure: _dots_for_points(DB.attributes.social.composure.value),
   };
   attributeBox.innerHTML = `
-  <p class="header">Attributes</p>
+  <h1>Attributes</h1>
   <ul class="info">
     <li>Power</li>
     <li>Finess</li>

@@ -1,4 +1,4 @@
-.maskDirgeBox {
+.clanBox {
   list-style: none;
   display: grid;
   grid-template-columns: 1fr;
@@ -6,12 +6,13 @@
 }
 
 /* ======================================================
-status (current mask and dirge)
+Status (current clan)
 ====================================================== */
-.maskDirgeBox_status {
+.clanBox .status {
   position: sticky;
   top: var(--hNavBox);
   background-color: var(--cMainBox);
+  text-align: center;
   /* === */
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -22,23 +23,34 @@ status (current mask and dirge)
   border-bottom: 3px solid var(--cFont);
 }
 
-.maskDirgeBox_status p {
+.clanBox .status p {
   justify-self: center;
 }
 
 /* ======================================================
-required section (in work)
+Buttons
 ====================================================== */
-.maskDirgeBox .required {
-  font-size: var(--fs_small);
-  justify-self: end;
-  align-self: center;
+.clanBox .buttons {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.clanBox button {
+  border: 1px solid var(--cFont);
+  padding: 10px 20px;
+  width: 100%;
+}
+
+.clanBox .clanBtn {
+  grid-column: span 2;
 }
 
 /* ======================================================
-info section
+Info
 ====================================================== */
-.maskDirgeBox_info {
+.clan_info {
   padding: 10px 20px;
   /* */
   overflow: hidden;
@@ -46,33 +58,11 @@ info section
   height: auto;
 }
 
-.maskDirgeBox_info p {
+.clan_info p {
   margin: 8px 0px;
 }
 
-/* ======================================================
-class to collaps info section
-====================================================== */
-.maskDirgeBox .collapsed {
+/* =========== */
+.clanBox .collapsed {
   height: 0;
-}
-
-/* ======================================================
-Buttons
-====================================================== */
-.maskDirgeBox_option {
-  text-align: left;
-}
-
-.maskDirgeBox button {
-  border: 1px solid var(--cFont);
-  padding: 10px 20px;
-  width: 100%;
-}
-
-.maskDirgeBox .buttons {
-  margin-top: 25px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 15px;
 }
