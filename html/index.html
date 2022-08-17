@@ -5,31 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CoD Character Sheet</title>
-    <!-- ##### -->
-    <link rel="stylesheet" href="../styles/main.css" />
-    <link rel="stylesheet" href="../styles/naxBox.css" />
-    <!-- ##### -->
+    <link rel="stylesheet" href="../styles/_main.css" />
+    <link rel="stylesheet" href="../styles/_naxBox.css" />
     <link rel="stylesheet" href="../styles/diceBox.css" />
     <!-- ##### -->
-    <link rel="stylesheet" href="../styles/conceptBox.css" />
-    <link rel="stylesheet" href="../styles/aspirationBox.css">
-    <link rel="stylesheet" href="../styles/attributeBox.css" />
-    <link rel="stylesheet" href="../styles/skillBox.css">
-    <link rel="stylesheet" href="../styles/basicsBox.css" />
-    <link rel="stylesheet" href="../styles/maskDirgeBox.css">
-    <link rel="stylesheet" href="../styles/clanBox.css">
-    <!-- ##### -->
     <link rel="stylesheet" href="../styles/notVisible.css" />
-    <!-- ##### -->
   </head>
   <body>
     <!-- navBox -->
     <div class="navBox">
       <div class="navBox_logo">CoD - Character Sheet</div>
       <ul class="navBox_options">
-        <li class="home_btn btn">Home</li>
-        <li class="basics_btn btn">Basics</li>
-        <li class="maskDirgeBox_btn btn">Mask / Dirge</li>
+        <button class="home_btn btn">Home</button>
+        <button class="basics_btn btn">Basics</button>
+        <button class="maskDirgeBox_btn btn">Mask / Dirge</button>
+        <button class="clan_btn btn">Clan</button>
       </ul>
     </div>
 
@@ -51,61 +41,19 @@
 
     <!-- contentBox -->
     <div class="contentBox">
-      
-      
-      <ul class="conceptBox box">
-        <li>Name: Test</li>
-        <li>Player: Test</li>
-      </ul>
-
-
-
-
-
-
-      
+      <ul class="conceptBox box"></ul>
       <div class="aspirationBox box"></div>
       <div class="attributeBox box"></div>
       <div class="skillBox box"></div>
       <!---->
       <ul class="basicsBox box"></ul>
       <ul class="maskDirgeBox box"></ul>
-
-
-
-
-      <ul class="clanBox box">
-        <h1>Clan</h1>
-        <li class="status">
-          <p><b>Current Clan:</b> None</p>
-          <p><b>Favored Attribute:</b> None</p>
-        </li>
-        <li>
-          <button class="clan_option">Daeva</button>
-          <div class="clan_info"> <!-- add collapsed here -->
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores, commodi error labore ullam consequuntur officia, ipsum in earum nihil veniam saepe assumenda numquam! Nobis error, nulla numquam temporibus velit eaque!</p>
-            <p><b>Nickname:</b> Serpents</p>
-            <p><b>Clan Bane (The Wanton Curse):</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-            <p><b>Favored Attributes:</b> Dexterity or Manipulation</p>
-            <p><b>Desciplines:</b> Celerity, Majesty, Vigor</p>
-          </div>
-          <div class="buttons">
-            <button class="clanBtn">Choose Daeva as Clan</button>
-            <button disabled="true" class="">Choose Dexterity</button>
-            <button disabled="true" class="">Choose Manipulation</button>
-          </div>
-        </li>
-      </ul>
-
-
-
-
-
+      <ul class="clanBox box"></ul>
     </div>
 
     <!-- scripts -->
-    <script src="../scripts/database.js"></script>
-    <script src="../scripts/main.js"></script>
+    <script src="../scripts/_database.js"></script>
+    <script src="../scripts/_main.js"></script>
     <!-- ##### -->
     <script src="../scripts/conceptBox.js"></script>
     <script src="../scripts/attributesBox.js"></script>
@@ -114,6 +62,7 @@
     <script src="../scripts/maskDirgeBox.js"></script>
     <script src="../scripts/skillBox.js"></script>
     <script src="../scripts/aspirationBox.js"></script>
+    <script src="../scripts/clanBox.js"></script>
     <!-- ##### -->
     <script src="../scripts/navBox.js"></script>
   </body>

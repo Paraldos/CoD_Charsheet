@@ -59,4 +59,3 @@ function _attributeBox() {
     </li>
   </ul>`;
 }
-_attributeBox();

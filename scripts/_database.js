@@ -97,6 +97,22 @@ const BANES = {
     label: "The Wanton Curse",
     description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
   },
+  feralCurse: {
+    label: "The Feral Curse",
+    description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+  },
+  tenebrousCurse: {
+    label: "The Tenebrous Curse",
+    description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+  },
+  lonelyCurse: {
+    label: "The Lonely Curse",
+    description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+  },
+  aloofCurse: {
+    label: "The Aloof Curse",
+    description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+  },
 };
 
 const DISCIPLINES = {
@@ -119,22 +135,46 @@ const CLANS = [
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores, commodi error labore ullam consequuntur officia, ipsum in earum nihil veniam saepe assumenda numquam! Nobis error, nulla numquam temporibus velit eaque!",
     nickname: "Serpents",
     bane: BANES.wantonCurse,
-    favoredAttributes: [ATTRIBUTES.dexterity, ATTRIBUTES.manipulation],
-    disciplines: [DISCIPLINES.celerity, DISCIPLINES.majesty, DISCIPLINES.vigor],
+    favoredAttributes: "Dexterity or Manipulation",
+    disciplines: "Celerity, Majesty, Vigor",
   },
-];
-
-const CLANS1 = {
-  daeva: {
-    label: "Daeva",
+  {
+    label: "Gangrel",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores, commodi error labore ullam consequuntur officia, ipsum in earum nihil veniam saepe assumenda numquam! Nobis error, nulla numquam temporibus velit eaque!",
-    nickname: "Serpents",
-    bane: BANES.wantonCurse,
-    favoredAttributes: [ATTRIBUTES.dexterity, ATTRIBUTES.manipulation],
-    disciplines: [DISCIPLINES.celerity, DISCIPLINES.majesty, DISCIPLINES.vigor],
+    nickname: "Savages",
+    bane: BANES.feralCurse,
+    favoredAttributes: "Composure or Stamina",
+    disciplines: "Animalism, Protean, Resilience",
   },
-};
+  {
+    label: "Mekhet",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores, commodi error labore ullam consequuntur officia, ipsum in earum nihil veniam saepe assumenda numquam! Nobis error, nulla numquam temporibus velit eaque!",
+    nickname: "Shadows",
+    bane: BANES.tenebrousCurse,
+    favoredAttributes: "Intelligence or Wits",
+    disciplines: "Auspex, Celerity, Obfuscate",
+  },
+  {
+    label: "Nosferatu",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores, commodi error labore ullam consequuntur officia, ipsum in earum nihil veniam saepe assumenda numquam! Nobis error, nulla numquam temporibus velit eaque!",
+    nickname: "Haunts",
+    bane: BANES.lonelyCurse,
+    favoredAttributes: "Composure or Strength",
+    disciplines: "Nightmare, Obfuscate, Vigor",
+  },
+  {
+    label: "Ventrue",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores, commodi error labore ullam consequuntur officia, ipsum in earum nihil veniam saepe assumenda numquam! Nobis error, nulla numquam temporibus velit eaque!",
+    nickname: "Lords",
+    bane: BANES.aloofCurse,
+    favoredAttributes: "Presence or Resolve",
+    disciplines: "Animalism, Dominate, Resilience",
+  },
+];
 
 const MASKS_AND_DIRGES = [
   {
@@ -335,6 +375,9 @@ const BLOODLINES = [
   { label: "Test4" },
 ];
 
+/* ======================================================
+DB
+====================================================== */
 const DB = {
   name: { value: "Test", label: "Name", aktive: true },
   age: { value: "", label: "Age", aktive: false },
@@ -349,7 +392,8 @@ const DB = {
   //
   attributes: ATTRIBUTES,
   skills: SKILLS,
-  //
+  // Vampire
+  clan: { value: 0, label: "Clan", aktive: true },
   clans: CLANS,
   bloodlines: BLOODLINES,
   banes: BANES,

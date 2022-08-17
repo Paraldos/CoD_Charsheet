@@ -12,7 +12,6 @@ function _aspirationBox() {
   <Input class="aspiration" type="text" value="${DB.aspirations[2]}"></Input>`;
   _add_aspiration_change_listener();
 }
-_aspirationBox();
 
 /* ============ add event listener to change aspirations ============ */
 function _add_aspiration_change_listener() {

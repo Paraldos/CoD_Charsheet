@@ -44,8 +44,8 @@ function _skillBox() {
         ${_build_skill(DB.skills.social.subterfuge, 8)}
     </ul>`;
 }
-_skillBox();
 
+/* ============ build a skill for the skillBox ============ */
 function _build_skill(skill, nr) {
   let name = skill.label;
   let dots = _dots_for_points(skill.value);

@@ -1,8 +1,11 @@
+/* ======================================================
+.navBox
+====================================================== */
 .navBox {
   position: sticky;
   top: 0;
   width: 100vw;
-  height: var(--hNavBox);
+  height: var(--navHeight);
   /* === */
   background-color: var(--cFont);
   color: var(--cMainBox);
@@ -12,6 +15,7 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
+/* ============ logo ============ */
 .navBox_logo {
   font-size: var(--fs_big2);
   width: 100%;
@@ -21,6 +25,7 @@
   align-content: center;
 }
 
+/* ============ options ============ */
 .navBox_options {
   list-style: none;
   width: 100%;
@@ -30,9 +35,13 @@
   align-content: center;
 }
 
-.navBox_options .btn {
+.navBox_options button {
   padding: 0px 10px;
   display: grid;
   justify-content: center;
   align-content: center;
+}
+
+.navBox_options button:hover {
+  background-color: var(--navButton_hover);
 }

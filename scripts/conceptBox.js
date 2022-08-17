@@ -10,12 +10,22 @@ function _conceptBox() {
   _add_simple_concept(DB.age);
   _add_simple_concept(DB.player);
   _add_simple_concept(DB.chronicle);
+
   _add_mask();
   _add_dirge();
   _add_simple_concept(DB.concept);
+
+  _add_clan();
   _add_simple_concept(DB.covenant);
   _add_simple_concept(DB.faction);
   _add_simple_concept(DB.groupName);
+}
+
+/* ============ clan and bloodline ============ */
+function _add_clan() {
+  if (!DB.clan.aktive) return;
+  let clanLabel = DB.clans[DB.clan.value].label;
+  conceptBox.innerHTML += `<li>Clan: ${clanLabel}</li>`;
 }
 
 /* ============ simple concept (e.g. name) ============ */
@@ -24,6 +34,7 @@ function _add_simple_concept(el) {
   conceptBox.innerHTML += `<li>${el.label}: ${el.value}</li>`;
 }
 
+/* ============ mask and dirge ============ */
 function _add_mask() {
   if (!DB.mask.aktive) return;
   let maskLabel = DB.masksAndDirges[DB.mask.value].label;

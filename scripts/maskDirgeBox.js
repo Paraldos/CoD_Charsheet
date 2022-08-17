@@ -11,11 +11,9 @@ function _maskDirgeBox() {
       <p><b>Current Mask:</b> ${_get_current_mask().label}</p>
       <p><b>Current Dirge:</b> ${_get_current_dirge().label}</p>
     </li>`;
-  DB.masksAndDirges.forEach((el, index) =>
-    _maskDirgeBox_add_options(el, index)
-  );
+  DB.masksAndDirges.forEach((el, index) => _maskDirgeBox_options(el, index));
   _maskDirgeBox_collapse();
-  _maskDirgeBox_chooseButtons();
+  _maskDirgeBox_buttons();
 }
 
 /* ============ append label ============ */
@@ -24,35 +22,37 @@ let _get_current_mask = () => DB.masksAndDirges[DB.mask.value];
 let _get_current_dirge = () => DB.masksAndDirges[DB.dirge.value];
 
 /* ======================================================
-Choose Buttons
+add functionallity to buttons
 ====================================================== */
-function _maskDirgeBox_chooseButtons() {
-  let maskBtns = document.querySelectorAll(".maskDirgeBox_maskBtn");
-  let dirgeBtns = document.querySelectorAll(".maskDirgeBox_dirgeBtn");
+function _maskDirgeBox_buttons() {
+  let maskBtns = document.querySelectorAll(".maskBtn");
+  let dirgeBtns = document.querySelectorAll(".dirgeBtn");
 
   for (let i = 0; i < maskBtns.length; i++) {
     maskBtns[i].addEventListener("click", () => {
       DB.mask.value = i;
-      _update_currentMaskAndDirge();
+      _maskDirgeBox_update();
     });
     dirgeBtns[i].addEventListener("click", () => {
       DB.dirge.value = i;
-      _update_currentMaskAndDirge();
+      _maskDirgeBox_update();
     });
   }
 }
 
-function _update_currentMaskAndDirge() {
+/* ============ update current mask and dirge ============ */
+function _maskDirgeBox_update() {
   let cMaskLabel = _get_current_mask().label;
   let cDirgeLabel = _get_current_dirge().label;
   let maskDirgeBox_status = document.querySelector(".maskDirgeBox_status");
   maskDirgeBox_status.innerHTML = `
   <p><b>Current Mask:</b> ${cMaskLabel}</p>
-  <p><b>Current Dirge:</b> ${cDirgeLabel}</p>`;
+  <p><b>Current Dirge:</b> ${cDirgeLabel}</p>
+  `;
 }
 
 /* ======================================================
-Add Collapse for maskDirgeBox
+add collaps function
 ====================================================== */
 function _maskDirgeBox_collapse() {
   let buttons = document.querySelectorAll(".maskDirgeBox_option");
@@ -63,9 +63,9 @@ function _maskDirgeBox_collapse() {
 }
 
 /* ======================================================
-Build and add the options for the Mask and Dirge List
+add options
 ====================================================== */
-function _maskDirgeBox_add_options(el, index) {
+function _maskDirgeBox_options(el, index) {
   let newEl = document.createElement("li");
   newEl.innerHTML = `
   <button class="maskDirgeBox_option">
@@ -77,8 +77,8 @@ function _maskDirgeBox_add_options(el, index) {
     <p><b>Single Willpower:</b> ${el.singleWillpower}</p>
     <p><b>All Willpower:</b> ${el.allWillpower}</p>
     <div class="buttons">
-      <button value="${index}" class="maskDirgeBox_maskBtn">Choose for Mask</button>
-      <button value="${index}" class="maskDirgeBox_dirgeBtn">Choose for Dirge</button>
+      <button class="maskBtn">Choose for Mask</button>
+      <button class="dirgeBtn">Choose for Dirge</button>
     </div>
   </div>`;
   maskDirgeBox.appendChild(newEl);
