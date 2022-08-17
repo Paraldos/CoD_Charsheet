@@ -66,8 +66,6 @@ function _clanBox_options(el, index) {
         <p><b>Desciplines:</b> ${el.disciplines}</p>
         <div class="buttons">
             <button class="clanBtn">Choose ${el.label} as Clan</button>
-            <button disabled="true" class="">Choose Dexterity</button>
-            <button disabled="true" class="">Choose Manipulation</button>
         </div>
     </div>`;
   clanBox.appendChild(newEl);

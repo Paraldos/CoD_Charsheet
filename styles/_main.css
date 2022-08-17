@@ -2,13 +2,10 @@
 :root {
   /* ==== font sizes ==== */
   --fs_normal: 20px;
-  --fs_small: 0.7rem;
+  --fs_small1: 0.6rem;
+  --fs_small2: 0.3rem;
   --fs_big1: 1.3rem;
   --fs_big2: 1.6rem;
-
-  /* ==== width and height ==== */
-  --wContentBox: 48rem;
-  --hNavBox: 4rem;
 
   /* ==== color ==== */
   --cBackground: #0a1128;
@@ -16,6 +13,9 @@
   --cFont: #0c0c0c;
   --cButtonHover: #c9c9c9;
   --cButtonDisabled: rgb(75, 75, 75);
+
+  /* ==== contentBox ==== */
+  --contentBox_width: 48rem;
 
   /* ==== navbox ==== */
   --navHeight: 4rem;
@@ -46,6 +46,13 @@ body {
 
 body::-webkit-scrollbar {
   display: none;
+}
+
+/* ============ input ============ */
+input {
+  font-size: var(--fs_normal);
+  border: none;
+  padding: 3px;
 }
 
 /* ============ buttons ============ */
@@ -84,7 +91,7 @@ h1 {
 .contentBox {
   min-height: calc(100vh - var(--navHeight));
   width: 100vw;
-  max-width: var(--wContentBox);
+  max-width: var(--contentBox_width);
   justify-self: center;
   background-color: var(--cMainBox);
 }
@@ -101,12 +108,8 @@ h1 {
   padding: 10px;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 5px;
-}
-
-.conceptBox img {
-  width: var(--fs_0);
 }
 
 /* ======================================================
@@ -115,7 +118,7 @@ h1 {
 .aspirationBox {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 5px 15px;
+  gap: var(--fs_small2) var(--fs_normal);
 }
 
 .aspirationBox p {
@@ -195,7 +198,7 @@ h1 {
 
 .skillBox .unskilled {
   text-align: center;
-  font-size: var(--fs_small);
+  font-size: var(--fs_small1);
 }
 
 /* ============ Lists of skills ============ */
@@ -208,6 +211,7 @@ h1 {
 .skillBox li {
   display: grid;
   grid-template-columns: min-content 1fr min-content;
+  gap: var(--fs_small2);
 }
 
 .skillBox .points {
@@ -215,7 +219,7 @@ h1 {
 }
 
 .skillBox .nr {
-  font-size: var(--fs_small);
+  font-size: var(--fs_small1);
 }
 
 /* ======================================================
@@ -266,14 +270,14 @@ h1 {
   border-bottom: 3px solid var(--cFont);
 }
 
-.clanBox .status p,
+.clanBox_status p,
 .maskDirgeBox_status p {
   justify-self: center;
 }
 
 /* ============ required section (in work) ============ */
 .maskDirgeBox .required {
-  font-size: var(--fs_small);
+  font-size: var(--fs_small1);
   justify-self: end;
   align-self: center;
 }

@@ -1,0 +1,34 @@
+.infoBox {
+  pointer-events: none;
+  /* */
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+}
+
+.infoBox_inside {
+  pointer-events: auto;
+  /* */
+  border: 5px solid var(--cFont);
+  background-color: var(--cMainBox);
+  color: var(--cFont);
+  /* */
+  position: fixed;
+  width: 100vw;
+  max-width: calc(var(--contentBox_width) - 4rem);
+  justify-self: center;
+  align-self: center;
+  padding: 1rem;
+  /* */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  /* */
+  transition: transform 0.3s ease-in-out;
+  transform: scale(1);
+}
+
+.infoBox .small {
+  transform: scale(0);
+}
