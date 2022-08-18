@@ -11,8 +11,8 @@ function _conceptBox() {
   _add_simple_concept(DB.player);
   _add_simple_concept(DB.chronicle);
 
-  _add_mask();
-  _add_dirge();
+  _add_MaskDirge("dirge");
+  _add_MaskDirge("mask");
   _add_simple_concept(DB.concept);
 
   _add_clan();
@@ -24,27 +24,37 @@ function _conceptBox() {
 /* ============ clan and bloodline ============ */
 function _add_clan() {
   if (!DB.clan.aktive) return;
-  let clanLabel = DB.clans[DB.clan.value].label;
-  conceptBox.innerHTML += `<li>Clan: ${clanLabel}</li>`;
+  //
+  let newLi = document.createElement("li");
+  newLi.innerText = `Clan: ${DB.clans[DB.clan.value].label}`;
+  newLi.classList = "infoBtn";
+  newLi.addEventListener("click", () => _infoBox_clan());
+  //
+  conceptBox.appendChild(newLi);
 }
 
 /* ============ simple concept (e.g. name) ============ */
 function _add_simple_concept(el) {
   if (!el.aktive) return;
-  conceptBox.innerHTML += `<li>${el.label}: ${el.value}</li>`;
+  //
+  let newLi = document.createElement("li");
+  newLi.innerText = `${el.label}: ${el.value}`;
+
+  conceptBox.appendChild(newLi);
 }
 
 /* ============ mask and dirge ============ */
-function _add_mask() {
-  if (!DB.mask.aktive) return;
-  let maskLabel = DB.masksAndDirges[DB.mask.value].label;
-  conceptBox.innerHTML += `<li>Mask: ${maskLabel}</li>`;
-}
-
-function _add_dirge() {
-  if (!DB.dirge.aktive) return;
-  let dirgLabel = DB.masksAndDirges[DB.dirge.value].label;
-  conceptBox.innerHTML += `<li>Dirge: ${dirgLabel}</li>`;
+function _add_MaskDirge(type) {
+  if (!DB[type].aktive) return;
+  //
+  let newLi = document.createElement("li");
+  newLi.innerText = `${DB[type].label}: ${
+    DB.masksAndDirges[DB[type].value].label
+  }`;
+  newLi.classList = "infoBtn";
+  newLi.addEventListener("click", () => _infoBox_MaskDirge(DB[type]));
+  //
+  conceptBox.appendChild(newLi);
 }
 
 /*

@@ -63,7 +63,7 @@ function _clanBox_options(el, index) {
         <p><b>Nickname:</b> ${el.nickname}</p>
         <p><b>Clan Bane (${el.bane.label}):</b> ${el.bane.description}</p>
         <p><b>Favored Attributes:</b> ${el.favoredAttributes}</p>
-        <p><b>Desciplines:</b> ${el.disciplines}</p>
+        <p><b>Disciplines:</b> ${el.disciplines}</p>
         <div class="buttons">
             <button class="clanBtn">Choose ${el.label} as Clan</button>
         </div>

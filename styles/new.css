@@ -10,6 +10,12 @@
   display: grid;
 }
 
+/* ============ infoBtn ============ */
+.infoBtn:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
 /* ============ infoBox_inside (including transition) ============ */
 
 .infoBox_inside {

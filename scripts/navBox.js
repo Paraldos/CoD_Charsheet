@@ -44,6 +44,8 @@ function _clan_btn() {
 _navBox
 ====================================================== */
 function _navBox() {
+  // close infoBox
+  _close_InfoBox();
   // add not visible class to all boxes
   for (let i = 0; i < allBoxes.length; i++) {
     allBoxes[i].classList.add("notVisible");
