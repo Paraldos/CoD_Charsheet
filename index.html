@@ -14,28 +14,6 @@
     />
   </head>
   <body>
-    <!-- ################### Modal ################### -->
-
-    <!-- Button trigger modal -->
-    <div id="myModal" class="modal fade modal-lg" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 id="myModal_title" class="modal-title">Modal title</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div id="myModal_body" class="modal-body">
-            Modal body text goes here.
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- ################### navbar ################### -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <div class="container-fluid">
@@ -66,34 +44,94 @@
       </div>
     </nav>
 
-    <!-- #####################################################################
-    newContent 
-    ##################################################################### -->
-    <div class="container bg-light">
-      <!-- ####################### concepts ####################### -->
+    <!-- ################### Modal ################### -->
+    <div id="myModal" class="modal fade modal-lg" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="myModal_title" class="modal-title">Modal title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div id="myModal_body" class="modal-body">
+            Modal body text goes here.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ################### content ################### -->
+    <div class="container">
+      <!-- concepts -->
       <div class="concepts row">
-        <h1>Concepts</h1>
-        <div id="concepts_name" class="col-lg-4 col-md-6 col-sm-12"></div>
-        <div id="concepts_age" class="col-lg-4 col-md-6 col-sm-12"></div>
-        <div id="concepts_player" class="col-lg-4 col-md-6 col-sm-12"></div>
-        <div id="concepts_chronicle" class="col-lg-4 col-md-6 col-sm-12"></div>
-        <div id="concepts_concept" class="col-lg-4 col-md-6 col-sm-12"></div>
-        <div id="concepts_groupName" class="col-lg-4 col-md-6 col-sm-12"></div>
+        <h2>Concepts</h2>
+        <div id="concepts_name" class="col-lg-6 col-sm-12"></div>
+        <div id="concepts_age" class="col-lg-6 col-sm-12"></div>
+        <div id="concepts_player" class="col-lg-6 col-sm-12"></div>
+        <div id="concepts_chronicle" class="col-lg-6 col-sm-12"></div>
+        <div id="concepts_concept" class="col-lg-6 col-sm-12"></div>
+        <div id="concepts_groupName" class="col-lg-6 col-sm-12"></div>
       </div>
       <hr class="border border-primary border-4 opacity-50" />
 
-      <!-- ####################### aspirations ####################### -->
-      <div class="concepts row">
-        <div class="col-12"><h1 class="row-4">Aspirations</h1></div>
+      <!-- form basics -->
+      <div class="row mb-3">
+        <!-- -->
+        <h2>Basics</h2>
+
+        <!-- -->
+        <h5>Concepts</h5>
+        <!-- -->
+        <div class="mb-3">
+          <label for="basics_name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="basics_name" />
+        </div>
+        <!-- -->
+        <div class="mb-3">
+          <label for="basics_age" class="form-label">Age</label>
+          <input type="text" class="form-control" id="basics_age" />
+        </div>
+        <!-- -->
+        <div class="mb-3">
+          <label for="basics_player" class="form-label">Player</label>
+          <input type="text" class="form-control" id="basics_player" />
+        </div>
+        <!-- -->
+        <div class="mb-3">
+          <label for="basics_chronicle" class="form-label">Chronicle</label>
+          <input type="text" class="form-control" id="basics_chronicle" />
+        </div>
+        <!-- -->
+        <div class="mb-3">
+          <label for="basics_concept" class="form-label">Concept</label>
+          <input type="text" class="form-control" id="basics_concept" />
+        </div>
+        <!-- -->
+        <div class="mb-3">
+          <label for="basics_groupName" class="form-label">Group Name</label>
+          <input type="text" class="form-control" id="basics_groupName" />
+        </div>
+
+        <!-- -->
+        <h5>Aspirations</h5>
+      </div>
+
+      <!-- aspirations -->
+      <div class="aspirations row">
+        <h2 class="col-12">Aspirations</h2>
         <div id="aspiration1" class="col-12"></div>
         <div id="aspiration2" class="col-12"></div>
         <div id="aspiration3" class="col-12"></div>
       </div>
       <hr class="border border-primary border-4 opacity-50" />
 
-      <!-- ####################### attributes ####################### -->
+      <!-- attributes -->
       <div class="attributes row">
-        <h1>Attributes</h1>
+        <h2>Attributes</h2>
         <!-- mental attributes -->
         <div id="att_mental" class="col-md-4 btn-group-vertical">
           <h5>Mental</h5>
@@ -163,9 +201,9 @@
       </div>
       <hr class="border border-primary border-4 opacity-50" />
 
-      <!-- ####################### skills ####################### -->
+      <!-- skills -->
       <div class="skills row">
-        <h1>Skills</h1>
+        <h2>Skills</h2>
         <!-- mental skills -->
         <div class="col-md-4 btn-group-vertical">
           <h5>Mental</h5>
@@ -221,33 +259,113 @@
         <!-- physical skills -->
         <div class="col-md-4 btn-group-vertical">
           <h5>Physical</h5>
-          <div id="skills_athletics" class=""></div>
-          <div id="skills_brawl" class=""></div>
-          <div id="skills_drive" class=""></div>
-          <div id="skills_firearms" class=""></div>
-          <div id="skills_larceny" class=""></div>
-          <div id="skills_stealth" class=""></div>
-          <div id="skills_survival" class=""></div>
-          <div id="skills_weaponry" class=""></div>
+          <div
+            id="skills_athletics"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_brawl"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_drive"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_firearms"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_larceny"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_stealth"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_survival"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_weaponry"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
         </div>
         <!-- social skills -->
         <div class="col-md-4 btn-group-vertical">
           <h5>Social</h5>
-          <div id="skills_animalKen" class=""></div>
-          <div id="skills_empathy" class=""></div>
-          <div id="skills_expression" class=""></div>
-          <div id="skills_intimidation" class=""></div>
-          <div id="skills_persuasion" class=""></div>
-          <div id="skills_socialize" class=""></div>
-          <div id="skills_streetwise" class=""></div>
-          <div id="skills_subterfuge" class=""></div>
+          <div
+            id="skills_animalKen"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_empathy"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_expression"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_intimidation"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_persuasion"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_socialize"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_streetwise"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_subterfuge"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
         </div>
       </div>
       <hr class="border border-primary border-4 opacity-50" />
 
-      <!-- ####################### advantages ####################### -->
+      <!-- advantages -->
       <div class="advantages row">
-        <h1>Advantages</h1>
+        <h2>Advantages</h2>
         <div class="col-3">Size:</div>
         <div class="col-3">Speed:</div>
         <div class="col-3">Defense:</div>
@@ -257,6 +375,7 @@
         <div class="col-3">Beats:</div>
         <div class="col-3">Experiences:</div>
       </div>
+      <hr class="border border-primary border-4 opacity-50" />
     </div>
 
     <!-- ################### scripts ################### -->

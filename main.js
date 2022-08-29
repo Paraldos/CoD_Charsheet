@@ -30,6 +30,25 @@ function _update_aspiration(x) {
   domElement.innerText = `${DB[x].value}`;
 }
 
+/* ========= basics ========= */
+function _update_basics() {
+  _basics_concept("name");
+  _basics_concept("age");
+  _basics_concept("player");
+  _basics_concept("chronicle");
+  _basics_concept("concept");
+  _basics_concept("groupName");
+}
+_update_basics();
+
+function _basics_concept(elem) {
+  let domElement = document.getElementById(`basics_${elem}`);
+  domElement.addEventListener("input", () => {
+    DB[elem].value = domElement.value;
+    _update_concepts();
+  });
+}
+
 /* ========= attributes ========= */
 const myModal_title = document.getElementById("myModal_title");
 const myModal_body = document.getElementById("myModal_body");
@@ -39,7 +58,6 @@ const att_physical = document.getElementById("att_physical");
 const att_social = document.getElementById("att_social");
 
 function _update_attributes() {
-  att_mental.innerHTML = `<h5>Mental</h5>`;
   _update_attribute("intelligence");
   _update_attribute("strength");
   _update_attribute("presence");
@@ -58,15 +76,6 @@ function _update_attribute(att) {
   let label = DB.attributes[att].label;
   let value = DB.attributes[att].value;
   // ############
-  let newDiv = (
-    <div
-      class="btn btn-outline-dark text-start"
-      data-bs-toggle="modal"
-      data-bs-target="#myModal"
-      id="attribute_intelligence"
-    ></div>
-  );
-  // ############
   let domElement = document.getElementById(`attribute_${att}`);
   domElement.innerText = `${label}: ${value}`;
   // ############
@@ -77,7 +86,8 @@ function _attribute_eventlistener(att) {
   myModal_title.innerText = DB.attributes[att].label;
   myModal_body.innerHTML = `
   <p>${DB.attributes[att].description}</p>
-  <p><b>Attribute Tasks: </b>${DB.attributes[att].tasks}</p>`;
+  <p><b>Attribute Tasks: </b>${DB.attributes[att].tasks}</p>
+  `;
 }
 
 /* ========= skills ========= */
@@ -118,6 +128,18 @@ function _update_skill(skill) {
   // ############
   let domElement = document.getElementById(`skills_${skill}`);
   domElement.innerText = `${label}: ${value} ${specialties}`;
+  // ############
+  domElement.addEventListener("click", () => _skill_eventlistener(skill));
+}
+
+function _skill_eventlistener(skill) {
+  myModal_title.innerText = DB.skills[skill].label;
+  myModal_body.innerHTML = `
+  <p>${DB.skills[skill].description}</p>
+  <p><b>Sample Actions: </b>${DB.skills[skill].sampleActions}</p>
+  <p><b>Sample Specialties: </b>${DB.skills[skill].sampleSpecialties}</p>
+  <p><b>Sample Contacts: </b>${DB.skills[skill].sampleContacts}</p>
+  `;
 }
 
 function _get_specialties(skill) {
@@ -125,7 +147,7 @@ function _get_specialties(skill) {
   let string = "";
   for (let i in DB.skills[skill].specialties) {
     if (i == 0) string += DB.skills[skill].specialties[i];
-    if (i == 0) string += `, ${DB.skills[skill].specialties[i]}`;
+    if (i != 0) string += `, ${DB.skills[skill].specialties[i]}`;
   }
   string = `(${string})`;
   return string;
