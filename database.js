@@ -7,48 +7,65 @@ const ATTRIBUTES = {
     value: "1",
     label: "Intelligence",
     description: `Intelligence is your character's book smarts and ability to process data. It represents memory, general knowledge, and ability to solve complex and difficult problems.`,
+    tasks: "Memorizing (Intelligence + Composure, instant action)",
   },
   wits: {
     value: "1",
     label: "Wits",
     description: `Wits represents quick thinking and improvisation. A character with a high Wits responds quickly to new information and situations. It also represents perception and the ability to notice details and subtle tells.`,
+    tasks:
+      "Perception (Wits + Composure, reflexive action), Catching a dropped object (Wits + Dexterity, instant action)",
   },
   resolve: {
     value: "1",
     label: "Resolve",
     description: `Resolve represents your character's patience, concentration, and determination. A high Resolve allows a character to focus despite distractions or discouragement.`,
+    tasks:
+      "Meditation (Resolve + Composure, extended action), Staying Awake (Resolve + Stamina, instant action)",
   },
   // ####
   strength: {
     value: "1",
     label: "Strength",
-    description: "",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
   },
   dexterity: {
     value: "1",
     label: "Dexterity",
-    description: "",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
   },
   stamina: {
     value: "1",
     label: "Stamina",
-    description: "",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
   },
   // ####
   presence: {
     value: "1",
     label: "Presence",
-    description: "",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
   },
   manipulation: {
     value: "1",
     label: "Manipulation",
-    description: "",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
   },
   composure: {
     value: "1",
     label: "Composure",
-    description: "",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
   },
 };
 
@@ -379,9 +396,9 @@ const DB = {
   concept: { value: "", label: "Concept" },
   groupName: { value: "", label: "Group Name" },
   // aspirations
-  aspiration1: { value: "Test1", label: "First Aspiration" },
-  aspiration2: { value: "Test2", label: "Second Aspiration" },
-  aspiration3: { value: "Test3", label: "Third Aspiration" },
+  aspiration1: { value: "", label: "First Aspiration" },
+  aspiration2: { value: "", label: "Second Aspiration" },
+  aspiration3: { value: "", label: "Third Aspiration" },
   // attributes
   attributes: ATTRIBUTES,
   // skills

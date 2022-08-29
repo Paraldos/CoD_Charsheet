@@ -322,3 +322,7 @@ h1 {
 .clanBox .clanBtn {
   grid-column: span 2;
 }
+
+.notVisible {
+  display: none;
+}

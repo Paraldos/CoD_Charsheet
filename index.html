@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CoD Character Sheet</title>
-    <link rel="stylesheet" href="./_main.css" />
-    <link rel="stylesheet" href="./notVisible.css" />
+    <link rel="stylesheet" href="./styles.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -15,6 +14,28 @@
     />
   </head>
   <body>
+    <!-- ################### Modal ################### -->
+
+    <!-- Button trigger modal -->
+    <div id="myModal" class="modal fade modal-lg" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="myModal_title" class="modal-title">Modal title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div id="myModal_body" class="modal-body">
+            Modal body text goes here.
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ################### navbar ################### -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <div class="container-fluid">
@@ -74,25 +95,70 @@
       <div class="attributes row">
         <h1>Attributes</h1>
         <!-- mental attributes -->
-        <div class="col-md-4 row">
+        <div id="att_mental" class="col-md-4 btn-group-vertical">
           <h5>Mental</h5>
-          <div id="attribute_intelligence"></div>
-          <div id="attribute_wits"></div>
-          <div id="attribute_resolve"></div>
+          <div
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+            id="attribute_intelligence"
+          ></div>
+          <div
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+            id="attribute_wits"
+          ></div>
+          <div
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+            id="attribute_resolve"
+          ></div>
         </div>
         <!-- physical attributes -->
-        <div class="col-md-4 row">
+        <div id="att_physical" class="col-md-4 btn-group-vertical">
           <h5>Physical</h5>
-          <div id="attribute_strength"></div>
-          <div id="attribute_dexterity"></div>
-          <div id="attribute_stamina"></div>
+          <div
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+            id="attribute_strength"
+          ></div>
+          <div
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+            id="attribute_dexterity"
+          ></div>
+          <div
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+            id="attribute_stamina"
+          ></div>
         </div>
         <!-- social attributes -->
-        <div class="col-md-4 row">
+        <div id="att_social" class="col-md-4 btn-group-vertical">
           <h5>Social</h5>
-          <div id="attribute_presence"></div>
-          <div id="attribute_manipulation"></div>
-          <div id="attribute_composure"></div>
+          <div
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+            id="attribute_presence"
+          ></div>
+          <div
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+            id="attribute_manipulation"
+          ></div>
+          <div
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+            id="attribute_composure"
+          ></div>
         </div>
       </div>
       <hr class="border border-primary border-4 opacity-50" />
@@ -101,19 +167,59 @@
       <div class="skills row">
         <h1>Skills</h1>
         <!-- mental skills -->
-        <div class="col-md-4 row">
+        <div class="col-md-4 btn-group-vertical">
           <h5>Mental</h5>
-          <div id="skills_academics" class=""></div>
-          <div id="skills_computer" class=""></div>
-          <div id="skills_crafts" class=""></div>
-          <div id="skills_investigation" class=""></div>
-          <div id="skills_medicine" class=""></div>
-          <div id="skills_occult" class=""></div>
-          <div id="skills_politics" class=""></div>
-          <div id="skills_science" class=""></div>
+          <div
+            id="skills_academics"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_computer"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_crafts"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_investigation"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_medicine"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_occult"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_politics"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
+          <div
+            id="skills_science"
+            class="btn btn-outline-dark text-start"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          ></div>
         </div>
         <!-- physical skills -->
-        <div class="col-md-4 row">
+        <div class="col-md-4 btn-group-vertical">
           <h5>Physical</h5>
           <div id="skills_athletics" class=""></div>
           <div id="skills_brawl" class=""></div>
@@ -125,7 +231,7 @@
           <div id="skills_weaponry" class=""></div>
         </div>
         <!-- social skills -->
-        <div class="col-md-4 row">
+        <div class="col-md-4 btn-group-vertical">
           <h5>Social</h5>
           <div id="skills_animalKen" class=""></div>
           <div id="skills_empathy" class=""></div>
@@ -154,8 +260,8 @@
     </div>
 
     <!-- ################### scripts ################### -->
-    <script src="./_database.js"></script>
-    <script src="./_main.js"></script>
+    <script src="./database.js"></script>
+    <script src="./main.js"></script>
     <!-- bootstrap -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"

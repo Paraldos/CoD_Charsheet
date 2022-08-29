@@ -1,51 +1,6 @@
 "use strict";
 
-/* ======================================================
-Transform value into dots
-====================================================== */
-function _dots_for_points(value) {
-  let returnString = "";
-  for (let i = 0; i < 5; i++) {
-    if (value > i) returnString += "●";
-    else returnString += "○";
-  }
-  return returnString;
-}
-
-/* ======================================================
-Function to collapse "elem"
-====================================================== */
-function _collapseElement(elem) {
-  // debugger;
-  elem.style.height = "";
-  elem.style.transition = "none";
-  const startHeight = window.getComputedStyle(elem).height;
-
-  // Remove the collapse class, and force a layout calculation to get the final height
-  elem.classList.toggle("collapsed");
-  const height = window.getComputedStyle(elem).height;
-
-  // Set the start height to begin the transition
-  elem.style.height = startHeight;
-
-  // wait until the next frame so that everything has time to update before starting the transition
-  requestAnimationFrame(() => {
-    elem.style.transition = "";
-
-    requestAnimationFrame(() => {
-      elem.style.height = height;
-    });
-  });
-
-  // Clear the saved height values after the transition
-  elem.addEventListener("transitionend", () => {
-    elem.style.height = "";
-  });
-}
-
-/* ======================================================
-concepts
-====================================================== */
+/* ========= concepts ========= */
 function _update_concepts() {
   // general concepts
   _update_concept("name");
@@ -62,9 +17,7 @@ function _update_concept(conc) {
   domElement.innerText = `${DB[conc].label}: ${DB[conc].value}`;
 }
 
-/* ======================================================
-aspirations
-====================================================== */
+/* ========= aspirations ========= */
 function _update_aspirations() {
   _update_aspiration("aspiration1");
   _update_aspiration("aspiration2");
@@ -77,10 +30,16 @@ function _update_aspiration(x) {
   domElement.innerText = `${DB[x].value}`;
 }
 
-/* ======================================================
-attributes
-====================================================== */
+/* ========= attributes ========= */
+const myModal_title = document.getElementById("myModal_title");
+const myModal_body = document.getElementById("myModal_body");
+//
+const att_mental = document.getElementById("att_mental");
+const att_physical = document.getElementById("att_physical");
+const att_social = document.getElementById("att_social");
+
 function _update_attributes() {
+  att_mental.innerHTML = `<h5>Mental</h5>`;
   _update_attribute("intelligence");
   _update_attribute("strength");
   _update_attribute("presence");
@@ -99,13 +58,29 @@ function _update_attribute(att) {
   let label = DB.attributes[att].label;
   let value = DB.attributes[att].value;
   // ############
+  let newDiv = (
+    <div
+      class="btn btn-outline-dark text-start"
+      data-bs-toggle="modal"
+      data-bs-target="#myModal"
+      id="attribute_intelligence"
+    ></div>
+  );
+  // ############
   let domElement = document.getElementById(`attribute_${att}`);
   domElement.innerText = `${label}: ${value}`;
+  // ############
+  domElement.addEventListener("click", () => _attribute_eventlistener(att));
 }
 
-/* ======================================================
-skills
-====================================================== */
+function _attribute_eventlistener(att) {
+  myModal_title.innerText = DB.attributes[att].label;
+  myModal_body.innerHTML = `
+  <p>${DB.attributes[att].description}</p>
+  <p><b>Attribute Tasks: </b>${DB.attributes[att].tasks}</p>`;
+}
+
+/* ========= skills ========= */
 function _update_skills() {
   _update_skill("academics");
   _update_skill("computer");
