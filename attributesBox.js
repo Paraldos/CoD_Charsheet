@@ -5,6 +5,7 @@ const attributeBox = document.querySelector(".attributeBox");
 Create attributeBox
 ====================================================== */
 function _attributeBox() {
+  return;
   let dots = {
     intelligence: _dots_for_points(DB.attributes.mental.intelligence.value),
     wits: _dots_for_points(DB.attributes.mental.wits.value),

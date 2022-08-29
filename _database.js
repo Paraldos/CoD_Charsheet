@@ -3,90 +3,82 @@
 Basics
 ====================================================== */
 const ATTRIBUTES = {
-  mental: {
-    intelligence: {
-      value: "1",
-      label: "Intelligence",
-      description: `Intelligence is your character's book smarts and ability to process data. It represents memory, general knowledge, and ability to solve complex and difficult problems.`,
-    },
-    wits: {
-      value: "1",
-      label: "Wits",
-      description: `Wits represents quick thinking and improvisation. A character with a high Wits responds quickly to new information and situations. It also represents perception and the ability to notice details and subtle tells.`,
-    },
-    resolve: {
-      value: "1",
-      label: "Resolve",
-      description: `Resolve represents your character's patience, concentration, and determination. A high Resolve allows a character to focus despite distractions or discouragement.`,
-    },
+  intelligence: {
+    value: "1",
+    label: "Intelligence",
+    description: `Intelligence is your character's book smarts and ability to process data. It represents memory, general knowledge, and ability to solve complex and difficult problems.`,
   },
-  physical: {
-    strength: {
-      value: "1",
-      label: "Strength",
-      description: "",
-    },
-    dexterity: {
-      value: "1",
-      label: "Dexterity",
-      description: "",
-    },
-    stamina: {
-      value: "1",
-      label: "Stamina",
-      description: "",
-    },
+  wits: {
+    value: "1",
+    label: "Wits",
+    description: `Wits represents quick thinking and improvisation. A character with a high Wits responds quickly to new information and situations. It also represents perception and the ability to notice details and subtle tells.`,
   },
-  social: {
-    presence: {
-      value: "1",
-      label: "Presence",
-      description: "",
-    },
-    manipulation: {
-      value: "1",
-      label: "Manipulation",
-      description: "",
-    },
-    composure: {
-      value: "1",
-      label: "Composure",
-      description: "",
-    },
+  resolve: {
+    value: "1",
+    label: "Resolve",
+    description: `Resolve represents your character's patience, concentration, and determination. A high Resolve allows a character to focus despite distractions or discouragement.`,
+  },
+  // ####
+  strength: {
+    value: "1",
+    label: "Strength",
+    description: "",
+  },
+  dexterity: {
+    value: "1",
+    label: "Dexterity",
+    description: "",
+  },
+  stamina: {
+    value: "1",
+    label: "Stamina",
+    description: "",
+  },
+  // ####
+  presence: {
+    value: "1",
+    label: "Presence",
+    description: "",
+  },
+  manipulation: {
+    value: "1",
+    label: "Manipulation",
+    description: "",
+  },
+  composure: {
+    value: "1",
+    label: "Composure",
+    description: "",
   },
 };
 
 const SKILLS = {
-  mental: {
-    academics: { value: 0, label: "Academics" },
-    computer: { value: 0, label: "Computer" },
-    crafts: { value: 0, label: "Crafts" },
-    investigation: { value: 0, label: "Investigation" },
-    medicine: { value: 0, label: "Medicine" },
-    occult: { value: 0, label: "Occult" },
-    politics: { value: 0, label: "Politics" },
-    science: { value: 0, label: "Science" },
-  },
-  physical: {
-    athletics: { value: 0, label: "Athletics" },
-    brawl: { value: 0, label: "Brawl" },
-    drive: { value: 0, label: "Drive" },
-    firearms: { value: 0, label: "Firearms" },
-    larceny: { value: 0, label: "Larceny" },
-    stealth: { value: 0, label: "Stealth" },
-    survival: { value: 0, label: "Survival" },
-    weaponry: { value: 0, label: "Weaponry" },
-  },
-  social: {
-    animalKen: { value: 0, label: "Animal Ken" },
-    empathy: { value: 0, label: "Empathy" },
-    expression: { value: 0, label: "Expression" },
-    intimidation: { value: 0, label: "Intimidation" },
-    persuasion: { value: 0, label: "Persuasion" },
-    socialize: { value: 0, label: "Socialize" },
-    streetwise: { value: 0, label: "Streetwise" },
-    subterfuge: { value: 0, label: "Subterfuge" },
-  },
+  academics: { value: 0, label: "Academics", specialties: [] },
+  computer: { value: 0, label: "Computer", specialties: [] },
+  crafts: { value: 0, label: "Crafts", specialties: [] },
+  investigation: { value: 0, label: "Investigation", specialties: [] },
+  medicine: { value: 0, label: "Medicine", specialties: [] },
+  occult: { value: 0, label: "Occult", specialties: [] },
+  politics: { value: 0, label: "Politics", specialties: [] },
+  science: { value: 0, label: "Science", specialties: [] },
+  // ####
+  athletics: { value: 0, label: "Athletics", specialties: [] },
+  brawl: { value: 0, label: "Brawl", specialties: [] },
+  drive: { value: 0, label: "Drive", specialties: [] },
+  firearms: { value: 0, label: "Firearms", specialties: [] },
+  larceny: { value: 0, label: "Larceny", specialties: [] },
+  stealth: { value: 0, label: "Stealth", specialties: [] },
+  survival: { value: 0, label: "Survival", specialties: [] },
+  weaponry: { value: 0, label: "Weaponry", specialties: [] },
+  // ####
+  animalKen: { value: 0, label: "Animal Ken", specialties: [] },
+  empathy: { value: 0, label: "Empathy", specialties: [] },
+  expression: { value: 0, label: "Expression", specialties: [] },
+  intimidation: { value: 0, label: "Intimidation", specialties: [] },
+  persuasion: { value: 0, label: "Persuasion", specialties: [] },
+  socialize: { value: 0, label: "Socialize", specialties: [] },
+  streetwise: { value: 0, label: "Streetwise", specialties: [] },
+  subterfuge: { value: 0, label: "Subterfuge", specialties: [] },
 };
 
 /* ======================================================
@@ -379,20 +371,36 @@ const BLOODLINES = [
 DB
 ====================================================== */
 const DB = {
-  name: { value: "Test", label: "Name", aktive: true },
-  age: { value: "", label: "Age", aktive: false },
-  player: { value: "", label: "Player", aktive: true },
-  chronicle: { value: "", label: "Chronicle", aktive: true },
-  concept: { value: "", label: "Concept", aktive: true },
-  covenant: { value: "", label: "Covenant", aktive: true },
-  faction: { value: "", label: "Faction", aktive: false },
-  groupName: { value: "", label: "Group Name", aktive: false },
-  //
-  aspirations: ["Test", "", ""],
-  //
+  // concepts
+  name: { value: "", label: "Name" },
+  age: { value: "", label: "Age" },
+  player: { value: "", label: "Player" },
+  chronicle: { value: "", label: "Chroncile" },
+  concept: { value: "", label: "Concept" },
+  groupName: { value: "", label: "Group Name" },
+  // aspirations
+  aspiration1: { value: "Test1", label: "First Aspiration" },
+  aspiration2: { value: "Test2", label: "Second Aspiration" },
+  aspiration3: { value: "Test3", label: "Third Aspiration" },
+  // attributes
   attributes: ATTRIBUTES,
+  // skills
   skills: SKILLS,
+  // advantages
+  size: { value: 0, label: "Size" },
+  speed: { value: 0, label: "Speed" },
+  defense: { value: 0, label: "Defense" },
+  armor: 0,
+  ini: 0,
+  armor: 0,
+  beats: 0,
+  xp: 0,
+
+  // human
+  faction: { value: "", label: "Faction", aktive: false },
+
   // Vampire
+  covenant: { value: "", label: "Covenant", aktive: true },
   clan: { value: 0, label: "Clan", aktive: true },
   clans: CLANS,
   bloodlines: BLOODLINES,

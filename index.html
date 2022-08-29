@@ -6,104 +6,166 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CoD Character Sheet</title>
     <link rel="stylesheet" href="./_main.css" />
-    <link rel="stylesheet" href="./_naxBox.css" />
-    <link rel="stylesheet" href="./diceBox.css" />
-    <link rel="stylesheet" href="./new.css">
-    <!-- ##### -->
     <link rel="stylesheet" href="./notVisible.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <!-- ################### navbar ################### -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">CoD - Character Sheet</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
             <li class="nav-item"><a class="nav-link" href="#">Basics</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Mask/Dirge</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Mask/Dirge</a>
+            </li>
             <li class="nav-item"><a class="nav-link" href="#">Clan</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <!-- ################### newContent ################### -->
-    <div class="container">
+    <!-- #####################################################################
+    newContent 
+    ##################################################################### -->
+    <div class="container bg-light">
+      <!-- ####################### concepts ####################### -->
       <div class="concepts row">
-        <div class="col-lg-">Name: </div>
-        <div class="col">Name: </div>
-        <div class="col">Name: </div>
-        <div class="col">Name: </div>
-        <div class="col">Name: </div>
-        <div class="col">Name: </div>
-
+        <h1>Concepts</h1>
+        <div id="concepts_name" class="col-lg-4 col-md-6 col-sm-12"></div>
+        <div id="concepts_age" class="col-lg-4 col-md-6 col-sm-12"></div>
+        <div id="concepts_player" class="col-lg-4 col-md-6 col-sm-12"></div>
+        <div id="concepts_chronicle" class="col-lg-4 col-md-6 col-sm-12"></div>
+        <div id="concepts_concept" class="col-lg-4 col-md-6 col-sm-12"></div>
+        <div id="concepts_groupName" class="col-lg-4 col-md-6 col-sm-12"></div>
       </div>
-    </div>
+      <hr class="border border-primary border-4 opacity-50" />
 
-
-    <!-- ################### contentbox ################### -->
-    <div class="contentBox">
-      <ul class="conceptBox box"></ul>
-      <div class="aspirationBox box"></div>
-      <div class="attributeBox box"></div>
-      <div class="skillBox box"></div>
-      <!---->
-      <ul class="basicsBox box"></ul>
-      <ul class="maskDirgeBox box"></ul>
-      <ul class="clanBox box"></ul>
-    </div>
-
-    <!-- ################### dicebox ################### -->
-    <div id="diceBox notVisible">
-      <div id="diceBox_btns">
-        <div id="diceBox_successes"><span>0</span></div>
-        <div id="diceBox_results"><br>(nothing)</div>
-
-        <button id="diceBox_reset">Reset</button>
-        <button id="diceBox_reroll">10-again</button>
-        <button id="diceBox_minus5">-5</button>
-        <button id="diceBox_minus1">-1</button>
-        <button id="diceBox_rollBtn">Roll 0</span></button>
-        <button id="diceBox_plus1">+1</button>
-        <button id="diceBox_plus5">+5</button>
+      <!-- ####################### aspirations ####################### -->
+      <div class="concepts row">
+        <div class="col-12"><h1 class="row-4">Aspirations</h1></div>
+        <div id="aspiration1" class="col-12"></div>
+        <div id="aspiration2" class="col-12"></div>
+        <div id="aspiration3" class="col-12"></div>
       </div>
-    </div>
+      <hr class="border border-primary border-4 opacity-50" />
 
-    <!-- ################### infobox ################### -->
-    <div class="infoBox notVisible">
-      <div class="infoBox_inside notVisible">
-        <button class="infoBox_x"><img src="./X.png" alt=""></button>
-        <div class="infoBox_content">
-          <h1>Header</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet ipsum porro sed doloribus, ullam, non, quod ut voluptas commodi quas perferendis sapiente! Impedit illum porro minus, quaerat mollitia esse!</p>
-          <p><b>Lorem:</b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p> 
+      <!-- ####################### attributes ####################### -->
+      <div class="attributes row">
+        <h1>Attributes</h1>
+        <!-- mental attributes -->
+        <div class="col-md-4 row">
+          <h5>Mental</h5>
+          <div id="attribute_intelligence"></div>
+          <div id="attribute_wits"></div>
+          <div id="attribute_resolve"></div>
         </div>
+        <!-- physical attributes -->
+        <div class="col-md-4 row">
+          <h5>Physical</h5>
+          <div id="attribute_strength"></div>
+          <div id="attribute_dexterity"></div>
+          <div id="attribute_stamina"></div>
+        </div>
+        <!-- social attributes -->
+        <div class="col-md-4 row">
+          <h5>Social</h5>
+          <div id="attribute_presence"></div>
+          <div id="attribute_manipulation"></div>
+          <div id="attribute_composure"></div>
+        </div>
+      </div>
+      <hr class="border border-primary border-4 opacity-50" />
+
+      <!-- ####################### skills ####################### -->
+      <div class="skills row">
+        <h1>Skills</h1>
+        <!-- mental skills -->
+        <div class="col-md-4 row">
+          <h5>Mental</h5>
+          <div id="skills_academics" class=""></div>
+          <div id="skills_computer" class=""></div>
+          <div id="skills_crafts" class=""></div>
+          <div id="skills_investigation" class=""></div>
+          <div id="skills_medicine" class=""></div>
+          <div id="skills_occult" class=""></div>
+          <div id="skills_politics" class=""></div>
+          <div id="skills_science" class=""></div>
+        </div>
+        <!-- physical skills -->
+        <div class="col-md-4 row">
+          <h5>Physical</h5>
+          <div id="skills_athletics" class=""></div>
+          <div id="skills_brawl" class=""></div>
+          <div id="skills_drive" class=""></div>
+          <div id="skills_firearms" class=""></div>
+          <div id="skills_larceny" class=""></div>
+          <div id="skills_stealth" class=""></div>
+          <div id="skills_survival" class=""></div>
+          <div id="skills_weaponry" class=""></div>
+        </div>
+        <!-- social skills -->
+        <div class="col-md-4 row">
+          <h5>Social</h5>
+          <div id="skills_animalKen" class=""></div>
+          <div id="skills_empathy" class=""></div>
+          <div id="skills_expression" class=""></div>
+          <div id="skills_intimidation" class=""></div>
+          <div id="skills_persuasion" class=""></div>
+          <div id="skills_socialize" class=""></div>
+          <div id="skills_streetwise" class=""></div>
+          <div id="skills_subterfuge" class=""></div>
+        </div>
+      </div>
+      <hr class="border border-primary border-4 opacity-50" />
+
+      <!-- ####################### advantages ####################### -->
+      <div class="advantages row">
+        <h1>Advantages</h1>
+        <div class="col-3">Size:</div>
+        <div class="col-3">Speed:</div>
+        <div class="col-3">Defense:</div>
+        <div class="col-3">Initiative Mod:</div>
+
+        <div class="col-3">Armor:</div>
+        <div class="col-3">Beats:</div>
+        <div class="col-3">Experiences:</div>
       </div>
     </div>
 
     <!-- ################### scripts ################### -->
     <script src="./_database.js"></script>
     <script src="./_main.js"></script>
-    <script src="./_infoBox.js"></script>
-    <!-- ##### -->
-    <script src="./conceptBox.js"></script>
-    <script src="./attributesBox.js"></script>
-    <script src="./dice.js"></script>
-    <script src="./basicsBox.js"></script>
-    <script src="./maskDirgeBox.js"></script>
-    <script src="./skillBox.js"></script>
-    <script src="./aspirationBox.js"></script>
-    <script src="./clanBox.js"></script>
-    <!-- ##### -->
-    <script src="./_navBox.js"></script>
-
     <!-- bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+      integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+      integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
