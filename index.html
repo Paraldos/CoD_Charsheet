@@ -67,301 +67,83 @@
     <!-- ################### content ################### -->
     <div class="container">
       <!-- concepts -->
-      <div class="concepts row">
+      <div>
         <h2>Concepts</h2>
-        <div id="concepts_name" class="col-lg-6 col-sm-12"></div>
-        <div id="concepts_age" class="col-lg-6 col-sm-12"></div>
-        <div id="concepts_player" class="col-lg-6 col-sm-12"></div>
-        <div id="concepts_chronicle" class="col-lg-6 col-sm-12"></div>
-        <div id="concepts_concept" class="col-lg-6 col-sm-12"></div>
-        <div id="concepts_groupName" class="col-lg-6 col-sm-12"></div>
+        <div id="concepts" class="row"></div>
+        <hr class="border border-primary border-4 opacity-50" />
       </div>
-      <hr class="border border-primary border-4 opacity-50" />
 
       <!-- form basics -->
       <div class="row mb-3">
-        <!-- -->
         <h2>Basics</h2>
 
-        <!-- -->
-        <h5>Concepts</h5>
-        <!-- -->
-        <div class="mb-3">
-          <label for="basics_name" class="form-label">Name</label>
-          <input type="text" class="form-control" id="basics_name" />
-        </div>
-        <!-- -->
-        <div class="mb-3">
-          <label for="basics_age" class="form-label">Age</label>
-          <input type="text" class="form-control" id="basics_age" />
-        </div>
-        <!-- -->
-        <div class="mb-3">
-          <label for="basics_player" class="form-label">Player</label>
-          <input type="text" class="form-control" id="basics_player" />
-        </div>
-        <!-- -->
-        <div class="mb-3">
-          <label for="basics_chronicle" class="form-label">Chronicle</label>
-          <input type="text" class="form-control" id="basics_chronicle" />
-        </div>
-        <!-- -->
-        <div class="mb-3">
-          <label for="basics_concept" class="form-label">Concept</label>
-          <input type="text" class="form-control" id="basics_concept" />
-        </div>
-        <!-- -->
-        <div class="mb-3">
-          <label for="basics_groupName" class="form-label">Group Name</label>
-          <input type="text" class="form-control" id="basics_groupName" />
+        <div id="basics_concepts" class="row mb-3">
+          <h5>Concepts</h5>
+          <div class="mb-3">
+            <label for="basics_name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="basics_name" />
+          </div>
+
+          <div class="mb-3">
+            <label for="basics_age" class="form-label">Age</label>
+            <input type="text" class="form-control" id="basics_age" />
+          </div>
+
+          <div class="mb-3">
+            <label for="basics_player" class="form-label">Player</label>
+            <input type="text" class="form-control" id="basics_player" />
+          </div>
+
+          <div class="mb-3">
+            <label for="basics_chronicle" class="form-label">Chronicle</label>
+            <input type="text" class="form-control" id="basics_chronicle" />
+          </div>
+
+          <div class="mb-3">
+            <label for="basics_concept" class="form-label">Concept</label>
+            <input type="text" class="form-control" id="basics_concept" />
+          </div>
+
+          <div class="mb-3">
+            <label for="basics_groupName" class="form-label">Group Name</label>
+            <input type="text" class="form-control" id="basics_groupName" />
+          </div>
         </div>
 
-        <!-- -->
-        <h5>Aspirations</h5>
+        <div>
+          <h5>Aspirations</h5>
+        </div>
+        <hr class="border border-primary border-4 opacity-50" />
       </div>
 
       <!-- aspirations -->
-      <div class="aspirations row">
+      <div>
         <h2 class="col-12">Aspirations</h2>
-        <div id="aspiration1" class="col-12"></div>
-        <div id="aspiration2" class="col-12"></div>
-        <div id="aspiration3" class="col-12"></div>
+        <div id="aspirations" class="row"></div>
+        <hr class="border border-primary border-4 opacity-50" />
       </div>
-      <hr class="border border-primary border-4 opacity-50" />
 
       <!-- attributes -->
-      <div class="attributes row">
+      <div>
         <h2>Attributes</h2>
-        <!-- mental attributes -->
-        <div id="att_mental" class="col-md-4 btn-group-vertical">
-          <h5>Mental</h5>
-          <div
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-            id="attribute_intelligence"
-          ></div>
-          <div
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-            id="attribute_wits"
-          ></div>
-          <div
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-            id="attribute_resolve"
-          ></div>
+        <div class="row">
+          <div id="att_mental" class="col-md-4 btn-group-vertical"></div>
+          <div id="att_physical" class="col-md-4 btn-group-vertical"></div>
+          <div id="att_social" class="col-md-4 btn-group-vertical"></div>
         </div>
-        <!-- physical attributes -->
-        <div id="att_physical" class="col-md-4 btn-group-vertical">
-          <h5>Physical</h5>
-          <div
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-            id="attribute_strength"
-          ></div>
-          <div
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-            id="attribute_dexterity"
-          ></div>
-          <div
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-            id="attribute_stamina"
-          ></div>
-        </div>
-        <!-- social attributes -->
-        <div id="att_social" class="col-md-4 btn-group-vertical">
-          <h5>Social</h5>
-          <div
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-            id="attribute_presence"
-          ></div>
-          <div
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-            id="attribute_manipulation"
-          ></div>
-          <div
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-            id="attribute_composure"
-          ></div>
-        </div>
+        <hr class="border border-primary border-4 opacity-50" />
       </div>
-      <hr class="border border-primary border-4 opacity-50" />
 
       <!-- skills -->
-      <div class="skills row">
-        <h2>Skills</h2>
-        <!-- mental skills -->
-        <div class="col-md-4 btn-group-vertical">
-          <h5>Mental</h5>
-          <div
-            id="skills_academics"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_computer"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_crafts"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_investigation"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_medicine"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_occult"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_politics"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_science"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
+      <div>
+        <div class="row">
+          <h2>Skills</h2>
+          <div id="skills_mental" class="col-md-4 btn-group-vertical"></div>
+          <div id="skills_physical" class="col-md-4 btn-group-vertical"></div>
+          <div id="skills_social" class="col-md-4 btn-group-vertical"></div>
         </div>
-        <!-- physical skills -->
-        <div class="col-md-4 btn-group-vertical">
-          <h5>Physical</h5>
-          <div
-            id="skills_athletics"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_brawl"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_drive"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_firearms"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_larceny"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_stealth"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_survival"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_weaponry"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-        </div>
-        <!-- social skills -->
-        <div class="col-md-4 btn-group-vertical">
-          <h5>Social</h5>
-          <div
-            id="skills_animalKen"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_empathy"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_expression"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_intimidation"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_persuasion"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_socialize"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_streetwise"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-          <div
-            id="skills_subterfuge"
-            class="btn btn-outline-dark text-start"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-          ></div>
-        </div>
+        <hr class="border border-primary border-4 opacity-50" />
       </div>
-      <hr class="border border-primary border-4 opacity-50" />
 
       <!-- advantages -->
       <div class="advantages row">
@@ -381,6 +163,7 @@
     <!-- ################### scripts ################### -->
     <script src="./database.js"></script>
     <script src="./main.js"></script>
+    <script src="./attributesAndSkills.js"></script>
     <!-- bootstrap -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"

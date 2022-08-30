@@ -73,7 +73,7 @@ const SKILLS = {
   academics: {
     value: 0,
     label: "Academics",
-    specialties: ["Test"],
+    specialties: [],
     description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
     sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
     sampleSpecialties: "Lorem ipsum dolor sit.",
@@ -586,7 +586,6 @@ const DB = {
   player: { value: "", label: "Player" },
   chronicle: { value: "", label: "Chroncile" },
   concept: { value: "", label: "Concept" },
-  groupName: { value: "", label: "Group Name" },
   // aspirations
   aspiration1: { value: "", label: "First Aspiration" },
   aspiration2: { value: "", label: "Second Aspiration" },

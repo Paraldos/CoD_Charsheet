@@ -323,6 +323,6 @@ h1 {
   grid-column: span 2;
 }
 
-.notVisible {
+.not-visible {
   display: none;
 }
