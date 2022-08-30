@@ -2,20 +2,13 @@
 
 const boxes = [
   "concepts",
-  "aspirations",
   "attributes",
   "skills",
   "advantages",
   //
   "basics",
 ];
-let arr_home = [
-  "concepts",
-  "aspirations",
-  "attributes",
-  "skills",
-  "advantages",
-];
+let arr_home = ["concepts", "attributes", "skills", "advantages"];
 let arr_basics = ["basics"];
 
 let navbar_home = document.getElementById("navbar_home");

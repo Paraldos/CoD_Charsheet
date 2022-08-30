@@ -1,17 +1,20 @@
 "use strict";
 /* ============================== Basics ============================== */
 const CONCEPTS = {
-  name: { value: "test", label: "Name" },
+  name: { value: "", label: "Name" },
   age: { value: "", label: "Age" },
   player: { value: "", label: "Player" },
   chronicle: { value: "", label: "Chroncile" },
   concept: { value: "", label: "Concept" },
+  aspiration1: { value: "", label: "First Aspiration" },
+  aspiration2: { value: "", label: "Second Aspiration" },
+  aspiration3: { value: "", label: "Third Aspiration" },
 };
 
 const ASPIRATIONS = [
-  { value: "Test1", label: "First" },
-  { value: "Test2", label: "Second" },
-  { value: "", label: "Third" },
+  { value: "", label: "First Aspiration" },
+  { value: "", label: "Second Aspiration" },
+  { value: "", label: "Third Aspiration" },
 ];
 
 const ATTRIBUTES = {
@@ -176,7 +179,7 @@ const SKILLS = {
   // ####################################################################################
   physical: {
     athletics: {
-      value: 0,
+      value: 4,
       label: "Athletics",
       specialties: [],
       description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,

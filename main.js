@@ -4,11 +4,16 @@
 const myModal_title = document.getElementById("myModal_title");
 const myModal_body = document.getElementById("myModal_body");
 // concepts
-let concepts = ["name", "chronicle", "concept", "player"];
+let concepts = [
+  "name",
+  "chronicle",
+  "concept",
+  "player",
+  "aspiration1",
+  "aspiration2",
+  "aspiration3",
+];
 let _concept_text = (x) => `<b>${x.label}:</b> ${x.value}`;
-// aspirations
-const container_aspirations = document.getElementById("container_aspirations");
-const aspirations = document.getElementById("aspirations");
 let _aspiration_text = (x) => `<b>${x.label}:</b> ${x.value}`;
 // attributes
 const att_mental = document.getElementById("att_mental");
@@ -26,6 +31,7 @@ function _create_concepts() {
   let container_concepts = document.getElementById("container_concepts"); // get container
   container_concepts.innerHTML = ``; // empty container
   for (let concept of concepts) _create_concept(concept); // fill container with concepts
+  // for (let number in DB.aspirations) _create_aspiration(number); // Fill container with aspirations
 }
 _create_concepts();
 
@@ -33,8 +39,7 @@ function _create_concept(concept) {
   /* Example: <div id="concepts_name" class="col-lg-6 col-sm-12"></div> */
   let newDiv = document.createElement("div");
   newDiv.id = `concepts_${concept}`;
-  newDiv.classList.add("col-lg-6");
-  newDiv.classList.add("col-sm-12");
+  newDiv.classList.add("col-lg-6", "col-sm-12");
   newDiv.innerHTML = _concept_text(DB.concepts[concept]);
   container_concepts.appendChild(newDiv);
 }
@@ -43,29 +48,6 @@ function _update_concepts() {
   for (let concept of concepts) {
     let domElement = document.getElementById(`concepts_${concept}`); // grab concept
     domElement.innerHTML = _concept_text(DB.concepts[concept]); // change html of grabbed concept
-  }
-}
-
-/* ========= aspirations ========= */
-function _create_aspirations() {
-  container_aspirations.innerHTML = ``; // Empty container
-  for (let number in DB.aspirations) _create_aspiration(number); // Fill container with aspirations
-}
-_create_aspirations();
-
-function _create_aspiration(number) {
-  // Example: <div id="aspiration1" class="col-12"></div>
-  let newDiv = document.createElement("div");
-  newDiv.id = `aspiration${number}`;
-  newDiv.classList.add("mb-3");
-  newDiv.innerHTML = _aspiration_text(DB.aspirations[number]);
-  container_aspirations.appendChild(newDiv);
-}
-
-function _update_aspirations() {
-  for (let number in DB.aspirations) {
-    let domElement = document.getElementById(`aspiration${number}`);
-    domElement.innerHTML = _aspiration_text(DB.aspirations[number]);
   }
 }
 
@@ -94,9 +76,7 @@ function _create_attribute(name, type) {
 
   let newDiv = document.createElement("div");
   newDiv.id = `attribute_${name}`;
-  newDiv.classList.add("btn");
-  newDiv.classList.add("btn-outline-dark");
-  newDiv.classList.add("text-start");
+  newDiv.classList.add("btn", "btn-outline-dark", "text-start");
   newDiv.setAttribute(`data-bs-toggle`, "modal");
   newDiv.setAttribute(`data-bs-target`, "#myModal");
   newDiv.innerText = `${attribut.label}: ${attribut.value}`;
