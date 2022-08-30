@@ -17,20 +17,20 @@ const ASPIRATIONS = [
 const ATTRIBUTES = {
   mental: {
     intelligence: {
-      value: "1",
+      value: 1,
       label: "Intelligence",
       description: `Intelligence is your character's book smarts and ability to process data. It represents memory, general knowledge, and ability to solve complex and difficult problems.`,
       tasks: "Memorizing (Intelligence + Composure, instant action)",
     },
     wits: {
-      value: "1",
+      value: 1,
       label: "Wits",
       description: `Wits represents quick thinking and improvisation. A character with a high Wits responds quickly to new information and situations. It also represents perception and the ability to notice details and subtle tells.`,
       tasks:
         "Perception (Wits + Composure, reflexive action), Catching a dropped object (Wits + Dexterity, instant action)",
     },
     resolve: {
-      value: "1",
+      value: 1,
       label: "Resolve",
       description: `Resolve represents your character's patience, concentration, and determination. A high Resolve allows a character to focus despite distractions or discouragement.`,
       tasks:
@@ -41,21 +41,21 @@ const ATTRIBUTES = {
   // ############################
   physical: {
     strength: {
-      value: "1",
+      value: 1,
       label: "Strength",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
       tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
     },
     dexterity: {
-      value: "1",
+      value: 1,
       label: "Dexterity",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
       tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
     },
     stamina: {
-      value: "1",
+      value: 1,
       label: "Stamina",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
@@ -66,21 +66,21 @@ const ATTRIBUTES = {
   // ############################
   social: {
     presence: {
-      value: "1",
+      value: 1,
       label: "Presence",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
       tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
     },
     manipulation: {
-      value: "1",
+      value: 1,
       label: "Manipulation",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
       tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
     },
     composure: {
-      value: "1",
+      value: 1,
       label: "Composure",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
@@ -626,22 +626,26 @@ const BLOODLINES = [
   { label: "Test4" },
 ];
 
+const ADVANTAGES = {
+  size: { value: 5, label: "Size" },
+  speed: { value: 0, label: "Speed" },
+  ini: { value: 0, label: "Initiative Mod" },
+  defense: { value: 0, label: "Defense" },
+  beats: { value: 0, label: "Beats" },
+  xp: { value: 0, label: "Experience" },
+  health: { value: 0, label: "Health" },
+  willpower: { value: 0, label: "Willpower" },
+};
+
 /* ============================== Database ============================== */
 const DB = {
   concepts: CONCEPTS,
   aspirations: ASPIRATIONS,
   attributes: ATTRIBUTES,
   skills: SKILLS,
+  advantages: ADVANTAGES,
 
-  size: { value: 5, label: "Size" },
-  speed: { value: 0, label: "Speed" },
-  defense: { value: 0, label: "Defense" },
   armor: 0,
-  ini: 0,
-  armor: 0,
-  beats: 0,
-  xp: 0,
-
   // human
   faction: { value: "", label: "Faction", aktive: false },
 

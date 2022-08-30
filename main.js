@@ -18,6 +18,8 @@ const att_social = document.getElementById("att_social");
 const skills_mental = document.getElementById("skills_mental");
 const skills_physical = document.getElementById("skills_physical");
 const skills_social = document.getElementById("skills_social");
+// advantages
+const container_advantages = document.getElementById("container_advantages");
 
 /* ========= concepts ========= */
 function _create_concepts() {
@@ -141,7 +143,7 @@ function _create_skill(name, type) {
   newDiv.classList.add("btn", "btn-outline-dark", "text-start");
   newDiv.setAttribute(`data-bs-toggle`, "modal");
   newDiv.setAttribute(`data-bs-target`, "#myModal");
-  newDiv.innerText = `${skill.label}: ${skill.value} ${specialties}`;
+  newDiv.innerText = `${skill.label} ${skill.value} ${specialties}`;
   newDiv.addEventListener("click", () => _skill_click(skill));
   container.appendChild(newDiv);
 }
@@ -163,79 +165,68 @@ function _skill_click(skill) {
     `;
 }
 
-/* ========= basics concepts ========= */
-const basics_concepts = document.getElementById("basics_concepts");
+/* ========= advantages ========= */
+function _create_advantages() {
+  // Example: <div class="col-3">Size:</div>
+  container_advantages.innerHTML = ``;
 
-function _create_basics_concepts() {
-  basics_concepts.innerHTML = `<h5>Concepts</h5>`; // Empty container and add header
-  for (let i of concepts) _create_basics_concept(i); // Add concepts
+  // size is a fixed number
+  _update_speed();
+  _update_ini();
+  _update_defense();
+  // beats is a fixed number
+  // xp is a fixed number
+  _update_willpower();
+  _update_health();
+
+  _create_advantage(DB.advantages.size);
+  _create_advantage(DB.advantages.speed);
+  _create_advantage(DB.advantages.ini);
+  _create_advantage(DB.advantages.defense);
+  _create_advantage(DB.advantages.beats);
+  _create_advantage(DB.advantages.xp);
 }
-_create_basics_concepts();
+_create_advantages();
 
-function _create_basics_concept(element) {
-  /* Example:
-  <div>
-    <label for="basics_name" class="form-label">Name</label>
-    <input type="text" class="form-control" id="basics_name" />
-  </div> */
-
-  // newDiv
+function _create_advantage(advantage) {
   let newDiv = document.createElement("div");
-  basics_concepts.appendChild(newDiv);
-
-  // newLabel
-  let newLabel = document.createElement("label");
-  newLabel.setAttribute(`for`, `basics_${element}`);
-  newLabel.classList.add("form-label");
-  newLabel.innerText = DB.concepts[element].label;
-  newDiv.appendChild(newLabel);
-
-  // newInput
-  let newInput = document.createElement("input");
-  newInput.setAttribute(`type`, "text");
-  newInput.classList.add("form-control");
-  newInput.id = `basics_${element}`;
-  newInput.value = DB.concepts[element].value;
-  newDiv.appendChild(newInput);
-
-  // eventListener
-  newInput.addEventListener("input", () => {
-    DB.concepts[element].value = newInput.value;
-    _update_concepts();
-  });
+  newDiv.classList.add("col-sm-4", "col-md-3", "col-lg-2");
+  newDiv.innerHTML = `<b>${advantage.label}: </b>${advantage.value}`;
+  container_advantages.appendChild(newDiv);
 }
 
-/* ========= basics aspirations ========= */
-const basics_aspirations = document.getElementById("basics_aspirations");
-
-function _create_basics_aspirations() {
-  basics_aspirations.innerHTML = `<h5>Aspirations</h5>`; // Empty conctainer and add header
-  for (let number in DB.aspirations) _create_basics_aspiration(number); // add aspirations
+function _update_speed() {
+  let str = DB.attributes.physical.strength.value;
+  let dex = DB.attributes.physical.strength.value;
+  // =========
+  DB.advantages.speed.value = str + dex + 5;
 }
-_create_basics_aspirations();
 
-function _create_basics_aspiration(i) {
-  /* Example:
-  <div class="mb-3">
-    <input type="text" class="form-control" id="basics_aspiration1" />
-  </div> */
+function _update_ini() {
+  let dex = DB.attributes.physical.dexterity.value;
+  let com = DB.attributes.social.composure.value;
+  // =========
+  DB.advantages.ini.value = dex + com;
+}
 
-  // newDiv
-  let newDiv = document.createElement("div");
-  newDiv.classList.add("mb-3");
-  basics_aspirations.appendChild(newDiv);
+function _update_defense() {
+  let wits = DB.attributes.mental.wits.value;
+  let dex = DB.attributes.physical.dexterity.value;
+  let athletics = DB.skills.physical.athletics.value;
+  // =========
+  DB.advantages.defense.value = Math.min(wits, dex) + athletics;
+}
 
-  // newInput
-  let newInput = document.createElement("input");
-  newInput.setAttribute(`type`, "text");
-  newInput.classList.add("form-control");
-  newInput.id = `basics_aspiration${i + 1}`;
-  newInput.value = DB.aspirations[i].value;
-  newDiv.appendChild(newInput);
+function _update_willpower() {
+  let res = DB.attributes.mental.resolve.value;
+  let com = DB.attributes.social.composure.value;
+  // =========
+  DB.advantages.willpower.value = res + com;
+}
 
-  // eventListener
-  newInput.addEventListener("input", () => {
-    DB.aspirations[i].value = newInput.value;
-    _update_aspirations();
-  });
+function _update_health() {
+  let size = DB.advantages.size.value;
+  let stamina = DB.attributes.physical.stamina.value;
+  // =========
+  DB.advantages.health.value = size + stamina;
 }
