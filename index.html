@@ -32,13 +32,11 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a id="navbar_home" class="nav-link active" href="#">Home</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#">Basics</a></li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Mask/Dirge</a>
+              <a id="navbar_basics" class="nav-link" href="#">Basics</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#">Clan</a></li>
           </ul>
         </div>
       </div>
@@ -67,64 +65,32 @@
     <!-- ################### content ################### -->
     <div class="container">
       <!-- concepts -->
-      <div>
+      <div id="concepts" class="box">
         <h2>Concepts</h2>
-        <div id="concepts" class="row"></div>
+        <div id="container_concepts" class="row"></div>
         <hr class="border border-primary border-4 opacity-50" />
       </div>
 
       <!-- form basics -->
-      <div class="row mb-3">
+      <div id="basics" class="box">
         <h2>Basics</h2>
 
-        <div id="basics_concepts" class="row mb-3">
-          <h5>Concepts</h5>
-          <div class="mb-3">
-            <label for="basics_name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="basics_name" />
-          </div>
+        <div id="basics_concepts" class=""></div>
+        <hr class="border border-primary border-4 opacity-50" />
 
-          <div class="mb-3">
-            <label for="basics_age" class="form-label">Age</label>
-            <input type="text" class="form-control" id="basics_age" />
-          </div>
-
-          <div class="mb-3">
-            <label for="basics_player" class="form-label">Player</label>
-            <input type="text" class="form-control" id="basics_player" />
-          </div>
-
-          <div class="mb-3">
-            <label for="basics_chronicle" class="form-label">Chronicle</label>
-            <input type="text" class="form-control" id="basics_chronicle" />
-          </div>
-
-          <div class="mb-3">
-            <label for="basics_concept" class="form-label">Concept</label>
-            <input type="text" class="form-control" id="basics_concept" />
-          </div>
-
-          <div class="mb-3">
-            <label for="basics_groupName" class="form-label">Group Name</label>
-            <input type="text" class="form-control" id="basics_groupName" />
-          </div>
-        </div>
-
-        <div>
-          <h5>Aspirations</h5>
-        </div>
+        <div id="basics_aspirations"></div>
         <hr class="border border-primary border-4 opacity-50" />
       </div>
 
       <!-- aspirations -->
-      <div>
+      <div id="aspirations" class="box">
         <h2 class="col-12">Aspirations</h2>
-        <div id="aspirations" class="row"></div>
+        <div id="container_aspirations" class=""></div>
         <hr class="border border-primary border-4 opacity-50" />
       </div>
 
       <!-- attributes -->
-      <div>
+      <div id="attributes" class="box">
         <h2>Attributes</h2>
         <div class="row">
           <div id="att_mental" class="col-md-4 btn-group-vertical"></div>
@@ -135,7 +101,7 @@
       </div>
 
       <!-- skills -->
-      <div>
+      <div id="skills" class="box">
         <div class="row">
           <h2>Skills</h2>
           <div id="skills_mental" class="col-md-4 btn-group-vertical"></div>
@@ -146,24 +112,27 @@
       </div>
 
       <!-- advantages -->
-      <div class="advantages row">
-        <h2>Advantages</h2>
-        <div class="col-3">Size:</div>
-        <div class="col-3">Speed:</div>
-        <div class="col-3">Defense:</div>
-        <div class="col-3">Initiative Mod:</div>
+      <div id="advantages">
+        <div class="box row">
+          <h2>Advantages</h2>
+          <div class="col-3">Size:</div>
+          <div class="col-3">Speed:</div>
+          <div class="col-3">Defense:</div>
+          <div class="col-3">Initiative Mod:</div>
 
-        <div class="col-3">Armor:</div>
-        <div class="col-3">Beats:</div>
-        <div class="col-3">Experiences:</div>
+          <div class="col-3">Armor:</div>
+          <div class="col-3">Beats:</div>
+          <div class="col-3">Experiences:</div>
+        </div>
+        <hr class="border border-primary border-4 opacity-50" />
       </div>
-      <hr class="border border-primary border-4 opacity-50" />
     </div>
 
     <!-- ################### scripts ################### -->
     <script src="./database.js"></script>
     <script src="./main.js"></script>
-    <script src="./attributesAndSkills.js"></script>
+    <script src="./attributes.js"></script>
+    <script src="./navbar.js"></script>
     <!-- bootstrap -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"

@@ -1,298 +1,348 @@
 "use strict";
-/* ======================================================
-Basics
-====================================================== */
+/* ============================== Basics ============================== */
+const CONCEPTS = {
+  name: { value: "test", label: "Name" },
+  age: { value: "", label: "Age" },
+  player: { value: "", label: "Player" },
+  chronicle: { value: "", label: "Chroncile" },
+  concept: { value: "", label: "Concept" },
+};
+
+const ASPIRATIONS = [
+  { value: "Test1", label: "First" },
+  { value: "Test2", label: "Second" },
+  { value: "", label: "Third" },
+];
+
 const ATTRIBUTES = {
-  intelligence: {
-    value: "1",
-    label: "Intelligence",
-    description: `Intelligence is your character's book smarts and ability to process data. It represents memory, general knowledge, and ability to solve complex and difficult problems.`,
-    tasks: "Memorizing (Intelligence + Composure, instant action)",
+  mental: {
+    intelligence: {
+      value: "1",
+      label: "Intelligence",
+      description: `Intelligence is your character's book smarts and ability to process data. It represents memory, general knowledge, and ability to solve complex and difficult problems.`,
+      tasks: "Memorizing (Intelligence + Composure, instant action)",
+    },
+    wits: {
+      value: "1",
+      label: "Wits",
+      description: `Wits represents quick thinking and improvisation. A character with a high Wits responds quickly to new information and situations. It also represents perception and the ability to notice details and subtle tells.`,
+      tasks:
+        "Perception (Wits + Composure, reflexive action), Catching a dropped object (Wits + Dexterity, instant action)",
+    },
+    resolve: {
+      value: "1",
+      label: "Resolve",
+      description: `Resolve represents your character's patience, concentration, and determination. A high Resolve allows a character to focus despite distractions or discouragement.`,
+      tasks:
+        "Meditation (Resolve + Composure, extended action), Staying Awake (Resolve + Stamina, instant action)",
+    },
   },
-  wits: {
-    value: "1",
-    label: "Wits",
-    description: `Wits represents quick thinking and improvisation. A character with a high Wits responds quickly to new information and situations. It also represents perception and the ability to notice details and subtle tells.`,
-    tasks:
-      "Perception (Wits + Composure, reflexive action), Catching a dropped object (Wits + Dexterity, instant action)",
+
+  // ############################
+  physical: {
+    strength: {
+      value: "1",
+      label: "Strength",
+      description:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+      tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    },
+    dexterity: {
+      value: "1",
+      label: "Dexterity",
+      description:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+      tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    },
+    stamina: {
+      value: "1",
+      label: "Stamina",
+      description:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+      tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    },
   },
-  resolve: {
-    value: "1",
-    label: "Resolve",
-    description: `Resolve represents your character's patience, concentration, and determination. A high Resolve allows a character to focus despite distractions or discouragement.`,
-    tasks:
-      "Meditation (Resolve + Composure, extended action), Staying Awake (Resolve + Stamina, instant action)",
-  },
-  // ####
-  strength: {
-    value: "1",
-    label: "Strength",
-    description:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
-    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-  },
-  dexterity: {
-    value: "1",
-    label: "Dexterity",
-    description:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
-    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-  },
-  stamina: {
-    value: "1",
-    label: "Stamina",
-    description:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
-    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-  },
-  // ####
-  presence: {
-    value: "1",
-    label: "Presence",
-    description:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
-    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-  },
-  manipulation: {
-    value: "1",
-    label: "Manipulation",
-    description:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
-    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-  },
-  composure: {
-    value: "1",
-    label: "Composure",
-    description:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
-    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+
+  // ############################
+  social: {
+    presence: {
+      value: "1",
+      label: "Presence",
+      description:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+      tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    },
+    manipulation: {
+      value: "1",
+      label: "Manipulation",
+      description:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+      tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    },
+    composure: {
+      value: "1",
+      label: "Composure",
+      description:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+      tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    },
   },
 };
 
 const SKILLS = {
-  academics: {
-    value: 0,
-    label: "Academics",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
+  mental: {
+    academics: {
+      value: 0,
+      label: "Academics",
+      specialties: ["Test", "Test"],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    computer: {
+      value: 0,
+      label: "Computer",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    crafts: {
+      value: 0,
+      label: "Crafts",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    investigation: {
+      value: 0,
+      label: "Investigation",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    medicine: {
+      value: 0,
+      label: "Medicine",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    occult: {
+      value: 0,
+      label: "Occult",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    politics: {
+      value: 0,
+      label: "Politics",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    science: {
+      value: 0,
+      label: "Science",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
   },
-  computer: {
-    value: 0,
-    label: "Computer",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
+
+  // ####################################################################################
+  physical: {
+    athletics: {
+      value: 0,
+      label: "Athletics",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    brawl: {
+      value: 0,
+      label: "Brawl",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    drive: {
+      value: 0,
+      label: "Drive",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    firearms: {
+      value: 0,
+      label: "Firearms",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    larceny: {
+      value: 0,
+      label: "Larceny",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    stealth: {
+      value: 0,
+      label: "Stealth",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    survival: {
+      value: 0,
+      label: "Survival",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    weaponry: {
+      value: 0,
+      label: "Weaponry",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
   },
-  crafts: {
-    value: 0,
-    label: "Crafts",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  investigation: {
-    value: 0,
-    label: "Investigation",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  medicine: {
-    value: 0,
-    label: "Medicine",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  occult: {
-    value: 0,
-    label: "Occult",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  politics: {
-    value: 0,
-    label: "Politics",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  science: {
-    value: 0,
-    label: "Science",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  // ####
-  athletics: {
-    value: 0,
-    label: "Athletics",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  brawl: {
-    value: 0,
-    label: "Brawl",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  drive: {
-    value: 0,
-    label: "Drive",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  firearms: {
-    value: 0,
-    label: "Firearms",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  larceny: {
-    value: 0,
-    label: "Larceny",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  stealth: {
-    value: 0,
-    label: "Stealth",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  survival: {
-    value: 0,
-    label: "Survival",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  weaponry: {
-    value: 0,
-    label: "Weaponry",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  // ####
-  animalKen: {
-    value: 0,
-    label: "Animal Ken",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  empathy: {
-    value: 0,
-    label: "Empathy",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  expression: {
-    value: 0,
-    label: "Expression",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  intimidation: {
-    value: 0,
-    label: "Intimidation",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  persuasion: {
-    value: 0,
-    label: "Persuasion",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  socialize: {
-    value: 0,
-    label: "Socialize",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  streetwise: {
-    value: 0,
-    label: "Streetwise",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
-  },
-  subterfuge: {
-    value: 0,
-    label: "Subterfuge",
-    specialties: [],
-    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
-    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    sampleSpecialties: "Lorem ipsum dolor sit.",
-    sampleContacts: "Lorem ipsum dolor sit.",
+
+  // ####################################################################################
+  social: {
+    animalKen: {
+      value: 0,
+      label: "Animal Ken",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    empathy: {
+      value: 0,
+      label: "Empathy",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    expression: {
+      value: 0,
+      label: "Expression",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    intimidation: {
+      value: 0,
+      label: "Intimidation",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    persuasion: {
+      value: 0,
+      label: "Persuasion",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    socialize: {
+      value: 0,
+      label: "Socialize",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    streetwise: {
+      value: 0,
+      label: "Streetwise",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
+    subterfuge: {
+      value: 0,
+      label: "Subterfuge",
+      specialties: [],
+      description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+      sampleActions:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+      sampleSpecialties: "Lorem ipsum dolor sit.",
+      sampleContacts: "Lorem ipsum dolor sit.",
+    },
   },
 };
 
-/* ======================================================
-Vampire
-====================================================== */
+/* ============================== Vampire ============================== */
 const BANES = {
   wantonCurse: {
     label: "The Wanton Curse",
@@ -576,26 +626,14 @@ const BLOODLINES = [
   { label: "Test4" },
 ];
 
-/* ======================================================
-DB
-====================================================== */
+/* ============================== Database ============================== */
 const DB = {
-  // concepts
-  name: { value: "", label: "Name" },
-  age: { value: "", label: "Age" },
-  player: { value: "", label: "Player" },
-  chronicle: { value: "", label: "Chroncile" },
-  concept: { value: "", label: "Concept" },
-  // aspirations
-  aspiration1: { value: "", label: "First Aspiration" },
-  aspiration2: { value: "", label: "Second Aspiration" },
-  aspiration3: { value: "", label: "Third Aspiration" },
-  // attributes
+  concepts: CONCEPTS,
+  aspirations: ASPIRATIONS,
   attributes: ATTRIBUTES,
-  // skills
   skills: SKILLS,
-  // advantages
-  size: { value: 0, label: "Size" },
+
+  size: { value: 5, label: "Size" },
   speed: { value: 0, label: "Speed" },
   defense: { value: 0, label: "Defense" },
   armor: 0,
