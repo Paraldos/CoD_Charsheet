@@ -12,8 +12,8 @@ let basics_section = document.getElementById("basics_section");
 let attributes_section = document.getElementById("attributes_section");
 
 /* ========= default settings when page is loaded ========= */
-//_navbar_click(navbar_home, home_section);
-//_navbar_click(navbar_basics, basics_section);
+// _navbar_click(navbar_home, home_section);
+// _navbar_click(navbar_basics, basics_section);
 _navbar_click(navbar_attributes, attributes_section);
 
 /* ========= navbar buttons ========= */

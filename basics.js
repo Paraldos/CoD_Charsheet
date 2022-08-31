@@ -10,14 +10,13 @@ const no_aspirations = document.getElementById("no_aspirations");
 defense_without_athletics.checked = DB.housrules.defense_without_athletics;
 defense_without_athletics.addEventListener("input", () => {
   DB.housrules.defense_without_athletics = defense_without_athletics.checked;
-  _create_advantages();
+  _update_all();
 });
 
 no_aspirations.checked = DB.housrules.no_aspirations;
 no_aspirations.addEventListener("input", () => {
   DB.housrules.no_aspirations = no_aspirations.checked;
-  _create_concepts();
-  _create_basics_concepts();
+  _update_all();
 });
 
 /* ========= basics concepts ========= */
@@ -60,6 +59,6 @@ function _create_basics_concept(concept) {
   // eventListener
   newInput.addEventListener("input", () => {
     DB.concepts[concept].value = newInput.value;
-    _create_concepts();
+    _update_all();
   });
 }
