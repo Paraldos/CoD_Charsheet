@@ -6,6 +6,20 @@ const defense_without_athletics = document.getElementById(
 );
 const no_aspirations = document.getElementById("no_aspirations");
 
+/* ========= housrules ========= */
+defense_without_athletics.checked = DB.housrules.defense_without_athletics;
+defense_without_athletics.addEventListener("input", () => {
+  DB.housrules.defense_without_athletics = defense_without_athletics.checked;
+  _create_advantages();
+});
+
+no_aspirations.checked = DB.housrules.no_aspirations;
+no_aspirations.addEventListener("input", () => {
+  DB.housrules.no_aspirations = no_aspirations.checked;
+  _create_concepts();
+  _create_basics_concepts();
+});
+
 /* ========= basics concepts ========= */
 function _create_basics_concepts() {
   basics_concepts.innerHTML = `<h5>Concepts</h5>`; // Empty container and add header
@@ -49,17 +63,3 @@ function _create_basics_concept(concept) {
     _create_concepts();
   });
 }
-
-/* ========= housrules ========= */
-defense_without_athletics.checked = DB.housrules.defense_without_athletics;
-defense_without_athletics.addEventListener("input", () => {
-  DB.housrules.defense_without_athletics = defense_without_athletics.checked;
-  _create_advantages();
-});
-
-no_aspirations.checked = DB.housrules.no_aspirations;
-no_aspirations.addEventListener("input", () => {
-  DB.housrules.no_aspirations = no_aspirations.checked;
-  _create_concepts();
-  _create_basics_concepts();
-});
