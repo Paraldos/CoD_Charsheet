@@ -15,7 +15,8 @@ let navbar_home = document.getElementById("navbar_home");
 let navbar_basics = document.getElementById("navbar_basics");
 
 /* ========= default settings when page is loaded ========= */
-_navbar_click(navbar_home, arr_home);
+//_navbar_click(navbar_home, arr_home);
+_navbar_click(navbar_basics, arr_basics);
 
 /* ========= navbar buttons ========= */
 navbar_home.addEventListener("click", () =>

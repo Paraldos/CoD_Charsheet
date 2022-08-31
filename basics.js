@@ -1,6 +1,10 @@
 "use strict";
 
 const basics_concepts = document.getElementById("basics_concepts");
+const defense_without_athletics = document.getElementById(
+  "defense_without_athletics"
+);
+const no_aspirations = document.getElementById("no_aspirations");
 
 /* ========= basics concepts ========= */
 function _create_basics_concepts() {
@@ -15,6 +19,9 @@ function _create_basics_concept(concept) {
     <label for="basics_name" class="form-label">Name</label>
     <input type="text" class="form-control" id="basics_name" />
   </div> */
+
+  // skip if aspiration housrule is off
+  if (DB.housrules.no_aspirations && concept.search(/aspiration./) >= 0) return;
 
   // newDiv
   let newDiv = document.createElement("div");
@@ -39,6 +46,20 @@ function _create_basics_concept(concept) {
   // eventListener
   newInput.addEventListener("input", () => {
     DB.concepts[concept].value = newInput.value;
-    _update_concepts();
+    _create_concepts();
   });
 }
+
+/* ========= housrules ========= */
+defense_without_athletics.checked = DB.housrules.defense_without_athletics;
+defense_without_athletics.addEventListener("input", () => {
+  DB.housrules.defense_without_athletics = defense_without_athletics.checked;
+  _create_advantages();
+});
+
+no_aspirations.checked = DB.housrules.no_aspirations;
+no_aspirations.addEventListener("input", () => {
+  DB.housrules.no_aspirations = no_aspirations.checked;
+  _create_concepts();
+  _create_basics_concepts();
+});

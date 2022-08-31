@@ -17,6 +17,17 @@ const ASPIRATIONS = [
   { value: "", label: "Third Aspiration" },
 ];
 
+const ADVANTAGES = {
+  size: { value: 5, label: "Size" },
+  speed: { value: 0, label: "Speed" },
+  ini: { value: 0, label: "Initiative Mod" },
+  defense: { value: 0, label: "Defense" },
+  beats: { value: 0, label: "Beats" },
+  xp: { value: 0, label: "Experience" },
+  health: { value: 0, label: "Health" },
+  willpower: { value: 0, label: "Willpower" },
+};
+
 const ATTRIBUTES = {
   mental: {
     intelligence: {
@@ -179,7 +190,7 @@ const SKILLS = {
   // ####################################################################################
   physical: {
     athletics: {
-      value: 4,
+      value: 0,
       label: "Athletics",
       specialties: [],
       description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
@@ -629,15 +640,9 @@ const BLOODLINES = [
   { label: "Test4" },
 ];
 
-const ADVANTAGES = {
-  size: { value: 5, label: "Size" },
-  speed: { value: 0, label: "Speed" },
-  ini: { value: 0, label: "Initiative Mod" },
-  defense: { value: 0, label: "Defense" },
-  beats: { value: 0, label: "Beats" },
-  xp: { value: 0, label: "Experience" },
-  health: { value: 0, label: "Health" },
-  willpower: { value: 0, label: "Willpower" },
+const housrules = {
+  defense_without_athletics: false,
+  no_aspirations: false,
 };
 
 /* ============================== Database ============================== */
@@ -647,6 +652,7 @@ const DB = {
   attributes: ATTRIBUTES,
   skills: SKILLS,
   advantages: ADVANTAGES,
+  housrules: housrules,
 
   armor: 0,
   // human

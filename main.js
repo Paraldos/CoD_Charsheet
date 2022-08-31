@@ -31,24 +31,19 @@ function _create_concepts() {
   let container_concepts = document.getElementById("container_concepts"); // get container
   container_concepts.innerHTML = ``; // empty container
   for (let concept of concepts) _create_concept(concept); // fill container with concepts
-  // for (let number in DB.aspirations) _create_aspiration(number); // Fill container with aspirations
 }
 _create_concepts();
 
 function _create_concept(concept) {
+  // skip if aspiration housrule is off
+  if (DB.housrules.no_aspirations && concept.search(/aspiration./) >= 0) return;
+
   /* Example: <div id="concepts_name" class="col-lg-6 col-sm-12"></div> */
   let newDiv = document.createElement("div");
   newDiv.id = `concepts_${concept}`;
   newDiv.classList.add("col-lg-6", "col-sm-12");
   newDiv.innerHTML = _concept_text(DB.concepts[concept]);
   container_concepts.appendChild(newDiv);
-}
-
-function _update_concepts() {
-  for (let concept of concepts) {
-    let domElement = document.getElementById(`concepts_${concept}`); // grab concept
-    domElement.innerHTML = _concept_text(DB.concepts[concept]); // change html of grabbed concept
-  }
 }
 
 /* ========= attributes ========= */
@@ -190,11 +185,16 @@ function _update_ini() {
 }
 
 function _update_defense() {
+  let result = 0;
+  // =========
   let wits = DB.attributes.mental.wits.value;
   let dex = DB.attributes.physical.dexterity.value;
+  result += Math.min(wits, dex);
+  // add athletics (housrule can overwrite)
   let athletics = DB.skills.physical.athletics.value;
+  if (!DB.housrules.defense_without_athletics) result += athletics;
   // =========
-  DB.advantages.defense.value = Math.min(wits, dex) + athletics;
+  DB.advantages.defense.value = result;
 }
 
 function _update_willpower() {
