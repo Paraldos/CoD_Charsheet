@@ -10,9 +10,6 @@ const attributes_total = document.getElementById("attributes_total");
 const attributes_mental = document.getElementById("attributes_mental");
 const attributes_physical = document.getElementById("attributes_physical");
 const attributes_social = document.getElementById("attributes_social");
-//let arr_mental = Object.keys(DB.attributes.mental);
-//let arr_physical = Object.keys(DB.attributes.physical);
-//let arr_social = Object.keys(DB.attributes.social);
 // skills
 const skills_mental = document.getElementById("skills_mental");
 const skills_physical = document.getElementById("skills_physical");
@@ -93,18 +90,27 @@ function _create_attributes1() {
   attributes_physical.innerHTML = ``;
   attributes_social.innerHTML = ``;
   // fill attribute container with attribut buttons
-  DB.attributes.forEach((attribute) => _add_attribut1(attribute));
+  DB.attributes.forEach((attribute) => {
+    _add_attribut1_html(attribute);
+    _add_attribut1_click(attribute);
+  });
 }
 
-function _add_attribut1(attribute) {
-  let newDiv = document.createElement("div");
-  newDiv.id = `attribute_${attribute.id}`;
-  newDiv.classList = `btn btn-outline-dark text-start`;
-  newDiv.setAttribute(`data-bs-toggle`, "modal");
-  newDiv.setAttribute(`data-bs-target`, "#myModal");
-  newDiv.innerText = `${attribute.label}: ${attribute.value}`;
-  newDiv.addEventListener("click", () => _modal_attribut(attribute));
-  document.getElementById(`attributes_${attribute.type}`).appendChild(newDiv);
+function _add_attribut1_html(attribute) {
+  let container = document.getElementById(`attributes_${attribute.type}`);
+  let newDiv2 = `
+    <div
+      id="attribute_${attribute.id}"
+      class="btn btn-outline-dark text-start"
+      data-bs-toggle="modal"
+      data-bs-target="#myModal">${attribute.label}: ${attribute.value}
+    </div>`;
+  container.insertAdjacentHTML("beforeend", newDiv2);
+}
+
+function _add_attribut1_click(attribute) {
+  let domElement = document.getElementById(`attribute_${attribute.id}`);
+  domElement.addEventListener("click", () => _modal_attribut(attribute));
 }
 
 /* ========= change attributes (attributes2) ========= */
@@ -114,11 +120,8 @@ function _create_attributes2() {
   _create_attribute2_header("physical");
   _create_attribute2_header("social");
 
+  // loop over attributes and fill container with content
   DB.attributes.forEach((attribute) => _add_attribute2(attribute));
-  // fill attribute container with attribut buttons
-  //for (let name of arr_mental) _create_attribute2_body(name);
-  //for (let name of arr_physical) _create_attribute2_body(name);
-  //for (let name of arr_social) _create_attribute2_body(name);
 
   // update attributes total
   attributes_total.innerHTML = `<b>Total Points Distributed:</b>  ${
@@ -130,7 +133,7 @@ function _create_attribute2_header(type) {
   let container = document.getElementById(`attribute_${type}2`);
   let points = _getPoints_attribute(type);
   let name = type[0].toUpperCase() + type.slice(1);
-  container.innerHTML = `<p class=""><b>${name}</b> (${points - 3} Points)</p>`;
+  container.innerHTML = `<p class=""><b>${name}</b> (${points} Points)</p>`;
 }
 
 function _add_attribute2(attribute) {
@@ -142,7 +145,7 @@ function _add_attribute2(attribute) {
 
   // name button
   let newButton = document.createElement("div");
-  newButton.classList = `btn btn-outline-dark col-auto`; // "text-start",
+  newButton.classList = `btn btn-outline-dark col-auto`;
   newButton.setAttribute(`data-bs-toggle`, "modal");
   newButton.setAttribute(`data-bs-target`, "#myModal");
   newButton.innerText = attribute.label;
@@ -157,72 +160,24 @@ function _add_attribute2(attribute) {
 
   // fill button group
   for (let i = 1; i < 6; i++) {
+    // `<input id="btnradio_${attribute.id}_${i}" class="btn-check" type="radio" name="btnradio_${attribute.id}_${i}" autocomplete="off" checked="${i == attribute.value}"></input>`
     let newInput = document.createElement("input");
-    newInput.setAttribute(`type`, `radio`);
-    newInput.classList.add("btn-check");
-    newInput.setAttribute(`name`, `btnradio_${attribute.id}`);
     newInput.id = `btnradio_${attribute.id}_${i}`;
-    newInput.setAttribute(`autocomplete`, `off`);
-    if (i == attribute.value) newInput.checked = true;
-    newInput.addEventListener("click", () => {
-      console.log("hi");
-      DB.attributes[attribute].value = i;
-      _update_all();
-    });
-    newBtnGroup.appendChild(newInput);
-
-    let newLabel = document.createElement("label");
-    newLabel.classList.add("btn", "btn-outline-dark");
-    newLabel.setAttribute(`for`, `btnradio_${attribute}_${i}`);
-    newLabel.innerText = `${i}`;
-    newBtnGroup.appendChild(newLabel);
-  }
-}
-
-function _create_attribute2_body(name) {
-  // prepwork
-  let type = _get_attribute_type(name);
-  let attribute = DB.attributes[type][name];
-  let target = document.getElementById(`att_${type}2`);
-
-  // container
-  let newContainer = document.createElement("div");
-  newContainer.classList.add("row", "m-1");
-  target.appendChild(newContainer);
-
-  // name button
-  let newButton = document.createElement("div");
-  newButton.classList = `btn btn-outline-dark col-auto`; // "text-start",
-  newButton.setAttribute(`data-bs-toggle`, "modal");
-  newButton.setAttribute(`data-bs-target`, "#myModal");
-  newButton.innerText = attribute.label;
-  newButton.addEventListener("click", () => _modal_attribut(attribute));
-  newContainer.appendChild(newButton);
-
-  // radio button group
-  let newBtnGroup = document.createElement("div");
-  newBtnGroup.classList.add("btn-group", "col-auto");
-  newBtnGroup.setAttribute(`role`, `group`);
-  newContainer.appendChild(newBtnGroup);
-
-  // fill button group
-  for (let i = 1; i < 6; i++) {
-    let newInput = document.createElement("input");
+    newInput.classList = "btn-check";
     newInput.setAttribute(`type`, `radio`);
-    newInput.classList.add("btn-check");
-    newInput.setAttribute(`name`, `btnradio_${name}`);
-    newInput.id = `btnradio_${name}_${i}`;
+    newInput.setAttribute(`name`, `btnradio_${attribute.id}_${i}`);
     newInput.setAttribute(`autocomplete`, `off`);
     if (i == attribute.value) newInput.checked = true;
     newInput.addEventListener("click", () => {
-      DB.attributes[type][name].value = i;
+      attribute.value = i;
       _update_all();
     });
     newBtnGroup.appendChild(newInput);
 
+    // `<div class="btn btn-outline-dark" for="btnradio_${attribute.id}_${i}">${i}</div>`;
     let newLabel = document.createElement("label");
-    newLabel.classList.add("btn", "btn-outline-dark");
-    newLabel.setAttribute(`for`, `btnradio_${name}_${i}`);
+    newLabel.classList = "btn btn-outline-dark";
+    newLabel.setAttribute(`for`, `btnradio_${attribute.id}_${i}`);
     newLabel.innerText = `${i}`;
     newBtnGroup.appendChild(newLabel);
   }

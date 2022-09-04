@@ -22,7 +22,7 @@ const ADVANTAGES = {
   willpower: { value: 0, label: "Willpower" },
 };
 
-const ATTRIBUTES2 = [
+const ATTRIBUTES = [
   {
     id: "intelligence",
     value: 1,
@@ -106,81 +106,6 @@ const ATTRIBUTES2 = [
     tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
   },
 ];
-
-const ATTRIBUTES = {
-  mental: {
-    intelligence: {
-      value: 1,
-      label: "Intelligence",
-      description: `Intelligence is your character's book smarts and ability to process data. It represents memory, general knowledge, and ability to solve complex and difficult problems.`,
-      tasks: "Memorizing (Intelligence + Composure, instant action)",
-    },
-    wits: {
-      value: 1,
-      label: "Wits",
-      description: `Wits represents quick thinking and improvisation. A character with a high Wits responds quickly to new information and situations. It also represents perception and the ability to notice details and subtle tells.`,
-      tasks:
-        "Perception (Wits + Composure, reflexive action), Catching a dropped object (Wits + Dexterity, instant action)",
-    },
-    resolve: {
-      value: 1,
-      label: "Resolve",
-      description: `Resolve represents your character's patience, concentration, and determination. A high Resolve allows a character to focus despite distractions or discouragement.`,
-      tasks:
-        "Meditation (Resolve + Composure, extended action), Staying Awake (Resolve + Stamina, instant action)",
-    },
-  },
-
-  // ############################
-  physical: {
-    strength: {
-      value: 1,
-      label: "Strength",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
-      tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    },
-    dexterity: {
-      value: 1,
-      label: "Dexterity",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
-      tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    },
-    stamina: {
-      value: 1,
-      label: "Stamina",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
-      tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    },
-  },
-
-  // ############################
-  social: {
-    presence: {
-      value: 1,
-      label: "Presence",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
-      tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    },
-    manipulation: {
-      value: 1,
-      label: "Manipulation",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
-      tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    },
-    composure: {
-      value: 1,
-      label: "Composure",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
-      tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-    },
-  },
-};
 
 const SKILLS = {
   mental: {
@@ -727,7 +652,7 @@ const housrules = {
 /* ============================== Database ============================== */
 const DB = {
   concepts: CONCEPTS,
-  attributes: ATTRIBUTES2,
+  attributes: ATTRIBUTES,
   skills: SKILLS,
   advantages: ADVANTAGES,
   housrules: housrules,

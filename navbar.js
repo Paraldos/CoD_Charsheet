@@ -12,7 +12,7 @@ let basics_section = document.getElementById("basics_section");
 let attributes_section = document.getElementById("attributes_section");
 
 /* ========= default settings when page is loaded ========= */
-switch (2) {
+switch (0) {
   case 0:
     _navbar_click(navbar_home, home_section);
     break;
