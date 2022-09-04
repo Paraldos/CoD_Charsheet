@@ -5,78 +5,172 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CoD Character Sheet</title>
-    <link rel="stylesheet" href="./_main.css" />
-    <link rel="stylesheet" href="./_naxBox.css" />
-    <link rel="stylesheet" href="./diceBox.css" />
-    <link rel="stylesheet" href="./new.css">
-    <!-- ##### -->
-    <link rel="stylesheet" href="./notVisible.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <!-- navBox -->
-    <div class="navBox">
-      <div class="navBox_logo">CoD - Character Sheet</div>
-      <ul class="navBox_options">
-        <button class="home_btn btn">Home</button>
-        <button class="basics_btn btn">Basics</button>
-        <button class="maskDirgeBox_btn btn">Mask / Dirge</button>
-        <button class="clan_btn btn">Clan</button>
-      </ul>
-    </div>
-
-    <!-- diceBox -->
-    <div id="diceBox">
-      <div id="diceBox_btns">
-        <div id="diceBox_successes"><span>0</span></div>
-        <div id="diceBox_results"><br>(nothing)</div>
-
-        <button id="diceBox_reset">Reset</button>
-        <button id="diceBox_reroll">10-again</button>
-        <button id="diceBox_minus5">-5</button>
-        <button id="diceBox_minus1">-1</button>
-        <button id="diceBox_rollBtn">Roll 0</span></button>
-        <button id="diceBox_plus1">+1</button>
-        <button id="diceBox_plus5">+5</button>
+    <!-- ################### navbar ################### -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">CoD - Character Sheet</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a id="navbar_home" class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a id="navbar_basics" class="nav-link" href="#">Basics</a>
+            </li>
+            <li class="nav-item">
+              <a id="navbar_attributes" class="nav-link" href="#">Attributes</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </nav>
 
-    <!-- contentBox -->
-    <div class="contentBox">
-      <ul class="conceptBox box"></ul>
-      <div class="aspirationBox box"></div>
-      <div class="attributeBox box"></div>
-      <div class="skillBox box"></div>
-      <!---->
-      <ul class="basicsBox box"></ul>
-      <ul class="maskDirgeBox box"></ul>
-      <ul class="clanBox box"></ul>
-    </div>
-
-    <div class="infoBox">
-      <div class="infoBox_inside notVisible">
-        <button class="infoBox_x"><img src="./X.png" alt=""></button>
-        <div class="infoBox_content">
-          <h1>Header</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet ipsum porro sed doloribus, ullam, non, quod ut voluptas commodi quas perferendis sapiente! Impedit illum porro minus, quaerat mollitia esse!</p>
-          <p><b>Lorem:</b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p> 
+    <!-- ################### Modal ################### -->
+    <div id="myModal" class="modal fade modal-lg" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="myModal_title" class="modal-title">Modal title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div id="myModal_body" class="modal-body">
+            Modal body text goes here.
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- scripts -->
-    <script src="./_database.js"></script>
-    <script src="./_main.js"></script>
-    <script src="./_infoBox.js"></script>
-    <!-- ##### -->
-    <script src="./conceptBox.js"></script>
-    <script src="./attributesBox.js"></script>
-    <script src="./dice.js"></script>
-    <script src="./basicsBox.js"></script>
-    <script src="./maskDirgeBox.js"></script>
-    <script src="./skillBox.js"></script>
-    <script src="./aspirationBox.js"></script>
-    <script src="./clanBox.js"></script>
-    <!-- ##### -->
-    <script src="./_navBox.js"></script>
+    <!-- ################### content ################### -->
+    <div class="container">
+      <!-- ####### home section #######-->
+      <div id="home_section" class="section">
+        <div id="concepts" class="box">
+          <h2>Concepts</h2>
+          <div id="container_concepts" class="row"></div>
+          <hr class="border border-primary border-4 opacity-50" />
+        </div>
+
+        <div id="attributes" class="box">
+          <h2>Attributes</h2>
+          <div class="row">
+            <div id="att_mental" class="col-md-4 btn-group-vertical"></div>
+            <div id="att_physical" class="col-md-4 btn-group-vertical"></div>
+            <div id="att_social" class="col-md-4 btn-group-vertical"></div>
+          </div>
+          <hr class="border border-primary border-4 opacity-50" />
+        </div>
+
+        <div id="skills" class="box">
+          <div class="row">
+            <h2>Skills</h2>
+            <div id="skills_mental" class="col-md-4 btn-group-vertical"></div>
+            <div id="skills_physical" class="col-md-4 btn-group-vertical"></div>
+            <div id="skills_social" class="col-md-4 btn-group-vertical"></div>
+          </div>
+          <hr class="border border-primary border-4 opacity-50" />
+        </div>
+
+        <div id="advantages" class="box">
+          <h2>Advantages</h2>
+          <div id="container_advantages" class="row"></div>
+          <hr class="border border-primary border-4 opacity-50" />
+        </div>
+      </div>
+
+      <!-- ####### basics section #######-->
+      <div id="basics_section" class="section">
+        <h2>Basics</h2>
+
+        <div id="basics_housrules" class="">
+          <h5>Housrules</h5>
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="defense_without_athletics"
+              checked
+            />
+            <label class="form-check-label" for="defense_without_athletics"
+              >Don't add athletics to defense.
+            </label>
+          </div>
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="no_aspirations"
+              checked
+            />
+            <label class="form-check-label" for="no_aspirations"
+              >Don't use aspirations.</label
+            >
+          </div>
+          <hr class="border border-primary border-4 opacity-50" />
+        </div>
+
+        <div id="basics_concepts" class=""></div>
+      </div>
+
+      <!-- ####### attributes section #######-->
+      <div id="attributes_section" class="section">
+        <h2 class="col-auto">Attributes</h2>
+        <div>
+          <p id="attributes_total" class="mb-0"></p>
+          <p class="mb-0">
+            <b>Character Creation:</b> Prioritize categories. They receive 5/4/3
+            dots, distributed in any combination (12 points in total).
+          </p>
+        </div>
+        <hr class="border border-primary border-4 opacity-50" />
+        <div id="att_mental2" class="row"></div>
+        <hr class="border border-primary border-4 opacity-50" />
+        <div id="att_physical2" class="row"></div>
+        <hr class="border border-primary border-4 opacity-50" />
+        <div id="att_social2" class="row"></div>
+      </div>
+    </div>
+
+    <!-- ################### scripts ################### -->
+    <script src="./database.js"></script>
+    <script src="./main.js"></script>
+    <script src="./basics.js"></script>
+    <script src="./attributes.js"></script>
+    <script src="./navbar.js"></script>
+    <!-- bootstrap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+      integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+      integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
