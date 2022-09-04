@@ -41,7 +41,7 @@ function _modal_skill(skill) {
 }
 
 let _get_attribute = (attribute) =>
-  DB.attributes.filter((att) => att.id == attribute)[0];
+  DB.attributes.find((x) => x.id == attribute);
 
 function _getPoints_attribute(type) {
   let points = 0;
@@ -115,32 +115,61 @@ function _add_attribut1_click(attribute) {
 
 /* ========= change attributes (attributes2) ========= */
 function _create_attributes2() {
+  // update attributes total
+  attributes_total.innerHTML = `
+    <b>Total Points Distributed:</b>  ${_getPoints_attribute("all") - 9}`;
+
   // empty container and add header
-  _create_attribute2_header("mental");
-  _create_attribute2_header("physical");
-  _create_attribute2_header("social");
+  _update_attribute2_header("mental");
+  _update_attribute2_header("physical");
+  _update_attribute2_header("social");
 
   // loop over attributes and fill container with content
-  DB.attributes.forEach((attribute) => _add_attribute2(attribute));
-
-  // update attributes total
-  attributes_total.innerHTML = `<b>Total Points Distributed:</b>  ${
-    _getPoints_attribute("all") - 9
-  }`;
+  DB.attributes.forEach((attribute) => {
+    _add_attribute2(attribute);
+    _add_attribut2_click(attribute);
+  });
 }
 
-function _create_attribute2_header(type) {
+function _update_attribute2_header(type) {
   let container = document.getElementById(`attribute_${type}2`);
   let points = _getPoints_attribute(type);
   let name = type[0].toUpperCase() + type.slice(1);
   container.innerHTML = `<p class=""><b>${name}</b> (${points} Points)</p>`;
 }
 
+function _add_attribut2_click(attribute) {
+  let domElement = document.getElementById(`attribute2_${attribute.id}`);
+  domElement.addEventListener("click", () => _modal_attribut(attribute));
+}
+
 function _add_attribute2(attribute) {
   let container = document.getElementById(`attribute_${attribute.type}2`);
+  let txt = `
+  <div class="row m-1">
+    <div
+    id="attribute2_${attribute.id}"
+    class="btn btn-outline-dark col-auto" 
+    data-bs-toggle="modal" 
+    data-bs-target="#myModal">
+    ${attribute.label}
+    </div>
+
+    <div class="btn-group col-auto" role="group">
+      ${_add_attribute2_input(1, attribute)}
+      ${_add_attribute2_input(2, attribute)}
+      ${_add_attribute2_input(3, attribute)}
+      ${_add_attribute2_input(4, attribute)}
+      ${_add_attribute2_input(5, attribute)}
+    </div>
+  </div>`;
+  container.insertAdjacentHTML("beforeend", txt);
+
+  return;
+
   // container
   let newContainer = document.createElement("div");
-  newContainer.classList.add("row", "m-1");
+  newContainer.classList = `row m-1`;
   container.appendChild(newContainer);
 
   // name button
@@ -181,6 +210,24 @@ function _add_attribute2(attribute) {
     newLabel.innerText = `${i}`;
     newBtnGroup.appendChild(newLabel);
   }
+}
+
+function _add_attribute2_input(i, attribute) {
+  return `
+  <input 
+  id="btnradio_${attribute.id}_${i}" 
+  class="btn-check" 
+  type="radio" 
+  name="btnradio_${attribute.id}_${i}" 
+  autocomplete="off"
+  value="1"
+  </input>
+
+  <div 
+  class="btn btn-outline-dark" 
+  for="btnradio_${attribute.id}_${i}">${i}
+  </div>
+  `;
 }
 
 /* ========= skills ========= */
