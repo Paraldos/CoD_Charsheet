@@ -1,20 +1,14 @@
 "use strict";
 /* ============================== Basics ============================== */
-const CONCEPTS = {
-  name: { value: "", label: "Name" },
-  age: { value: "", label: "Age" },
-  player: { value: "", label: "Player" },
-  chronicle: { value: "", label: "Chroncile" },
-  concept: { value: "", label: "Concept" },
-  aspiration1: { value: "", label: "First Aspiration" },
-  aspiration2: { value: "", label: "Second Aspiration" },
-  aspiration3: { value: "", label: "Third Aspiration" },
-};
-
-const ASPIRATIONS = [
-  { value: "", label: "First Aspiration" },
-  { value: "", label: "Second Aspiration" },
-  { value: "", label: "Third Aspiration" },
+const CONCEPTS = [
+  { id: "name", value: "Test", label: "Name" },
+  { id: "age", value: "", label: "Age" },
+  { id: "player", value: "", label: "Player" },
+  { id: "chronicle", value: "", label: "Chronicle" },
+  { id: "concept", value: "", label: "Concept" },
+  { id: "aspiration1", value: "", label: "First Aspiration" },
+  { id: "aspiration2", value: "", label: "Second Aspiration" },
+  { id: "aspiration3", value: "", label: "Third Aspiration" },
 ];
 
 const ADVANTAGES = {
@@ -648,7 +642,6 @@ const housrules = {
 /* ============================== Database ============================== */
 const DB = {
   concepts: CONCEPTS,
-  aspirations: ASPIRATIONS,
   attributes: ATTRIBUTES,
   skills: SKILLS,
   advantages: ADVANTAGES,

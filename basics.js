@@ -1,6 +1,5 @@
 "use strict";
 
-const basics_concepts = document.getElementById("basics_concepts");
 const defense_without_athletics = document.getElementById(
   "defense_without_athletics"
 );
@@ -21,12 +20,13 @@ no_aspirations.addEventListener("input", () => {
 
 /* ========= basics concepts ========= */
 function _create_basics_concepts() {
-  basics_concepts.innerHTML = `<h5>Concepts</h5>`; // Empty container and add header
-  for (let concept of concepts) _create_basics_concept(concept); // Add concepts
+  let container = document.getElementById("basics_concepts");
+  container.innerHTML = `<h5>Concepts</h5>`;
+  DB.concepts.forEach((concept) => _create_basics_concept(concept, container));
 }
 _create_basics_concepts();
 
-function _create_basics_concept(concept) {
+function _create_basics_concept(concept, container) {
   /* Example:
   <div>
     <label for="basics_name" class="form-label">Name</label>
@@ -39,26 +39,25 @@ function _create_basics_concept(concept) {
   // newDiv
   let newDiv = document.createElement("div");
   newDiv.classList.add("m-2");
-  basics_concepts.appendChild(newDiv);
+  container.appendChild(newDiv);
 
   // newLabel
   let newLabel = document.createElement("label");
   newLabel.setAttribute(`for`, `basics_${concept}`);
   newLabel.classList.add("form-label");
-  newLabel.innerText = DB.concepts[concept].label;
+  newLabel.innerText = concept.label;
   newDiv.appendChild(newLabel);
 
   // newInput
   let newInput = document.createElement("input");
   newInput.setAttribute(`type`, "text");
   newInput.classList.add("form-control");
-  newInput.id = `basics_${concept}`;
-  newInput.value = DB.concepts[concept].value;
+  newInput.value = concept.value;
   newDiv.appendChild(newInput);
 
   // eventListener
   newInput.addEventListener("input", () => {
-    DB.concepts[concept].value = newInput.value;
+    concept.value = newInput.value;
     _update_all();
   });
 }
