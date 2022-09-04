@@ -22,6 +22,91 @@ const ADVANTAGES = {
   willpower: { value: 0, label: "Willpower" },
 };
 
+const ATTRIBUTES2 = [
+  {
+    id: "intelligence",
+    value: 1,
+    type: "mental",
+    label: "Intelligence",
+    description: `Intelligence is your character's book smarts and ability to process data. It represents memory, general knowledge, and ability to solve complex and difficult problems.`,
+    tasks: "Memorizing (Intelligence + Composure, instant action)",
+  },
+  {
+    id: "wits",
+    value: 1,
+    type: "mental",
+    label: "Wits",
+    description: `Wits represents quick thinking and improvisation. A character with a high Wits responds quickly to new information and situations. It also represents perception and the ability to notice details and subtle tells.`,
+    tasks:
+      "Perception (Wits + Composure, reflexive action), Catching a dropped object (Wits + Dexterity, instant action)",
+  },
+  {
+    id: "resolve",
+    value: 1,
+    type: "mental",
+    label: "Resolve",
+    description: `Resolve represents your character's patience, concentration, and determination. A high Resolve allows a character to focus despite distractions or discouragement.`,
+    tasks:
+      "Meditation (Resolve + Composure, extended action), Staying Awake (Resolve + Stamina, instant action)",
+  },
+  // ########################################################
+  {
+    id: "strength",
+    value: 1,
+    type: "physical",
+    label: "Strength",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+  },
+  {
+    id: "dexterity",
+    value: 1,
+    type: "physical",
+    label: "Dexterity",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+  },
+  {
+    id: "stamina",
+    value: 1,
+    type: "physical",
+    label: "Stamina",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+  },
+  // ########################################################
+  {
+    id: "presence",
+    value: 1,
+    type: "social",
+    label: "Presence",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+  },
+  {
+    id: "manipulation",
+    value: 1,
+    type: "social",
+    label: "Manipulation",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+  },
+  {
+    id: "composure",
+    value: 1,
+    type: "social",
+    label: "Composure",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
+    tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+  },
+];
+
 const ATTRIBUTES = {
   mental: {
     intelligence: {
@@ -642,7 +727,7 @@ const housrules = {
 /* ============================== Database ============================== */
 const DB = {
   concepts: CONCEPTS,
-  attributes: ATTRIBUTES,
+  attributes: ATTRIBUTES2,
   skills: SKILLS,
   advantages: ADVANTAGES,
   housrules: housrules,

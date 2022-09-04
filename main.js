@@ -7,12 +7,12 @@ const myModal_body = document.getElementById("myModal_body");
 let _aspiration_text = (x) => `<b>${x.label}:</b> ${x.value}`;
 // attributes
 const attributes_total = document.getElementById("attributes_total");
-const att_mental = document.getElementById("att_mental");
-const att_physical = document.getElementById("att_physical");
-const att_social = document.getElementById("att_social");
-let arr_mental = Object.keys(DB.attributes.mental);
-let arr_physical = Object.keys(DB.attributes.physical);
-let arr_social = Object.keys(DB.attributes.social);
+const attributes_mental = document.getElementById("attributes_mental");
+const attributes_physical = document.getElementById("attributes_physical");
+const attributes_social = document.getElementById("attributes_social");
+//let arr_mental = Object.keys(DB.attributes.mental);
+//let arr_physical = Object.keys(DB.attributes.physical);
+//let arr_social = Object.keys(DB.attributes.social);
 // skills
 const skills_mental = document.getElementById("skills_mental");
 const skills_physical = document.getElementById("skills_physical");
@@ -43,28 +43,19 @@ function _modal_skill(skill) {
     `;
 }
 
-function _get_attribute_type(attribute) {
-  // input an attribut (e.g. intelligence) and get they type in return (e.g. mental)
-  if (DB.attributes.mental[attribute] != undefined) return "mental";
-  if (DB.attributes.physical[attribute] != undefined) return "physical";
-  if (DB.attributes.social[attribute] != undefined) return "social";
-}
+let _get_attribute = (attribute) =>
+  DB.attributes.filter((att) => att.id == attribute)[0];
 
-function _get_attributes_type(type) {
-  // returns the sum of all attribute values of one type (e.g. physical)
+function _getPoints_attribute(type) {
   let points = 0;
-  let group = DB.attributes[type];
-  let keys = Object.keys(group);
-  for (let i of keys) points += group[i].value;
+  if (type == "all") {
+    DB.attributes.forEach((attribute) => (points += attribute.value));
+  } else {
+    DB.attributes
+      .filter((att) => att.type == type)
+      .forEach((attribute) => (points += attribute.value));
+  }
   return points;
-}
-
-function _get_attributes_total() {
-  // returns the sum of all attribute values
-  let a = _get_attributes_type("mental");
-  let b = _get_attributes_type("physical");
-  let c = _get_attributes_type("social");
-  return a + b + c;
 }
 
 /* ========= update ========= */
@@ -97,55 +88,95 @@ function _add_concept(concept, container) {
 
 /* ========= attributes on home screen (attributes1) ========= */
 function _create_attributes1() {
-  // Empty container and add header
-  att_mental.innerHTML = `<h5>Mental</h5>`;
-  att_physical.innerHTML = `<h5>Physical</h5>`;
-  att_social.innerHTML = `<h5>Social</h5>`;
-
+  // empty container and add header
+  attributes_mental.innerHTML = ``;
+  attributes_physical.innerHTML = ``;
+  attributes_social.innerHTML = ``;
   // fill attribute container with attribut buttons
-  for (let name of arr_mental) _create_attribute1(name);
-  for (let name of arr_physical) _create_attribute1(name);
-  for (let name of arr_social) _create_attribute1(name);
+  DB.attributes.forEach((attribute) => _add_attribut1(attribute));
 }
 
-function _create_attribute1(name) {
-  let type = _get_attribute_type(name);
-  let attribute = DB.attributes[type][name];
-  let container = document.getElementById(`att_${type}`);
-
+function _add_attribut1(attribute) {
   let newDiv = document.createElement("div");
-  newDiv.id = `attribute_${name}`;
+  newDiv.id = `attribute_${attribute.id}`;
   newDiv.classList = `btn btn-outline-dark text-start`;
   newDiv.setAttribute(`data-bs-toggle`, "modal");
   newDiv.setAttribute(`data-bs-target`, "#myModal");
   newDiv.innerText = `${attribute.label}: ${attribute.value}`;
   newDiv.addEventListener("click", () => _modal_attribut(attribute));
-  container.appendChild(newDiv);
+  document.getElementById(`attributes_${attribute.type}`).appendChild(newDiv);
 }
 
 /* ========= change attributes (attributes2) ========= */
 function _create_attributes2() {
-  // Empty container and add header
+  // empty container and add header
   _create_attribute2_header("mental");
   _create_attribute2_header("physical");
   _create_attribute2_header("social");
 
+  DB.attributes.forEach((attribute) => _add_attribute2(attribute));
   // fill attribute container with attribut buttons
-  for (let name of arr_mental) _create_attribute2_body(name);
-  for (let name of arr_physical) _create_attribute2_body(name);
-  for (let name of arr_social) _create_attribute2_body(name);
+  //for (let name of arr_mental) _create_attribute2_body(name);
+  //for (let name of arr_physical) _create_attribute2_body(name);
+  //for (let name of arr_social) _create_attribute2_body(name);
 
   // update attributes total
-  let total_points = _get_attributes_total() - 9;
-  attributes_total.innerHTML = `<b>Total Points Distributed:</b>  ${total_points}`;
+  attributes_total.innerHTML = `<b>Total Points Distributed:</b>  ${
+    _getPoints_attribute("all") - 9
+  }`;
 }
 
 function _create_attribute2_header(type) {
-  let container = document.getElementById(`att_${type}2`);
-  let points = _get_attributes_type(type);
+  let container = document.getElementById(`attribute_${type}2`);
+  let points = _getPoints_attribute(type);
   let name = type[0].toUpperCase() + type.slice(1);
-
   container.innerHTML = `<p class=""><b>${name}</b> (${points - 3} Points)</p>`;
+}
+
+function _add_attribute2(attribute) {
+  let container = document.getElementById(`attribute_${attribute.type}2`);
+  // container
+  let newContainer = document.createElement("div");
+  newContainer.classList.add("row", "m-1");
+  container.appendChild(newContainer);
+
+  // name button
+  let newButton = document.createElement("div");
+  newButton.classList = `btn btn-outline-dark col-auto`; // "text-start",
+  newButton.setAttribute(`data-bs-toggle`, "modal");
+  newButton.setAttribute(`data-bs-target`, "#myModal");
+  newButton.innerText = attribute.label;
+  newButton.addEventListener("click", () => _modal_attribut(attribute));
+  newContainer.appendChild(newButton);
+
+  // radio button group
+  let newBtnGroup = document.createElement("div");
+  newBtnGroup.classList = "btn-group col-auto";
+  newBtnGroup.setAttribute(`role`, `group`);
+  newContainer.appendChild(newBtnGroup);
+
+  // fill button group
+  for (let i = 1; i < 6; i++) {
+    let newInput = document.createElement("input");
+    newInput.setAttribute(`type`, `radio`);
+    newInput.classList.add("btn-check");
+    newInput.setAttribute(`name`, `btnradio_${attribute.id}`);
+    newInput.id = `btnradio_${attribute.id}_${i}`;
+    newInput.setAttribute(`autocomplete`, `off`);
+    if (i == attribute.value) newInput.checked = true;
+    newInput.addEventListener("click", () => {
+      console.log("hi");
+      DB.attributes[attribute].value = i;
+      _update_all();
+    });
+    newBtnGroup.appendChild(newInput);
+
+    let newLabel = document.createElement("label");
+    newLabel.classList.add("btn", "btn-outline-dark");
+    newLabel.setAttribute(`for`, `btnradio_${attribute}_${i}`);
+    newLabel.innerText = `${i}`;
+    newBtnGroup.appendChild(newLabel);
+  }
 }
 
 function _create_attribute2_body(name) {
@@ -264,42 +295,41 @@ function _create_advantage(advantage) {
 }
 
 function _update_speed() {
-  let str = DB.attributes.physical.strength.value;
-  let dex = DB.attributes.physical.strength.value;
+  let str = _get_attribute("strength").value;
+  let dex = _get_attribute("dexterity").value;
   // =========
   DB.advantages.speed.value = str + dex + 5;
 }
 
 function _update_ini() {
-  let dex = DB.attributes.physical.dexterity.value;
-  let com = DB.attributes.social.composure.value;
+  let dex = _get_attribute("dexterity").value;
+  let com = _get_attribute("composure").value;
   // =========
   DB.advantages.ini.value = dex + com;
 }
 
 function _update_defense() {
   let result = 0;
-  // =========
-  let wits = DB.attributes.mental.wits.value;
-  let dex = DB.attributes.physical.dexterity.value;
-  result += Math.min(wits, dex);
-  // add athletics (housrule can overwrite)
+  let wits = _get_attribute("wits").value;
+  let dex = _get_attribute("dexterity").value;
   let athletics = DB.skills.physical.athletics.value;
+  // =========
+  result += Math.min(wits, dex);
   if (!DB.housrules.defense_without_athletics) result += athletics;
   // =========
   DB.advantages.defense.value = result;
 }
 
 function _update_willpower() {
-  let res = DB.attributes.mental.resolve.value;
-  let com = DB.attributes.social.composure.value;
+  let res = _get_attribute("resolve").value;
+  let com = _get_attribute("composure").value;
   // =========
   DB.advantages.willpower.value = res + com;
 }
 
 function _update_health() {
   let size = DB.advantages.size.value;
-  let stamina = DB.attributes.physical.stamina.value;
+  let stamina = _get_attribute("stamina").value;
   // =========
   DB.advantages.health.value = size + stamina;
 }
