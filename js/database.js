@@ -1,4 +1,33 @@
 "use strict";
+
+async function getData(file) {
+  // get data as string and put it in csvData
+  let response = await fetch(file);
+  let csvData = await response.text();
+
+  // transform csvData from string into array of arrays
+  csvData = csvData.split("\r\n");
+  csvData.pop(); // pop empty last line
+  csvData = csvData.map((el) => el.split(";"));
+
+  // get keys (first row in the csv file) and delete it from csvData
+  let keys = csvData[0];
+  csvData.shift();
+
+  // construct myArray (finall array full of objects) from csvData
+  let myArray = [];
+  csvData.forEach((data) => {
+    let myObject = {};
+    keys.forEach((key, i) => (myObject[key] = data[i]));
+    myArray.push(myObject);
+  });
+
+  // return csv content as array
+  console.log(myArray);
+  return myArray;
+}
+getData("concepts.csv");
+
 /* ============================== Basics ============================== */
 const CONCEPTS = [
   { id: "name", value: "Test", label: "Name" },
@@ -104,6 +133,97 @@ const ATTRIBUTES = [
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!",
     tasks: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+  },
+];
+
+const SKILLS2 = [
+  {
+    id: "academics",
+    value: 0,
+    type: "mental",
+    label: "Academics",
+    specialties: ["Test", "Test"],
+    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    sampleSpecialties: "Lorem ipsum dolor sit.",
+    sampleContacts: "Lorem ipsum dolor sit.",
+  },
+  {
+    id: "computer",
+    value: 0,
+    type: "mental",
+    label: "Computer",
+    specialties: [],
+    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    sampleSpecialties: "Lorem ipsum dolor sit.",
+    sampleContacts: "Lorem ipsum dolor sit.",
+  },
+  {
+    id: "crafts",
+    value: 0,
+    type: "mental",
+    label: "Crafts",
+    specialties: [],
+    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    sampleSpecialties: "Lorem ipsum dolor sit.",
+    sampleContacts: "Lorem ipsum dolor sit.",
+  },
+  {
+    id: "investigation",
+    value: 0,
+    type: "mental",
+    label: "Investigation",
+    specialties: [],
+    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    sampleSpecialties: "Lorem ipsum dolor sit.",
+    sampleContacts: "Lorem ipsum dolor sit.",
+  },
+  {
+    id: "medicine",
+    value: 0,
+    type: "mental",
+    label: "Medicine",
+    specialties: [],
+    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    sampleSpecialties: "Lorem ipsum dolor sit.",
+    sampleContacts: "Lorem ipsum dolor sit.",
+  },
+  {
+    id: "occult",
+    value: 0,
+    type: "mental",
+    label: "Occult",
+    specialties: [],
+    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    sampleSpecialties: "Lorem ipsum dolor sit.",
+    sampleContacts: "Lorem ipsum dolor sit.",
+  },
+  {
+    id: "politics",
+    value: 0,
+    type: "mental",
+    label: "Politics",
+    specialties: [],
+    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    sampleSpecialties: "Lorem ipsum dolor sit.",
+    sampleContacts: "Lorem ipsum dolor sit.",
+  },
+  {
+    id: "science",
+    value: 0,
+    type: "mental",
+    label: "Science",
+    specialties: [],
+    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
+    sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    sampleSpecialties: "Lorem ipsum dolor sit.",
+    sampleContacts: "Lorem ipsum dolor sit.",
   },
 ];
 

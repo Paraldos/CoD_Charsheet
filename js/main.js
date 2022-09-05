@@ -57,19 +57,18 @@ function _getPoints_attribute(type) {
 
 /* ========= update ========= */
 function _update_all() {
-  _create_concepts();
-  _create_attributes1();
-  _create_attributes2();
-  _create_skills();
+  _update_concepts();
+  _update_attributes();
+  _update_skills();
   _create_advantages();
+  _create_attributes2();
 }
 _update_all();
 
 /* ========= concepts ========= */
-function _create_concepts() {
-  // get container
+function _update_concepts() {
+  // get and empty container
   let container = document.getElementById("container_concepts");
-  // empty container
   container.innerHTML = ``;
   // loop over concepts in DB and add content to container
   DB.concepts.forEach((concept) => _add_concept(concept, container));
@@ -84,33 +83,70 @@ function _add_concept(concept, container) {
 }
 
 /* ========= attributes on home screen (attributes1) ========= */
-function _create_attributes1() {
+function _update_attributes() {
   // empty container and add header
-  attributes_mental.innerHTML = ``;
-  attributes_physical.innerHTML = ``;
-  attributes_social.innerHTML = ``;
-  // fill attribute container with attribut buttons
+  attributes_mental.innerHTML = `<h5>Mental</h5>`;
+  attributes_physical.innerHTML = `<h5>Physical</h5>`;
+  attributes_social.innerHTML = `<h5>Social</h5>`;
+  // loop over attributes and fill container with content
   DB.attributes.forEach((attribute) => {
-    _add_attribut1_html(attribute);
-    _add_attribut1_click(attribute);
+    _add_attribut_html(attribute); // add attribut
+    _add_attribut_click(attribute); // add click event to attribut
   });
 }
 
-function _add_attribut1_html(attribute) {
+function _add_attribut_html(attribute) {
   let container = document.getElementById(`attributes_${attribute.type}`);
   let newDiv2 = `
     <div
       id="attribute_${attribute.id}"
-      class="btn btn-outline-dark text-start"
+      class="btn btn-outline-primary text-start"
       data-bs-toggle="modal"
       data-bs-target="#myModal">${attribute.label}: ${attribute.value}
     </div>`;
   container.insertAdjacentHTML("beforeend", newDiv2);
 }
 
-function _add_attribut1_click(attribute) {
+function _add_attribut_click(attribute) {
   let domElement = document.getElementById(`attribute_${attribute.id}`);
   domElement.addEventListener("click", () => _modal_attribut(attribute));
+}
+
+/* ========= skills ========= */
+function _update_skills() {
+  // empty container and add header
+  skills_mental.innerHTML = `<h5>Mental</h5>`;
+  skills_physical.innerHTML = `<h5>Physical</h5>`;
+  skills_social.innerHTML = `<h5>Social</h5>`;
+
+  // fill attribute container with attribut buttons
+  let arr_mental = Object.keys(DB.skills.mental);
+  let arr_physical = Object.keys(DB.skills.physical);
+  let arr_social = Object.keys(DB.skills.social);
+  for (let name of arr_mental) _create_skill(name, "mental");
+  for (let name of arr_physical) _create_skill(name, "physical");
+  for (let name of arr_social) _create_skill(name, "social");
+}
+
+function _create_skill(name, type) {
+  let skill = DB.skills[type][name];
+  let specialties = _get_specialties(skill);
+  let container = document.getElementById(`skills_${type}`);
+
+  // create new skill button
+  let newDiv = document.createElement("div");
+  newDiv.id = `skills_${name}`;
+  newDiv.classList = `btn btn-outline-dark text-start`;
+  newDiv.setAttribute(`data-bs-toggle`, "modal");
+  newDiv.setAttribute(`data-bs-target`, "#myModal");
+  newDiv.innerText = `${skill.label} ${skill.value} ${specialties}`;
+  newDiv.addEventListener("click", () => _modal_skill(skill));
+  container.appendChild(newDiv);
+}
+
+function _get_specialties(skill) {
+  if (skill.specialties.length <= 0) return "";
+  return `(${skill.specialties.join(", ")})`;
 }
 
 /* ========= change attributes (attributes2) ========= */
@@ -228,43 +264,6 @@ function _add_attribute2_input(i, attribute) {
   for="btnradio_${attribute.id}_${i}">${i}
   </div>
   `;
-}
-
-/* ========= skills ========= */
-function _create_skills() {
-  // Empty container and add header
-  skills_mental.innerHTML = `<h5>Mental</h5>`;
-  skills_physical.innerHTML = `<h5>Physical</h5>`;
-  skills_social.innerHTML = `<h5>Social</h5>`;
-
-  // fill attribute container with attribut buttons
-  let arr_mental = Object.keys(DB.skills.mental);
-  let arr_physical = Object.keys(DB.skills.physical);
-  let arr_social = Object.keys(DB.skills.social);
-  for (let name of arr_mental) _create_skill(name, "mental");
-  for (let name of arr_physical) _create_skill(name, "physical");
-  for (let name of arr_social) _create_skill(name, "social");
-}
-
-function _create_skill(name, type) {
-  let skill = DB.skills[type][name];
-  let specialties = _get_specialties(skill);
-  let container = document.getElementById(`skills_${type}`);
-
-  // create new skill button
-  let newDiv = document.createElement("div");
-  newDiv.id = `skills_${name}`;
-  newDiv.classList = `btn btn-outline-dark text-start`;
-  newDiv.setAttribute(`data-bs-toggle`, "modal");
-  newDiv.setAttribute(`data-bs-target`, "#myModal");
-  newDiv.innerText = `${skill.label} ${skill.value} ${specialties}`;
-  newDiv.addEventListener("click", () => _modal_skill(skill));
-  container.appendChild(newDiv);
-}
-
-function _get_specialties(skill) {
-  if (skill.specialties.length <= 0) return "";
-  return `(${skill.specialties.join(", ")})`;
 }
 
 /* ========= advantages ========= */

@@ -13,7 +13,7 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
+  <body class="bg-primary">
     <!-- ################### navbar ################### -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <div class="container-fluid">
@@ -66,48 +66,43 @@
     </div>
 
     <!-- ################### content ################### -->
-    <div class="container">
+    <div class="container bg-light">
       <!-- ####### home section #######-->
       <div id="home_section" class="section">
+        <!-- Concepts -->
         <div id="concepts" class="box">
           <h2>Concepts</h2>
           <div id="container_concepts" class="row"></div>
-          <hr class="border border-primary border-4 opacity-50" />
+          <hr class="border border-primary border-4 opacity-100" />
         </div>
 
+        <!-- Attributes -->
         <div id="attributes" class="box">
           <h2>Attributes</h2>
           <div class="row">
-            <div class="col-md-4">
-              <h5>Mental</h5>
-              <div id="attributes_mental" class="d-grid gap-2"></div>
-            </div>
-            <div class="col-md-4">
-              <h5>Physical</h5>
-              <div id="attributes_physical" class="d-grid gap-2"></div>
-            </div>
-            <div class="col-md-4">
-              <h5>Social</h5>
-              <div id="attributes_social" class="d-grid gap-2"></div>
-            </div>
+            <div id="attributes_mental" class="col-md-4 d-grid gap-2"></div>
+            <div id="attributes_physical" class="col-md-4 d-grid gap-2"></div>
+            <div id="attributes_social" class="col-md-4 d-grid gap-2"></div>
           </div>
-          <hr class="border border-primary border-4 opacity-50" />
+          <hr class="border border-primary border-4 opacity-100" />
         </div>
 
+        <!-- Skills -->
         <div id="skills" class="box">
+          <h2>Skills</h2>
           <div class="row">
-            <h2>Skills</h2>
             <div id="skills_mental" class="col-md-4 btn-group-vertical"></div>
             <div id="skills_physical" class="col-md-4 btn-group-vertical"></div>
             <div id="skills_social" class="col-md-4 btn-group-vertical"></div>
           </div>
-          <hr class="border border-primary border-4 opacity-50" />
+          <hr class="border border-primary border-4 opacity-100" />
         </div>
 
+        <!-- Advantages -->
         <div id="advantages" class="box">
           <h2>Advantages</h2>
           <div id="container_advantages" class="row"></div>
-          <hr class="border border-primary border-4 opacity-50" />
+          <hr class="border border-primary border-4 opacity-100" />
         </div>
       </div>
 
@@ -165,11 +160,10 @@
     </div>
 
     <!-- ################### scripts ################### -->
-    <script src="./database.js"></script>
-    <script src="./main.js"></script>
-    <script src="./basics.js"></script>
-    <script src="./attributes.js"></script>
-    <script src="./navbar.js"></script>
+    <script src="./js/database.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/basics.js"></script>
+    <script src="./js/navbar.js"></script>
     <!-- bootstrap -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
