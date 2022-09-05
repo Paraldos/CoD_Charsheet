@@ -23,10 +23,8 @@ async function getData(file) {
   });
 
   // return csv content as array
-  console.log(myArray);
   return myArray;
 }
-getData("concepts.csv");
 
 /* ============================== Basics ============================== */
 const CONCEPTS = [
@@ -770,6 +768,7 @@ const housrules = {
 };
 
 /* ============================== Database ============================== */
+
 const DB = {
   concepts: CONCEPTS,
   attributes: ATTRIBUTES,
