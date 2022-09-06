@@ -3,30 +3,21 @@
 // modal
 const myModal_title = document.getElementById("myModal_title");
 const myModal_body = document.getElementById("myModal_body");
-// concepts
-const home_concepts_container = document.getElementById(
-  "home_concepts_container"
-);
-let _aspiration_text = (x) => `<b>${x.label}:</b> ${x.value}`;
+// home
+const home_concepts = document.getElementById("home_concepts");
+const home_att_mental = document.getElementById("home_att_mental");
+const home_att_physical = document.getElementById("home_att_physical");
+const home_att_social = document.getElementById("home_att_social");
+const home_skill_mental = document.getElementById("home_skill_mental");
+const home_skill_physical = document.getElementById("home_skill_physical");
+const home_skill_social = document.getElementById("home_skill_social");
+const container_advantages = document.getElementById("container_advantages");
 // attributes
 const attributes_total = document.getElementById("attributes_total");
-const home_attributes_mental = document.getElementById(
-  "home_attributes_mental"
-);
-const home_attributes_physical = document.getElementById(
-  "home_attributes_physical"
-);
-const home_attributes_social = document.getElementById(
-  "home_attributes_social"
-);
-// skills
-const skills_mental = document.getElementById("skills_mental");
-const skills_physical = document.getElementById("skills_physical");
-const skills_social = document.getElementById("skills_social");
-// advantages
-const container_advantages = document.getElementById("container_advantages");
 
 /* ========= generall functions ========= */
+let _aspiration_text = (x) => `<b>${x.label}:</b> ${x.value}`;
+
 function _modal_attribut(attribut) {
   // changes the content of the model so it gives information about an attribut
   // fill header
@@ -53,6 +44,7 @@ let _get_attribute = (attribute) =>
   DB.attributes.find((x) => x.id == attribute);
 
 function _getPoints_attribute(type) {
+  // enter mental, physical, social or all
   let points = 0;
   if (type == "all") {
     DB.attributes.forEach((attribute) => (points += attribute.value));
@@ -77,7 +69,7 @@ _update_all();
 /* ========= concepts ========= */
 function _update_concepts() {
   // get and empty container
-  home_concepts_container.innerHTML = ``;
+  home_concepts.innerHTML = ``;
   // loop over concepts in DB and add content to container
   DB.concepts.forEach((concept) => _add_concept(concept));
 }
@@ -87,15 +79,16 @@ function _add_concept(concept) {
   if (DB.housrules.no_aspirations && concept.id.includes("aspiration")) return;
   // add content
   let newDiv = `<div class="col-lg-6 col-sm-12"><b>${concept.label}:</b> ${concept.value}</div>`;
-  home_concepts_container.insertAdjacentHTML("beforeend", newDiv);
+  home_concepts.insertAdjacentHTML("beforeend", newDiv);
 }
 
 /* ========= attributes on home screen (attributes1) ========= */
 function _update_attributes() {
   // empty container and add header
-  home_attributes_mental.innerHTML = `<h5>Mental</h5>`;
-  home_attributes_physical.innerHTML = `<h5>Physical</h5>`;
-  home_attributes_social.innerHTML = `<h5>Social</h5>`;
+  home_att_mental.innerHTML = `<h5>Mental</h5>`;
+  home_att_physical.innerHTML = `<h5>Physical</h5>`;
+  home_att_social.innerHTML = `<h5>Social</h5>`;
+
   // loop over attributes and fill container with content
   DB.attributes.forEach((attribute) => {
     _add_attribut_html(attribute); // add attribut
@@ -104,7 +97,7 @@ function _update_attributes() {
 }
 
 function _add_attribut_html(attribute) {
-  let container = document.getElementById(`home_attributes_${attribute.type}`);
+  let container = document.getElementById(`home_att_${attribute.type}`);
   let newDiv2 = `
     <div
       id="attribute_${attribute.id}"
@@ -123,9 +116,9 @@ function _add_attribut_click(attribute) {
 /* ========= skills ========= */
 function _update_skills() {
   // empty container and add header
-  skills_mental.innerHTML = `<h5>Mental</h5>`;
-  skills_physical.innerHTML = `<h5>Physical</h5>`;
-  skills_social.innerHTML = `<h5>Social</h5>`;
+  home_skill_mental.innerHTML = `<h5>Mental</h5>`;
+  home_skill_physical.innerHTML = `<h5>Physical</h5>`;
+  home_skill_social.innerHTML = `<h5>Social</h5>`;
 
   // fill attribute container with attribut buttons
   let arr_mental = Object.keys(DB.skills.mental);
@@ -139,7 +132,7 @@ function _update_skills() {
 function _create_skill(name, type) {
   let skill = DB.skills[type][name];
   let specialties = _get_specialties(skill);
-  let container = document.getElementById(`skills_${type}`);
+  let container = document.getElementById(`home_skill_${type}`);
 
   // create new skill button
   let newDiv = document.createElement("div");
