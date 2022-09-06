@@ -4,12 +4,21 @@
 const myModal_title = document.getElementById("myModal_title");
 const myModal_body = document.getElementById("myModal_body");
 // concepts
+const home_concepts_container = document.getElementById(
+  "home_concepts_container"
+);
 let _aspiration_text = (x) => `<b>${x.label}:</b> ${x.value}`;
 // attributes
 const attributes_total = document.getElementById("attributes_total");
-const attributes_mental = document.getElementById("attributes_mental");
-const attributes_physical = document.getElementById("attributes_physical");
-const attributes_social = document.getElementById("attributes_social");
+const home_attributes_mental = document.getElementById(
+  "home_attributes_mental"
+);
+const home_attributes_physical = document.getElementById(
+  "home_attributes_physical"
+);
+const home_attributes_social = document.getElementById(
+  "home_attributes_social"
+);
 // skills
 const skills_mental = document.getElementById("skills_mental");
 const skills_physical = document.getElementById("skills_physical");
@@ -68,26 +77,25 @@ _update_all();
 /* ========= concepts ========= */
 function _update_concepts() {
   // get and empty container
-  let container = document.getElementById("container_concepts");
-  container.innerHTML = ``;
+  home_concepts_container.innerHTML = ``;
   // loop over concepts in DB and add content to container
-  DB.concepts.forEach((concept) => _add_concept(concept, container));
+  DB.concepts.forEach((concept) => _add_concept(concept));
 }
 
-function _add_concept(concept, container) {
+function _add_concept(concept) {
   // skip if aspiration housrule is on
   if (DB.housrules.no_aspirations && concept.id.includes("aspiration")) return;
   // add content
   let newDiv = `<div class="col-lg-6 col-sm-12"><b>${concept.label}:</b> ${concept.value}</div>`;
-  container.insertAdjacentHTML("beforeend", newDiv);
+  home_concepts_container.insertAdjacentHTML("beforeend", newDiv);
 }
 
 /* ========= attributes on home screen (attributes1) ========= */
 function _update_attributes() {
   // empty container and add header
-  attributes_mental.innerHTML = `<h5>Mental</h5>`;
-  attributes_physical.innerHTML = `<h5>Physical</h5>`;
-  attributes_social.innerHTML = `<h5>Social</h5>`;
+  home_attributes_mental.innerHTML = `<h5>Mental</h5>`;
+  home_attributes_physical.innerHTML = `<h5>Physical</h5>`;
+  home_attributes_social.innerHTML = `<h5>Social</h5>`;
   // loop over attributes and fill container with content
   DB.attributes.forEach((attribute) => {
     _add_attribut_html(attribute); // add attribut
@@ -96,7 +104,7 @@ function _update_attributes() {
 }
 
 function _add_attribut_html(attribute) {
-  let container = document.getElementById(`attributes_${attribute.type}`);
+  let container = document.getElementById(`home_attributes_${attribute.type}`);
   let newDiv2 = `
     <div
       id="attribute_${attribute.id}"

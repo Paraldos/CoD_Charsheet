@@ -7,14 +7,14 @@ let navbar_basics = document.getElementById("navbar_basics");
 let navbar_attributes = document.getElementById("navbar_attributes");
 // sections
 let sections = document.querySelectorAll(".section");
-let home_section = document.getElementById("home_section");
+let home = document.getElementById("home");
 let basics_section = document.getElementById("basics_section");
 let attributes_section = document.getElementById("attributes_section");
 
 /* ========= default settings when page is loaded ========= */
 switch (0) {
   case 0:
-    _navbar_click(navbar_home, home_section);
+    _navbar_click(navbar_home, home);
     break;
   case 1:
     _navbar_click(navbar_basics, basics_section);
@@ -25,9 +25,7 @@ switch (0) {
 }
 
 /* ========= navbar buttons ========= */
-navbar_home.addEventListener("click", () =>
-  _navbar_click(navbar_home, home_section)
-);
+navbar_home.addEventListener("click", () => _navbar_click(navbar_home, home));
 navbar_basics.addEventListener("click", () =>
   _navbar_click(navbar_basics, basics_section)
 );
