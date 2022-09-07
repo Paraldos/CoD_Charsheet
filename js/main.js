@@ -1,23 +1,34 @@
 "use strict";
 
 // modal
-const myModal_title = document.getElementById("myModal_title");
-const myModal_body = document.getElementById("myModal_body");
+const myModal_title = document.querySelector("#myModal_title");
+const myModal_body = document.querySelector("#myModal_body");
 // home
 const home_attributes = document.querySelector("#home_attributes");
 const home_skills = document.querySelector("#home_skills");
-const home_concepts = document.getElementById("home_concepts");
-const home_att_mental = document.getElementById("home_att_mental");
-const home_att_physical = document.getElementById("home_att_physical");
-const home_att_social = document.getElementById("home_att_social");
-const home_skill_mental = document.getElementById("home_skill_mental");
-const home_skill_physical = document.getElementById("home_skill_physical");
-const home_skill_social = document.getElementById("home_skill_social");
-const container_advantages = document.getElementById("container_advantages");
-// attributes
-const attributes_total = document.getElementById("attributes_total");
+const home_concepts = document.querySelector("#home_concepts");
+const home_att_mental = document.querySelector("#home_att_mental");
+const home_att_physical = document.querySelector("#home_att_physical");
+const home_att_social = document.querySelector("#home_att_social");
+const home_skill_mental = document.querySelector("#home_skill_mental");
+const home_skill_physical = document.querySelector("#home_skill_physical");
+const home_skill_social = document.querySelector("#home_skill_social");
+const container_advantages = document.querySelector("#container_advantages");
+const health_header = document.querySelector("#health_header");
+const health_container = document.querySelector("#health_container");
+const take_dmg = document.querySelector("#take_dmg");
+const heal_dmg = document.querySelector("#heal_dmg");
+const home_health = document.querySelector("#home_health");
+const dmg_bashing = document.querySelector("#dmg_bashing");
+const dmg_lethal = document.querySelector("#dmg_lethal");
+const dmg_aggravated = document.querySelector("#dmg_aggravated");
 
-/* ========= generall functions ========= */
+// attributes
+const attributes_total = document.querySelector("#attributes_total");
+
+/* ======================================================
+** GENERAL FUNCTIONS
+====================================================== */
 let _aspiration_text = (x) => `<b>${x.label}:</b> ${x.value}`;
 
 function _modal_attribut(attribute) {
@@ -57,22 +68,36 @@ function _getPoints_attribute(type) {
   return points;
 }
 
-/* ========= update ========= */
+function _value_to_dots(value) {
+  let dots = "";
+  for (let i = 0; i < 5; i++) {
+    if (i < value) dots += "⚫";
+    else dots += "⚪";
+  }
+  return dots;
+}
+
+/* ======================================================
+** UPDATE ALL
+====================================================== */
 function _update_all() {
-  _update_home();
+  _build_home();
   _create_attributes2();
 }
 _update_all();
 
-function _update_home() {
-  _update_concepts();
-  _update_attributes();
-  _update_skills();
-  _create_advantages();
+/* ======================================================
+** HOME
+====================================================== */
+function _build_home() {
+  _build_concepts();
+  _build_attributes();
+  _build_skills();
+  _build_advantages();
 }
 
-/* ========= concepts ========= */
-function _update_concepts() {
+// ====== concepts
+function _build_concepts() {
   // get and empty container
   home_concepts.innerHTML = ``;
   // loop over concepts in DB and add content to container
@@ -87,63 +112,64 @@ function _add_concept(concept) {
   home_concepts.insertAdjacentHTML("beforeend", newDiv);
 }
 
-/* ========= home attributes ========= */
-function _update_attributes() {
+// ====== home attributes
+home_attributes.addEventListener("click", (el) => {
+  let modal_attribute = el.target.getAttribute("modal_attribute");
+  let dbEntry = _get_attribute(modal_attribute);
+  if (modal_attribute) _modal_attribut(dbEntry);
+});
+
+function _build_attributes() {
   // empty container and add header
   home_att_mental.innerHTML = `<h5>Mental</h5>`;
   home_att_physical.innerHTML = `<h5>Physical</h5>`;
   home_att_social.innerHTML = `<h5>Social</h5>`;
-
   // loop over attributes and fill container with content
   DB.attributes.forEach((attribute) => _add_attribute_to_html(attribute));
-  DB.attributes.forEach((attribute) => _add_click_event_to_attribute(attribute));
 }
 
 function _add_attribute_to_html(attribute) {
-  let container = document.getElementById(`home_att_${attribute.type}`);
+  let container = document.querySelector(`#home_att_${attribute.type}`);
+  let dots = _value_to_dots(attribute.value);
   let newDiv = `
     <div
-      id="home_${attribute.id}" 
+      modal_attribute="${attribute.id}"
       class="btn btn-outline-primary text-start"
       data-bs-toggle="modal"
-      data-bs-target="#myModal">${attribute.label}: ${attribute.value}
+      data-bs-target="#myModal">${attribute.label} ${dots}
     </div>`;
   container.insertAdjacentHTML("beforeend", newDiv);
 }
 
-function _add_click_event_to_attribute(attribute) {
-  let domElement = document.getElementById(`home_${attribute.id}`);
-  domElement.addEventListener("click", () => _modal_attribut(attribute));
-}
+// ====== skills
+home_skills.addEventListener("click", (el) => {
+  let modal_skill = el.target.getAttribute("modal_skill");
+  let dbEntry = _get_skill(modal_skill);
+  if (modal_skill) _modal_attribut(dbEntry);
+});
 
-/* ========= skills ========= */
-function _update_skills() {
+function _build_skills() {
   // empty container and add header
   home_skill_mental.innerHTML = `<h5>Mental</h5>`;
   home_skill_physical.innerHTML = `<h5>Physical</h5>`;
   home_skill_social.innerHTML = `<h5>Social</h5>`;
-
   // loop over skills and fill container with content
   DB.skills.forEach((skill) => _add_skill_to_html(skill));
-  DB.skills.forEach((skill) => _add_click_event_to_skill(skill));
 }
 
 function _add_skill_to_html(skill) {
-  let container = document.getElementById(`home_skill_${skill.type}`);
+  let container = document.querySelector(`#home_skill_${skill.type}`);
+  let dots = _value_to_dots(skill.value);
   let specialties = _get_specialties(skill);
   let newDiv = `
   <div
     id="home_${skill.id}"
+    modal_skill="${skill.id}"
     class="btn btn-outline-primary text-start"
     data-bs-toggle="modal"
-    data-bs-target="#myModal">${skill.label}: ${skill.value} ${specialties}
+    data-bs-target="#myModal">${skill.label} ${dots} ${specialties}
   </div>`;
   container.insertAdjacentHTML("beforeend", newDiv);
-}
-
-function _add_click_event_to_skill(skill) {
-  let domElement = document.getElementById(`home_${skill.id}`);
-  domElement.addEventListener("click", () => _modal_skill(skill));
 }
 
 function _get_specialties(skill) {
@@ -151,7 +177,139 @@ function _get_specialties(skill) {
   return `(${skill.specialties.join(", ")})`;
 }
 
-/* ========= change attributes (attributes2) ========= */
+// ======  advantages
+
+function _build_advantages() {
+  // Example: <div class="col-3">Size:</div>
+  container_advantages.innerHTML = ``;
+
+  // size is a fixed number - no upadte needed
+  _add_advantage(DB.advantages.size);
+
+  _update_speed();
+  _add_advantage(DB.advantages.speed);
+
+  _update_ini();
+  _add_advantage(DB.advantages.ini);
+
+  _update_defense();
+  _add_advantage(DB.advantages.defense);
+
+  // beats and xp are fixed numbers - no update needed
+  _add_advantage(DB.advantages.beats);
+  _add_advantage(DB.advantages.xp);
+
+  _update_health();
+  _add_healthboxes();
+
+  _update_willpower();
+}
+
+function _add_advantage(advantage) {
+  let newDiv = `<div class="col-sm-12 col-md-4 col-lg-2"><b>${advantage.label}: </b>${advantage.value}</div>`;
+  container_advantages.insertAdjacentHTML("beforeend", newDiv);
+}
+
+function _update_speed() {
+  let str = _get_attribute("strength").value;
+  let dex = _get_attribute("dexterity").value;
+  DB.advantages.speed.value = str + dex + 5;
+}
+
+function _update_ini() {
+  let dex = _get_attribute("dexterity").value;
+  let com = _get_attribute("composure").value;
+  DB.advantages.ini.value = dex + com;
+}
+
+function _update_defense() {
+  let wits = _get_attribute("wits").value;
+  let dex = _get_attribute("dexterity").value;
+  let athletics = _get_skill("athletics").value;
+  let result = Math.min(wits, dex);
+  if (!DB.housrules.defense_without_athletics) result += athletics;
+  DB.advantages.defense.value = result;
+}
+
+// health and damage
+dmg_bashing.addEventListener("click", () => _add_dmg(0));
+dmg_lethal.addEventListener("click", () => _add_dmg(1));
+dmg_aggravated.addEventListener("click", () => _add_dmg(2));
+
+function _update_health() {
+  let size = DB.advantages.size.value;
+  let stamina = _get_attribute("stamina").value;
+  DB.advantages.health.value = size + stamina;
+  health_header.innerText = `Health (${DB.advantages.health.value})`;
+}
+
+function _add_healthboxes() {
+  let health = DB.advantages.health;
+
+  // empty container
+  health_container.innerHTML = ``;
+
+  // loop over health and fill container
+  for (let i = 1; i <= DB.advantages.health.value; i++) {
+    // =========
+    let penaltyCounter = i - DB.advantages.health.value + 3;
+    let penalty = ``;
+    if (penaltyCounter > 0) penalty = `-${penaltyCounter}`;
+
+    // =========
+    let symbol = `empty`;
+    if (health.dmg[i - 1] == 2) symbol = `aggravated`;
+    if (health.dmg[i - 1] == 1) symbol = `lethal`;
+    if (health.dmg[i - 1] == 0) symbol = `bashing`;
+
+    // =========
+    let newDiv = `
+    <div class="col-auto">
+      <img class="card-img card-img-top" src="./img/healthbox_${symbol}.png" alt="" />
+      <div class="card-body">
+        <p class="text-end card-text">${penalty}</small></p>
+      </div>
+    <div>`;
+
+    health_container.insertAdjacentHTML("beforeend", newDiv);
+  }
+}
+
+function _add_dmg(type) {
+  // type is number between 0 and 2 -> 0 = bashing, 1 = lethal, 2 = aggravated
+  let health = DB.advantages.health;
+  let lastIndex = health.dmg.length - 1;
+
+  if (health.dmg.length <= health.value) health.dmg.push(type);
+
+  if (health.dmg.length > health.value) {
+    if (health.dmg[lastIndex] == 1) health.dmg[lastIndex] = 2;
+    if (health.dmg[lastIndex] == 0 && type == 2) health.dmg[lastIndex] = 2;
+    if (health.dmg[lastIndex] == 0 && type <= 1) health.dmg[lastIndex] = 1;
+  }
+
+  health.dmg.sort((a, b) => b - a);
+  _build_advantages();
+}
+
+function _update_willpower() {
+  let res = _get_attribute("resolve").value;
+  let com = _get_attribute("composure").value;
+  DB.advantages.willpower.value = res + com;
+}
+
+home_health.addEventListener("click", (el) => {
+  if (el.target.classList.contains("toggle")) {
+    take_dmg.classList.toggle("visually-hidden");
+    heal_dmg.classList.toggle("visually-hidden");
+  }
+});
+
+// ======  health and willpower
+
+/* ======================================================
+** ATTRIBUTES
+====================================================== */
 function _create_attributes2() {
   // update attributes total
   attributes_total.innerHTML = `
@@ -170,19 +328,19 @@ function _create_attributes2() {
 }
 
 function _update_attribute2_header(type) {
-  let container = document.getElementById(`attribute_${type}2`);
+  let container = document.querySelector(`#attribute_${type}2`);
   let points = _getPoints_attribute(type);
   let name = type[0].toUpperCase() + type.slice(1);
   container.innerHTML = `<p class=""><b>${name}</b> (${points} Points)</p>`;
 }
 
 function _add_attribut2_click(attribute) {
-  let domElement = document.getElementById(`attribute2_${attribute.id}`);
+  let domElement = document.querySelector(`#attribute2_${attribute.id}`);
   domElement.addEventListener("click", () => _modal_attribut(attribute));
 }
 
 function _add_attribute2(attribute) {
-  let container = document.getElementById(`attribute_${attribute.type}2`);
+  let container = document.querySelector(`#attribute_${attribute.type}2`);
   let txt = `
   <div class="row m-1">
     <div
@@ -266,73 +424,4 @@ function _add_attribute2_input(i, attribute) {
   for="btnradio_${attribute.id}_${i}">${i}
   </div>
   `;
-}
-
-/* ========= advantages ========= */
-function _create_advantages() {
-  // Example: <div class="col-3">Size:</div>
-  container_advantages.innerHTML = ``;
-
-  // size is a fixed number
-  _update_speed();
-  _update_ini();
-  _update_defense();
-  // beats is a fixed number
-  // xp is a fixed number
-  _update_willpower();
-  _update_health();
-
-  _create_advantage(DB.advantages.size);
-  _create_advantage(DB.advantages.speed);
-  _create_advantage(DB.advantages.ini);
-  _create_advantage(DB.advantages.defense);
-  _create_advantage(DB.advantages.beats);
-  _create_advantage(DB.advantages.xp);
-}
-
-function _create_advantage(advantage) {
-  let newDiv = document.createElement("div");
-  newDiv.classList.add("col-sm-4", "col-md-3", "col-lg-2");
-  newDiv.innerHTML = `<b>${advantage.label}: </b>${advantage.value}`;
-  container_advantages.appendChild(newDiv);
-}
-
-function _update_speed() {
-  let str = _get_attribute("strength").value;
-  let dex = _get_attribute("dexterity").value;
-  // =========
-  DB.advantages.speed.value = str + dex + 5;
-}
-
-function _update_ini() {
-  let dex = _get_attribute("dexterity").value;
-  let com = _get_attribute("composure").value;
-  // =========
-  DB.advantages.ini.value = dex + com;
-}
-
-function _update_defense() {
-  let result = 0;
-  let wits = _get_attribute("wits").value;
-  let dex = _get_attribute("dexterity").value;
-  let athletics = _get_skill("athletics").value;
-  // =========
-  result += Math.min(wits, dex);
-  if (!DB.housrules.defense_without_athletics) result += athletics;
-  // =========
-  DB.advantages.defense.value = result;
-}
-
-function _update_willpower() {
-  let res = _get_attribute("resolve").value;
-  let com = _get_attribute("composure").value;
-  // =========
-  DB.advantages.willpower.value = res + com;
-}
-
-function _update_health() {
-  let size = DB.advantages.size.value;
-  let stamina = _get_attribute("stamina").value;
-  // =========
-  DB.advantages.health.value = size + stamina;
 }

@@ -28,7 +28,7 @@ async function getData(file) {
 
 /* ============================== Basics ============================== */
 const CONCEPTS = [
-  { id: "name", value: "Test", label: "Name" },
+  { id: "name", value: "", label: "Name" },
   { id: "age", value: "", label: "Age" },
   { id: "player", value: "", label: "Player" },
   { id: "chronicle", value: "", label: "Chronicle" },
@@ -45,7 +45,7 @@ const ADVANTAGES = {
   defense: { value: 0, label: "Defense" },
   beats: { value: 0, label: "Beats" },
   xp: { value: 0, label: "Experience" },
-  health: { value: 0, label: "Health" },
+  health: { value: 0, label: "Health", dmg: [] }, // 0 = bashing, 1 = lethal, 2 = aggravated
   willpower: { value: 0, label: "Willpower" },
 };
 
@@ -140,7 +140,7 @@ const SKILLS = [
     value: 0,
     type: "mental",
     label: "Academics",
-    specialties: ["Test", "Test"],
+    specialties: [],
     description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio nam quos consequuntur, nostrum tenetur nulla earum laboriosam cum veritatis ab!`,
     sampleActions: "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
     sampleSpecialties: "Lorem ipsum dolor sit.",
