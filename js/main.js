@@ -4,6 +4,8 @@
 const myModal_title = document.getElementById("myModal_title");
 const myModal_body = document.getElementById("myModal_body");
 // home
+const home_attributes = document.querySelector("#home_attributes");
+const home_skills = document.querySelector("#home_skills");
 const home_concepts = document.getElementById("home_concepts");
 const home_att_mental = document.getElementById("home_att_mental");
 const home_att_physical = document.getElementById("home_att_physical");
@@ -18,14 +20,14 @@ const attributes_total = document.getElementById("attributes_total");
 /* ========= generall functions ========= */
 let _aspiration_text = (x) => `<b>${x.label}:</b> ${x.value}`;
 
-function _modal_attribut(attribut) {
+function _modal_attribut(attribute) {
   // changes the content of the model so it gives information about an attribut
   // fill header
-  myModal_title.innerText = attribut.label;
+  myModal_title.innerText = attribute.label;
   // fill body
   myModal_body.innerHTML = `
-  <p>${attribut.description}</p>
-  <p><b>Attribute Tasks: </b>${attribut.tasks}</p>`;
+  <p>${attribute.description}</p>
+  <p><b>Attribute Tasks: </b>${attribute.tasks}</p>`;
 }
 
 function _modal_skill(skill) {
@@ -85,7 +87,7 @@ function _add_concept(concept) {
   home_concepts.insertAdjacentHTML("beforeend", newDiv);
 }
 
-/* ========= attributes on home screen (attributes1) ========= */
+/* ========= home attributes ========= */
 function _update_attributes() {
   // empty container and add header
   home_att_mental.innerHTML = `<h5>Mental</h5>`;
@@ -93,17 +95,15 @@ function _update_attributes() {
   home_att_social.innerHTML = `<h5>Social</h5>`;
 
   // loop over attributes and fill container with content
-  DB.attributes.forEach((attribute) => {
-    _add_attribut_to_html(attribute); // add attribut
-    _add_click_event_to_attribut(attribute); // add click event to attribut
-  });
+  DB.attributes.forEach((attribute) => _add_attribute_to_html(attribute));
+  DB.attributes.forEach((attribute) => _add_click_event_to_attribute(attribute));
 }
 
-function _add_attribut_to_html(attribute) {
+function _add_attribute_to_html(attribute) {
   let container = document.getElementById(`home_att_${attribute.type}`);
   let newDiv = `
     <div
-      id="home_${attribute.id}"
+      id="home_${attribute.id}" 
       class="btn btn-outline-primary text-start"
       data-bs-toggle="modal"
       data-bs-target="#myModal">${attribute.label}: ${attribute.value}
@@ -111,7 +111,7 @@ function _add_attribut_to_html(attribute) {
   container.insertAdjacentHTML("beforeend", newDiv);
 }
 
-function _add_click_event_to_attribut(attribute) {
+function _add_click_event_to_attribute(attribute) {
   let domElement = document.getElementById(`home_${attribute.id}`);
   domElement.addEventListener("click", () => _modal_attribut(attribute));
 }
@@ -124,10 +124,8 @@ function _update_skills() {
   home_skill_social.innerHTML = `<h5>Social</h5>`;
 
   // loop over skills and fill container with content
-  DB.skills.forEach((skill) => {
-    _add_skill_to_html(skill);
-    _add_click_event_to_skill(skill);
-  });
+  DB.skills.forEach((skill) => _add_skill_to_html(skill));
+  DB.skills.forEach((skill) => _add_click_event_to_skill(skill));
 }
 
 function _add_skill_to_html(skill) {
