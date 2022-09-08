@@ -36,6 +36,8 @@ const attributes_total = document.querySelector("#attributes_total");
 ** GENERAL FUNCTIONS
 ====================================================== */
 let _aspiration_text = (x) => `<b>${x.label}:</b> ${x.value}`;
+let _get_attribute = (attribute) => DB.attributes.find((x) => x.id == attribute);
+let _get_skill = (skill) => DB.skills.find((x) => x.id == skill);
 
 function _modal_attribut(attribute) {
   // changes the content of the model so it gives information about an attribut
@@ -58,10 +60,6 @@ function _modal_skill(skill) {
     <p><b>Sample Contacts: </b>${skill.sampleContacts}</p>
     `;
 }
-
-let _get_attribute = (attribute) => DB.attributes.find((x) => x.id == attribute);
-
-let _get_skill = (skill) => DB.skills.find((x) => x.id == skill);
 
 function _getPoints_attribute(type) {
   // enter mental, physical, social or all
