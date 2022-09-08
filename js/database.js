@@ -46,7 +46,7 @@ const ADVANTAGES = {
   beats: { value: 0, label: "Beats" },
   xp: { value: 0, label: "Experience" },
   health: { value: 0, label: "Health", dmg: [] }, // 0 = bashing, 1 = lethal, 2 = aggravated
-  willpower: { value: 0, label: "Willpower" },
+  willpower: { value: 0, spend: 0, label: "Willpower" },
 };
 
 const ATTRIBUTES = [

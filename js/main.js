@@ -4,25 +4,31 @@
 const myModal_title = document.querySelector("#myModal_title");
 const myModal_body = document.querySelector("#myModal_body");
 // home
-const home_attributes = document.querySelector("#home_attributes");
-const home_skills = document.querySelector("#home_skills");
 const home_concepts = document.querySelector("#home_concepts");
+//
+const home_attributes = document.querySelector("#home_attributes");
 const home_att_mental = document.querySelector("#home_att_mental");
 const home_att_physical = document.querySelector("#home_att_physical");
 const home_att_social = document.querySelector("#home_att_social");
+//
+const home_skills = document.querySelector("#home_skills");
 const home_skill_mental = document.querySelector("#home_skill_mental");
 const home_skill_physical = document.querySelector("#home_skill_physical");
 const home_skill_social = document.querySelector("#home_skill_social");
+//
 const container_advantages = document.querySelector("#container_advantages");
+//
 const health_header = document.querySelector("#health_header");
 const health_container = document.querySelector("#health_container");
-const take_dmg = document.querySelector("#take_dmg");
-const heal_dmg = document.querySelector("#heal_dmg");
-const home_health = document.querySelector("#home_health");
 const dmg_bashing = document.querySelector("#dmg_bashing");
 const dmg_lethal = document.querySelector("#dmg_lethal");
 const dmg_aggravated = document.querySelector("#dmg_aggravated");
-
+const heal = document.querySelector("#heal");
+//
+const willpower_header = document.querySelector("#willpower_header");
+const willpower_container = document.querySelector("#willpower_container");
+const spend_willpower = document.querySelector("#spend_willpower");
+const gain_willpower = document.querySelector("#gain_willpower");
 // attributes
 const attributes_total = document.querySelector("#attributes_total");
 
@@ -94,6 +100,8 @@ function _build_home() {
   _build_attributes();
   _build_skills();
   _build_advantages();
+  _build_health();
+  _build_willpower();
 }
 
 // ====== concepts
@@ -178,7 +186,6 @@ function _get_specialties(skill) {
 }
 
 // ======  advantages
-
 function _build_advantages() {
   // Example: <div class="col-3">Size:</div>
   container_advantages.innerHTML = ``;
@@ -198,11 +205,6 @@ function _build_advantages() {
   // beats and xp are fixed numbers - no update needed
   _add_advantage(DB.advantages.beats);
   _add_advantage(DB.advantages.xp);
-
-  _update_health();
-  _add_healthboxes();
-
-  _update_willpower();
 }
 
 function _add_advantage(advantage) {
@@ -231,10 +233,38 @@ function _update_defense() {
   DB.advantages.defense.value = result;
 }
 
-// health and damage
+// health
 dmg_bashing.addEventListener("click", () => _add_dmg(0));
 dmg_lethal.addEventListener("click", () => _add_dmg(1));
 dmg_aggravated.addEventListener("click", () => _add_dmg(2));
+heal.addEventListener("click", () => _heal_damage());
+
+function _build_health() {
+  _update_health();
+  _add_healthboxes();
+}
+
+function _add_dmg(type) {
+  // type is number between 0 and 2 -> 0 = bashing, 1 = lethal, 2 = aggravated
+  let health = DB.advantages.health;
+  let lastIndex = health.dmg.length - 1;
+
+  if (health.dmg.length >= health.value) {
+    if (health.dmg[lastIndex] == 1) health.dmg[lastIndex] = 2;
+    if (health.dmg[lastIndex] == 0 && type == 2) health.dmg[lastIndex] = 2;
+    if (health.dmg[lastIndex] == 0 && type <= 1) health.dmg[lastIndex] = 1;
+  }
+
+  if (health.dmg.length < health.value) health.dmg.push(type);
+
+  health.dmg.sort((a, b) => b - a);
+  _build_health();
+}
+
+function _heal_damage() {
+  DB.advantages.health.dmg.pop();
+  _build_health();
+}
 
 function _update_health() {
   let size = DB.advantages.size.value;
@@ -245,23 +275,19 @@ function _update_health() {
 
 function _add_healthboxes() {
   let health = DB.advantages.health;
-
   // empty container
   health_container.innerHTML = ``;
-
   // loop over health and fill container
-  for (let i = 1; i <= DB.advantages.health.value; i++) {
+  for (let i = 1; i <= health.value; i++) {
     // =========
-    let penaltyCounter = i - DB.advantages.health.value + 3;
+    let penaltyCounter = i - health.value + 3;
     let penalty = ``;
     if (penaltyCounter > 0) penalty = `-${penaltyCounter}`;
-
     // =========
     let symbol = `empty`;
     if (health.dmg[i - 1] == 2) symbol = `aggravated`;
     if (health.dmg[i - 1] == 1) symbol = `lethal`;
     if (health.dmg[i - 1] == 0) symbol = `bashing`;
-
     // =========
     let newDiv = `
     <div class="col-auto">
@@ -269,43 +295,57 @@ function _add_healthboxes() {
       <div class="card-body">
         <p class="text-end card-text">${penalty}</small></p>
       </div>
-    <div>`;
-
+    </div>`;
     health_container.insertAdjacentHTML("beforeend", newDiv);
   }
 }
 
-function _add_dmg(type) {
-  // type is number between 0 and 2 -> 0 = bashing, 1 = lethal, 2 = aggravated
-  let health = DB.advantages.health;
-  let lastIndex = health.dmg.length - 1;
+// willpower
+spend_willpower.addEventListener("click", () => _spend_willpower());
+gain_willpower.addEventListener("click", () => _gain_willpower());
 
-  if (health.dmg.length <= health.value) health.dmg.push(type);
+function _build_willpower() {
+  _update_willpower();
+  _app_willpowerbox();
+}
 
-  if (health.dmg.length > health.value) {
-    if (health.dmg[lastIndex] == 1) health.dmg[lastIndex] = 2;
-    if (health.dmg[lastIndex] == 0 && type == 2) health.dmg[lastIndex] = 2;
-    if (health.dmg[lastIndex] == 0 && type <= 1) health.dmg[lastIndex] = 1;
-  }
+function _spend_willpower() {
+  let willpower = DB.advantages.willpower;
+  if (willpower.spend < willpower.value) willpower.spend += 1;
+  _build_willpower();
+}
 
-  health.dmg.sort((a, b) => b - a);
-  _build_advantages();
+function _gain_willpower() {
+  let willpower = DB.advantages.willpower;
+  if (willpower.spend > 0) willpower.spend += -1;
+  _build_willpower();
 }
 
 function _update_willpower() {
   let res = _get_attribute("resolve").value;
   let com = _get_attribute("composure").value;
   DB.advantages.willpower.value = res + com;
+  willpower_header.innerText = `Willpower (${DB.advantages.willpower.value})`;
 }
 
-home_health.addEventListener("click", (el) => {
-  if (el.target.classList.contains("toggle")) {
-    take_dmg.classList.toggle("visually-hidden");
-    heal_dmg.classList.toggle("visually-hidden");
+function _app_willpowerbox() {
+  let willpower = DB.advantages.willpower;
+  // empty container
+  willpower_container.innerHTML = ``;
+  // loop over willpower and fill container
+  for (let i = 1; i <= willpower.value; i++) {
+    let symbol = `empty`;
+    if (willpower.spend >= i) symbol = `lethal`;
+    let newDiv = `
+    <div class="col-auto">
+        <img class="card-img card-img-top" src="./img/healthbox_${symbol}.png" alt="" />
+        <div class="card-body">
+          <p class="text-end card-text invisible">1</small></p>
+        </div>
+    </div>`;
+    willpower_container.insertAdjacentHTML("beforeend", newDiv);
   }
-});
-
-// ======  health and willpower
+}
 
 /* ======================================================
 ** ATTRIBUTES

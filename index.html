@@ -78,9 +78,9 @@
         <div id="home_attributes" class="box">
           <h2>Attributes</h2>
           <div class="row">
-            <div id="home_att_mental" class="col-md-4 d-grid gap-2 mb-4"></div>
-            <div id="home_att_physical" class="col-md-4 d-grid gap-2 mb-4"></div>
-            <div id="home_att_social" class="col-md-4 d-grid gap-2 mb-4"></div>
+            <div id="home_att_mental" class="col-lg-4 d-grid gap-2 mb-4"></div>
+            <div id="home_att_physical" class="col-lg-4 d-grid gap-2 mb-4"></div>
+            <div id="home_att_social" class="col-lg-4 d-grid gap-2 mb-4"></div>
           </div>
           <hr class="border border-primary border-4 opacity-100" />
         </div>
@@ -89,9 +89,9 @@
         <div id="home_skills" class="box">
           <h2>Skills</h2>
           <div class="row">
-            <div id="home_skill_mental" class="col-md-4 d-grid gap-2 mb-4"></div>
-            <div id="home_skill_physical" class="col-md-4 d-grid gap-2 mb-4"></div>
-            <div id="home_skill_social" class="col-md-4 d-grid gap-2 mb-4"></div>
+            <div id="home_skill_mental" class="col-lg-4 d-grid gap-2 mb-4"></div>
+            <div id="home_skill_physical" class="col-lg-4 d-grid gap-2 mb-4"></div>
+            <div id="home_skill_social" class="col-lg-4 d-grid gap-2 mb-4"></div>
           </div>
           <hr class="border border-primary border-4 opacity-100" />
         </div>
@@ -104,29 +104,30 @@
         </div>
 
         <!-- health and willpower -->
-        <div id="" class="box row">
+        <div id="healthAndWillpower" class="box row gap-4">
           <!-- health -->
-          <div id="home_health" class="col-lg-6 col-md-12 row d-grid gap-3">
+          <div class="col-lg-6 col-md-12 row d-grid gap-1">
             <h5 id="health_header" class="text-center">Health</h5>
-            <div id="health_container" class="col-auto row justify-content-center gap-2"></div>
-
-            <div id="take_dmg" class="btn-group" role="group">
-              <button type="button" class="toggle btn btn-outline-primary">Take Damage</button>
-              <button id="dmg_bashing" type="button" class="btn btn-primary">bashing</button>
-              <button id="dmg_lethal" type="button" class="btn btn-primary">lethal</button>
-              <button id="dmg_aggravated" type="button" class="btn btn-primary">aggravated</button>
-            </div>
-
-            <div id="heal_dmg" class="btn-group visually-hidden" role="group">
-              <button type="button" class="toggle btn btn-outline-primary">Heal Damage</button>
-              <button id="heal_bashing" type="button" class="btn btn-primary">bashing</button>
-              <button id="heal_lethal" type="button" class="btn btn-primary">lethal</button>
-              <button id="heal_aggravated" type="button" class="btn btn-primary">aggravated</button>
+            <div id="health_container" class="col-auto row justify-content-center gap-1"></div>
+            <div class="btn-group" role="group">
+              <button id="heal" type="button" class="btn btn-outline-primary">Heal</button>
+              <button id="dmg_bashing" type="button" class="btn btn-primary">+Bashing</button>
+              <button id="dmg_lethal" type="button" class="btn btn-primary">+Lethal</button>
+              <button id="dmg_aggravated" type="button" class="btn btn-primary">+Aggravated</button>
             </div>
           </div>
 
           <!-- willpower -->
-          <div class="col-lg-6 col-md-12">willpower</div>
+          <div class="col-lg-6 col-md-12 row d-grid gap-1">
+            <h5 id="willpower_header" class="text-center">Willpower</h5>
+            <div id="willpower_container" class="col-auto row justify-content-center gap-1"></div>
+            <div class="btn-group" role="group">
+              <button id="gain_willpower" type="button" class="btn btn-outline-primary">
+                Gain
+              </button>
+              <button id="spend_willpower" type="button" class="btn btn-primary">Spend</button>
+            </div>
+          </div>
         </div>
       </div>
 
