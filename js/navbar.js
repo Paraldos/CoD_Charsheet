@@ -1,11 +1,11 @@
 "use strict";
 
-// navbar buttons
+// navbar
 let navLinks = document.querySelectorAll(".nav-link");
 let navbar_home = document.getElementById("navbar_home");
 let navbar_basics = document.getElementById("navbar_basics");
 let navbar_attributes = document.getElementById("navbar_attributes");
-// sections
+//
 let sections = document.querySelectorAll(".section");
 let home = document.getElementById("home");
 let basics_section = document.getElementById("basics_section");
@@ -26,9 +26,7 @@ switch (0) {
 
 /* ========= navbar buttons ========= */
 navbar_home.addEventListener("click", () => _navbar_click(navbar_home, home));
-navbar_basics.addEventListener("click", () =>
-  _navbar_click(navbar_basics, basics_section)
-);
+navbar_basics.addEventListener("click", () => _navbar_click(navbar_basics, basics_section));
 navbar_attributes.addEventListener("click", () =>
   _navbar_click(navbar_attributes, attributes_section)
 );
@@ -40,7 +38,7 @@ function _navbar_click(button, section) {
 }
 
 function _update_navbar(button) {
-  for (let link of navLinks) link.classList.remove("active");
+  navLinks.forEach((link) => link.classList.remove("active"));
   button.classList.add("active");
 }
 
