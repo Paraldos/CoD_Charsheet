@@ -152,6 +152,8 @@ const CONCEPTS = [
   new Concept("", "aspiration1"),
   new Concept("", "aspiration2"),
   new Concept("", "aspiration3"),
+  new Concept("", "vice"),
+  new Concept("", "virtue"),
 ];
 
 const ATTRIBUTES = [
@@ -830,6 +832,8 @@ const MASKS_AND_DIRGES = [
 
 const BLOODLINES = [{ label: "Test1" }, { label: "Test2" }, { label: "Test3" }, { label: "Test4" }];
 
+const VICEANDVIRTUE = [];
+
 /* ============================== Database ============================== */
 const DB = {
   concepts: CONCEPTS,
@@ -841,6 +845,7 @@ const DB = {
   armor: 0,
   // human
   faction: { value: "", label: "Faction", aktive: false },
+  viceAndVirtue: VICEANDVIRTUE,
 
   // Vampire
   covenant: { value: "", label: "Covenant", aktive: true },

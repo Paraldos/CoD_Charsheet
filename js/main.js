@@ -1,16 +1,5 @@
 "use strict";
 
-// ============== navbar
-const navLinks = document.querySelectorAll(".nav-link");
-const navbar_home = document.getElementById("navbar_home");
-const navbar_basics = document.getElementById("navbar_basics");
-const navbar_attributes = document.getElementById("navbar_attributes");
-//
-const sections = document.querySelectorAll(".section");
-const home = document.getElementById("home");
-const basics_section = document.getElementById("basics_section");
-const attributes_section = document.getElementById("attributes_section");
-
 // ============== modal
 const myModal_title = document.querySelector("#myModal_title");
 const myModal_body = document.querySelector("#myModal_body");
@@ -63,24 +52,35 @@ function _update_all() {
 _update_all();
 
 /* =========================== NAVBAR =========================== */
+// ============== navbar
+const navLinks = document.querySelectorAll(".nav-link");
+const navbar_home = document.getElementById("navbar_home");
+const navbar_basics = document.getElementById("navbar_basics");
+const navbar_attributes = document.getElementById("navbar_attributes");
+//
+const sections = document.querySelectorAll(".section");
+const section_home = document.getElementById("section_home");
+const section_basics = document.getElementById("section_basics");
+const section_attributes = document.getElementById("section_attributes");
+
 // ====== default settings when page is loaded
 switch (0) {
   case 0:
-    _navbar_click(navbar_home, home);
+    _navbar_click(navbar_home, section_home);
     break;
   case 1:
-    _navbar_click(navbar_basics, basics_section);
+    _navbar_click(navbar_basics, section_basics);
     break;
   case 2:
-    _navbar_click(navbar_attributes, attributes_section);
+    _navbar_click(navbar_attributes, section_attributes);
     break;
 }
 
 // ====== navbar buttons
-navbar_home.addEventListener("click", () => _navbar_click(navbar_home, home));
-navbar_basics.addEventListener("click", () => _navbar_click(navbar_basics, basics_section));
+navbar_home.addEventListener("click", () => _navbar_click(navbar_home, section_home));
+navbar_basics.addEventListener("click", () => _navbar_click(navbar_basics, section_basics));
 navbar_attributes.addEventListener("click", () =>
-  _navbar_click(navbar_attributes, attributes_section)
+  _navbar_click(navbar_attributes, section_attributes)
 );
 
 // ====== navbar click event
