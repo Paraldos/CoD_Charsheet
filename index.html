@@ -14,7 +14,7 @@
     />
     <script defer src="./js/database.js"></script>
     <script defer src="./js/main.js"></script>
-    <script defer src="./js/basics.js"></script>
+    <script defer src="./js/navbar.js"></script>
   </head>
   <body class="bg-primary">
     <!-- ################### navbar ################### -->
@@ -73,36 +73,62 @@
         <!-- Concepts -->
         <div class="box">
           <h2>Concepts</h2>
-          <div id="home_concepts" class="row"></div>
+          <div id="home_concepts" class="empty row"></div>
           <hr class="border border-primary border-4 opacity-100" />
         </div>
 
         <!-- Attributes -->
-        <div id="home_attributes" class="box">
+        <div class="box">
           <h2>Attributes</h2>
-          <div class="row">
-            <div id="home_att_mental" class="col-lg-4 col-12 d-grid gap-2"></div>
-            <div id="home_att_physical" class="col-lg-4 col-12 d-grid gap-2"></div>
-            <div id="home_att_social" class="col-lg-4 col-12 d-grid gap-2"></div>
+          <div id="home_attributes" class="row">
+            <div class="col-lg-4 col-12">
+              <p class="fw-bold fs-5 text-center mb-2">Mental</p>
+              <div id="home_att_mental" class="empty d-grid gap-2"></div>
+            </div>
+            <div class="col-lg-4 col-12">
+              <p class="fw-bold fs-5 text-center mb-2">Physical</p>
+              <div id="home_att_physical" class="empty d-grid gap-2"></div>
+            </div>
+            <div class="col-lg-4 col-12">
+              <p class="fw-bold fs-5 text-center mb-2">Social</p>
+              <div id="home_att_social" class="empty d-grid gap-2"></div>
+            </div>
           </div>
           <hr class="border border-primary border-4 opacity-100" />
         </div>
 
         <!-- Skills -->
-        <div id="home_skills" class="box">
+        <div class="box">
           <h2>Skills</h2>
-          <div class="row">
-            <div id="home_skill_mental" class="col-lg-4 col-12 d-grid gap-2"></div>
-            <div id="home_skill_physical" class="col-lg-4 col-12 d-grid gap-2"></div>
-            <div id="home_skill_social" class="col-lg-4 col-12 d-grid gap-2"></div>
+          <div id="home_skills" class="row">
+            <div class="col-lg-4 col-12">
+              <p class="text-center mb-2">
+                <span class="fw-bold fs-5">Mental</span> (-3 unskilled)
+              </p>
+              <div id="home_skill_mental" class="empty d-grid gap-2"></div>
+            </div>
+
+            <div class="col-lg-4 col-12">
+              <p class="text-center mb-2">
+                <span class="fw-bold fs-5">Physical</span> (-1 unskilled)
+              </p>
+              <div id="home_skill_physical" class="empty d-grid gap-2"></div>
+            </div>
+
+            <div class="col-lg-4 col-12">
+              <p class="text-center mb-2">
+                <span class="fw-bold fs-5">Social</span> (-1 unskilled)
+              </p>
+              <div id="home_skill_social" class="empty d-grid gap-2"></div>
+            </div>
           </div>
           <hr class="border border-primary border-4 opacity-100" />
         </div>
 
         <!-- Advantages -->
-        <div id="advantages" class="box">
+        <div class="box">
           <h2>Advantages</h2>
-          <div id="container_advantages" class="row"></div>
+          <div id="container_advantages" class="empty row"></div>
           <hr class="border border-primary border-4 opacity-5" />
         </div>
 
@@ -113,10 +139,12 @@
             <h5 id="health_header" class="text-center">Health</h5>
             <div id="health_container" class="col-auto row justify-content-center gap-1"></div>
             <div class="btn-group" role="group">
-              <button id="heal" type="button" class="btn btn-outline-primary">Heal</button>
-              <button id="dmg_bashing" type="button" class="btn btn-primary">+Bashing</button>
-              <button id="dmg_lethal" type="button" class="btn btn-primary">+Lethal</button>
-              <button id="dmg_aggravated" type="button" class="btn btn-primary">+Aggravated</button>
+              <button id="heal_dmg" type="button" class="btn btn-outline-primary">Heal</button>
+              <button id="take_bashing_dmg" type="button" class="btn btn-primary">+Bashing</button>
+              <button id="take_lethal_dmg" type="button" class="btn btn-primary">+Lethal</button>
+              <button id="take_aggravated_dmg" type="button" class="btn btn-primary">
+                +Aggravated
+              </button>
             </div>
           </div>
 
@@ -138,45 +166,51 @@
       <div id="section_basics" class="section">
         <h2>Basics</h2>
 
-        <div id="basics_housrules" class="">
+        <div>
           <h5>Housrules</h5>
-          <div class="form-check form-switch">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="defense_without_athletics"
-              checked
-            />
-            <label class="form-check-label" for="defense_without_athletics"
-              >Don't add athletics to defense.
-            </label>
-          </div>
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="no_aspirations" checked />
-            <label class="form-check-label" for="no_aspirations">Don't use aspirations.</label>
-          </div>
-          <hr class="border border-primary border-4 opacity-50" />
+          <div id="basics_housrules" class="empty"></div>
         </div>
+        <hr class="border border-primary border-4 opacity-50" />
 
-        <div id="basics_concepts" class=""></div>
+        <div>
+          <h5>Concepts</h5>
+          <div id="basics_concepts" class="empty"></div>
+        </div>
       </div>
 
       <!-- ####### attributes section #######-->
       <div id="section_attributes" class="section">
         <h2 class="col-auto">Attributes</h2>
         <div>
-          <p id="attributes_total" class="mb-0"></p>
-          <p class="mb-0">
-            <b>Character Creation:</b> Prioritize categories. They receive 5/4/3 dots, distributed
-            in any combination (12 points in total).
+          <p id="attributes_total" class="mb-0">
+            <b>Total Points Distributed: </b><span id="att_points_total">xxx</span>
           </p>
+          <p class="mb-0">
+            <b>Character Creation:</b> Prioritize categories. They receive 5/4/3 dots (12 points in
+            total). Distributed in any combination.
+          </p>
+          <hr class="border border-primary border-4 opacity-100" />
         </div>
-        <hr class="border border-primary border-4 opacity-50" />
-        <div id="attribute_mental2" class="row"></div>
-        <hr class="border border-primary border-4 opacity-50" />
-        <div id="attribute_physical2" class="row"></div>
-        <hr class="border border-primary border-4 opacity-50" />
-        <div id="attribute_social2" class="row"></div>
+
+        <div>
+          <p class=""><b>Mental</b> (<span id="att_points_mental">xxx</span> Points Distributed)</p>
+          <div id="attribute_mental" class="empty row"></div>
+          <hr class="border border-primary border-4 opacity-100" />
+        </div>
+
+        <div>
+          <p class="">
+            <b>Physical</b> (<span id="att_points_physical">xxx</span> Points Distributed)
+          </p>
+          <div id="attribute_physical" class="empty row"></div>
+          <hr class="border border-primary border-4 opacity-100" />
+        </div>
+
+        <div>
+          <p class=""><b>Social</b> (<span id="att_points_social">xxx</span> Points Distributed)</p>
+          <div id="attribute_social" class="empty row"></div>
+          <hr class="border border-primary border-4 opacity-100" />
+        </div>
       </div>
     </div>
 
