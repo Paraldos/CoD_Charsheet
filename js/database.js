@@ -52,27 +52,6 @@ class Concept extends Ability {
   constructor(value, id) {
     super(value, id);
   }
-
-  fillHomeContainer() {
-    if (DB.getHousrule("noAspirations").value && this.label.includes("Aspiration")) return;
-
-    let container = document.querySelector(`#home_concepts`);
-    let content = `<div class="col-lg-6 col-sm-12"><b>${this.label}:</b> ${this.value}</div>`;
-    container.insertAdjacentHTML("beforeend", content);
-  }
-
-  fillBasicsContainer() {
-    if (DB.getHousrule("noAspirations").value && this.label.includes("Aspiration")) return;
-
-    let container = document.getElementById("basics_concepts");
-    let content = `
-    <div class="m-2">
-      <label class="form-label">${this.label}</label>
-      <input value="${this.value}" concept="${this.id}" type="text" class="form-control"/>
-    </div>`;
-    // <label for="basics_${this.id}" class="form-label">${this.label}</label>
-    container.insertAdjacentHTML("beforeend", content);
-  }
 }
 
 class Attribute extends Ability {
@@ -81,51 +60,6 @@ class Attribute extends Ability {
     this.type = type;
     this.description = description;
     this.tasks = tasks;
-  }
-
-  fillHomeContainer() {
-    let container = document.querySelector(`#home_att_${this.type}`);
-    let content = `
-    <div 
-      modal="${this.id}" 
-      class="btn btn-outline-primary text-start" 
-      data-bs-toggle="modal" 
-      data-bs-target="#myModal">
-      ${this.label} ${this.dots}
-    </div>`;
-    container.insertAdjacentHTML("beforeend", content);
-  }
-
-  getButtonForButtongroup(i) {
-    let checked = ``;
-    if (this.value == i) checked = `checked`;
-    return `
-    <input type="radio" class="btn-check" name="btnradio_${this.id}" id="btnradio_${this.id}_${i}" autocomplete="off" ${checked}>
-    <label class="btn btn-outline-primary" for="btnradio_${this.id}_${i}">${i}</label>
-    `;
-  }
-
-  fillAttributesContainer() {
-    let container = document.querySelector(`#attribute_${this.type}`);
-    let content = `
-    <div class="row m-1">
-      <div
-        modal="${this.id}" 
-        id="attribute_${this.id}"
-        class="btn btn-primary col-3 " 
-        data-bs-toggle="modal" 
-        data-bs-target="#myModal">
-        ${this.label}
-      </div>
-      <div class="btn-group col-auto" role="group" aria-label="Basic radio toggle button group">
-        ${this.getButtonForButtongroup(1)}
-        ${this.getButtonForButtongroup(2)}
-        ${this.getButtonForButtongroup(3)}
-        ${this.getButtonForButtongroup(4)}
-        ${this.getButtonForButtongroup(5)}
-      </div>
-    </div>`;
-    container.insertAdjacentHTML("beforeend", content);
   }
 
   openModal() {
@@ -161,19 +95,6 @@ class Skill extends Ability {
     else return `(${this.specialties.join(", ")})`;
   }
 
-  fillHomeContainer() {
-    let container = document.querySelector(`#home_skill_${this.type}`);
-    let content = `
-    <div
-      id="home_${this.id}"
-      modal="${this.id}"
-      class="btn btn-outline-primary text-start"
-      data-bs-toggle="modal"
-      data-bs-target="#myModal">${this.label} ${this.dots} ${this.stringOfSpecialties}
-    </div>`;
-    container.insertAdjacentHTML("beforeend", content);
-  }
-
   openModal() {
     document.querySelector("#myModal_title").innerText = this.label;
     document.querySelector("#myModal_body").innerHTML = `
@@ -181,6 +102,10 @@ class Skill extends Ability {
     <p><b>Sample Actions: </b>${this.sampleActions}</p>
     <p><b>Sample Specialties: </b>${this.sampleSpecialties}</p>
     <p><b>Sample Contacts: </b>${this.sampleContacts}</p>`;
+  }
+
+  deleteEmptySpecialties() {
+    this.specialties = this.specialties.filter((el) => el != "");
   }
 }
 
@@ -206,15 +131,6 @@ class Advantage extends Ability {
     if (this.id == "beats") return this.value;
     if (this.id == "experience") return this.value;
   }
-
-  fillHomeContainer() {
-    let container = document.querySelector("#container_advantages");
-    let content = `
-    <div class="col-sm-12 col-md-4 col-lg-2">
-      <b>${this.label}: </b>${this.getValue()}
-    </div>`;
-    container.insertAdjacentHTML("beforeend", content);
-  }
 }
 
 class Health {
@@ -222,35 +138,6 @@ class Health {
     this.id = "health";
     this.label = "Health";
     this.dmg = [];
-  }
-
-  getPenalty(i) {
-    let penalty = i - this.value + 3;
-    if (penalty > 0) return `-${penalty}`;
-    return ``;
-  }
-
-  getSymbol(i) {
-    if (this.dmg[i - 1] == 2) return `./img/healthbox_aggravated.png`;
-    if (this.dmg[i - 1] == 1) return `./img/healthbox_lethal.png`;
-    if (this.dmg[i - 1] == 0) return `./img/healthbox_bashing.png`;
-    return `./img/healthbox_empty.png`;
-  }
-
-  fillHomeContainer() {
-    document.querySelector("#health_header").innerText = `Health (${this.value})`;
-    let container = document.querySelector("#health_container");
-    container.innerHTML = ``;
-    for (let i = 1; i <= this.value; i++) {
-      let newDiv = `
-      <div class="col-auto">
-        <img class="card-img card-img-top" src="${this.getSymbol(i)}" alt="" />
-        <div class="card-body">
-          <p class="text-end card-text">${this.getPenalty(i)}</small></p>
-        </div>
-      </div>`;
-      container.insertAdjacentHTML("beforeend", newDiv);
-    }
   }
 
   get value() {
@@ -268,7 +155,6 @@ class Health {
     }
     if (this.dmg.length < this.value) this.dmg.push(type);
     this.dmg.sort((a, b) => b - a);
-    this.fillHomeContainer();
   }
 
   takeBashingDmg() {
@@ -285,7 +171,6 @@ class Health {
 
   healDmg() {
     this.dmg.pop();
-    this.fillHomeContainer();
   }
 }
 
@@ -302,36 +187,12 @@ class Willpower {
     return res + com;
   }
 
-  getSymbol(i) {
-    if (this.spend >= i) return `./img/healthbox_lethal.png`;
-    return `./img/healthbox_empty.png`;
-  }
-
-  fillHomeContainer() {
-    document.querySelector("#willpower_header").innerText = `Willpower (${this.value})`;
-    let container = document.querySelector("#willpower_container");
-    container.innerHTML = ``;
-
-    for (let i = 1; i <= this.value; i++) {
-      let newDiv = `
-      <div class="col-auto">
-          <img class="card-img card-img-top" src="${this.getSymbol(i)}" alt="" />
-          <div class="card-body">
-            <p class="text-end card-text invisible">1</small></p>
-          </div>
-      </div>`;
-      container.insertAdjacentHTML("beforeend", newDiv);
-    }
-  }
-
   gainWillpower() {
     if (this.spend > 0) this.spend += -1;
-    this.fillHomeContainer();
   }
 
   spendWillpower() {
     if (this.spend < this.value) this.spend += 1;
-    this.fillHomeContainer();
   }
 }
 
@@ -345,16 +206,6 @@ class Housrule extends Ability {
   get checked() {
     if (this.value) return `checked`;
     else return ``;
-  }
-
-  fillBasicsContainer() {
-    let container = document.querySelector("#basics_housrules");
-    let content = `
-    <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" id="${this.id}" ${this.checked}/>
-      <label class="form-check-label" for="${this.id}">${this.description}</label>
-    </div>`;
-    container.insertAdjacentHTML("beforeend", content);
   }
 }
 
@@ -1014,12 +865,24 @@ const DB = {
   },
 
   getAttributePoints(type) {
+    return this._getPoints(type, "attributes");
+  }, // all, mental, physical or social
+
+  getSkillPoints(type) {
+    return this._getPoints(type, "skills");
+  }, // all, mental, physical or social
+
+  _getPoints(type, ability) {
     let points = 0;
     if (type == "all") {
-      DB.attributes.forEach((att) => (points += att.value));
+      DB[ability].forEach((el) => (points += el.value));
     } else {
-      DB.attributes.filter((att) => att.type == type).forEach((att2) => (points += att2.value));
+      DB[ability].filter((el) => el.type == type).forEach((el2) => (points += el2.value));
     }
     return points;
-  }, // all, mental, physical or social
+  },
+
+  updateSkills() {
+    DB.skills.forEach((el) => el.deleteEmptySpecialties());
+  },
 };

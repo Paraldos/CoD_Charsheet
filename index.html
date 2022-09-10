@@ -43,6 +43,9 @@
             <li class="nav-item">
               <a id="navbar_attributes" class="nav-link" href="#">Attributes</a>
             </li>
+            <li class="nav-item">
+              <a id="navbar_skills" class="nav-link" href="#">Skills</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -68,7 +71,7 @@
 
     <!-- ################### content ################### -->
     <div class="container bg-light pb-4 pt-2">
-      <!-- ####### home section #######-->
+      <!-- ### home section ### -->
       <div id="section_home" class="section">
         <!-- Concepts -->
         <div class="box">
@@ -139,10 +142,10 @@
             <h5 id="health_header" class="text-center">Health</h5>
             <div id="health_container" class="col-auto row justify-content-center gap-1"></div>
             <div class="btn-group" role="group">
-              <button id="heal_dmg" type="button" class="btn btn-outline-primary">Heal</button>
-              <button id="take_bashing_dmg" type="button" class="btn btn-primary">+Bashing</button>
-              <button id="take_lethal_dmg" type="button" class="btn btn-primary">+Lethal</button>
-              <button id="take_aggravated_dmg" type="button" class="btn btn-primary">
+              <button func="dmg_heal" type="button" class="btn btn-outline-primary">Heal</button>
+              <button func="dmg_bashing" type="button" class="btn btn-primary">+Bashing</button>
+              <button func="dmg_lethal" type="button" class="btn btn-primary">+Lethal</button>
+              <button func="dmg_aggravated" type="button" class="btn btn-primary">
                 +Aggravated
               </button>
             </div>
@@ -153,16 +156,14 @@
             <h5 id="willpower_header" class="text-center">Willpower</h5>
             <div id="willpower_container" class="col-auto row justify-content-center gap-1"></div>
             <div class="btn-group" role="group">
-              <button id="gain_willpower" type="button" class="btn btn-outline-primary">
-                Gain
-              </button>
-              <button id="spend_willpower" type="button" class="btn btn-primary">Spend</button>
+              <button func="will_gain" type="button" class="btn btn-outline-primary">Gain</button>
+              <button func="will_spend" type="button" class="btn btn-primary">Spend</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ####### basics section #######-->
+      <!-- ### basics section ### -->
       <div id="section_basics" class="section">
         <h2>Basics</h2>
 
@@ -178,11 +179,12 @@
         </div>
       </div>
 
-      <!-- ####### attributes section #######-->
+      <!-- ### attributes section ### -->
       <div id="section_attributes" class="section">
-        <h2 class="col-auto">Attributes</h2>
-        <div>
-          <p id="attributes_total" class="mb-0">
+        <h2>Attributes</h2>
+
+        <div class="info">
+          <p class="mb-0">
             <b>Total Points Distributed: </b><span id="att_points_total">xxx</span>
           </p>
           <p class="mb-0">
@@ -193,8 +195,8 @@
         </div>
 
         <div>
-          <p class=""><b>Mental</b> (<span id="att_points_mental">xxx</span> Points Distributed)</p>
-          <div id="attribute_mental" class="empty row"></div>
+          <p><b>Mental</b> (<span id="att_points_mental">xxx</span> Points Distributed)</p>
+          <div id="attribute_mental" class="empty"></div>
           <hr class="border border-primary border-4 opacity-100" />
         </div>
 
@@ -202,19 +204,55 @@
           <p class="">
             <b>Physical</b> (<span id="att_points_physical">xxx</span> Points Distributed)
           </p>
-          <div id="attribute_physical" class="empty row"></div>
+          <div id="attribute_physical" class="empty"></div>
           <hr class="border border-primary border-4 opacity-100" />
         </div>
 
         <div>
           <p class=""><b>Social</b> (<span id="att_points_social">xxx</span> Points Distributed)</p>
-          <div id="attribute_social" class="empty row"></div>
+          <div id="attribute_social" class="empty"></div>
+          <hr class="border border-primary border-4 opacity-100" />
+        </div>
+      </div>
+
+      <!-- ### skills section ### -->
+      <div id="section_skills" class="section">
+        <h2>Skills</h2>
+
+        <div class="info">
+          <p class="mb-0">
+            <b>Total Points Distributed: </b><span id="skills_points_total">xxx</span>
+          </p>
+          <p class="mb-0">
+            <b>Character Creation:</b> Prioritize categories. They receive 11/7/4 dots (22 points in
+            total). Distributed in any combination.
+          </p>
+          <hr class="border border-primary border-4 opacity-100" />
+        </div>
+
+        <div>
+          <p><b>Mental</b> (<span id="skill_points_mental">xxx</span> Points Distributed)</p>
+          <div id="skills_mental" class="empty"></div>
+          <hr class="border border-primary border-4 opacity-100" />
+        </div>
+
+        <div>
+          <p class="">
+            <b>Physical</b> (<span id="skill_points_physical">xxx</span> Points Distributed)
+          </p>
+          <div id="skills_physical" class="empty"></div>
+          <hr class="border border-primary border-4 opacity-100" />
+        </div>
+
+        <div>
+          <p class="">
+            <b>Social</b> (<span id="skill_points_social">xxx</span> Points Distributed)
+          </p>
+          <div id="skills_social" class="empty"></div>
           <hr class="border border-primary border-4 opacity-100" />
         </div>
       </div>
     </div>
-
-    <!-- ################### scripts ################### -->
 
     <!-- bootstrap -->
     <script

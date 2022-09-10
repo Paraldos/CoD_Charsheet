@@ -1,49 +1,30 @@
 "use strict";
 
-// ============== navbar
-const navLinks = document.querySelectorAll(".nav-link");
-const navbar_home = document.getElementById("navbar_home");
-const navbar_basics = document.getElementById("navbar_basics");
-const navbar_attributes = document.getElementById("navbar_attributes");
-//
-const sections = document.querySelectorAll(".section");
-const section_home = document.getElementById("section_home");
-const section_basics = document.getElementById("section_basics");
-const section_attributes = document.getElementById("section_attributes");
+/* =========================== NAVBAR =========================== */
+let navbar = {
+  navLinks: document.querySelectorAll(".nav-link"),
+  sections: document.querySelectorAll(".section"),
 
-// ====== default settings when page is loaded
-switch (2) {
-  case 0:
-    _navbar_click(navbar_home, section_home);
-    break;
-  case 1:
-    _navbar_click(navbar_basics, section_basics);
-    break;
-  case 2:
-    _navbar_click(navbar_attributes, section_attributes);
-    break;
-}
+  click(target) {
+    this._updateNavLinks(target);
+    this._updateSections(target);
+    DB.updateSkills();
+    _update_all();
+  },
 
-// ====== navbar buttons
-navbar_home.addEventListener("click", () => _navbar_click(navbar_home, section_home));
-navbar_basics.addEventListener("click", () => _navbar_click(navbar_basics, section_basics));
-navbar_attributes.addEventListener("click", () =>
-  _navbar_click(navbar_attributes, section_attributes)
-);
+  _updateNavLinks(target) {
+    this.navLinks.forEach((btn) => btn.classList.remove("active"));
+    document.querySelector(`#navbar_${target}`).classList.add("active");
+  },
 
-// ====== navbar click event
-function _navbar_click(button, section) {
-  _update_navbar(button);
-  _update_content(section);
-  _update_all();
-}
+  _updateSections(target) {
+    this.sections.forEach((sec) => sec.classList.add(`visually-hidden`));
+    document.querySelector(`#section_${target}`).classList.remove(`visually-hidden`);
+  },
+};
+navbar.click("home");
 
-function _update_navbar(button) {
-  navLinks.forEach((link) => link.classList.remove("active"));
-  button.classList.add("active");
-}
-
-function _update_content(section) {
-  for (let section of sections) section.classList.add(`visually-hidden`);
-  section.classList.remove(`visually-hidden`);
-}
+document.querySelector("#navbarNav").addEventListener("click", (el) => {
+  if (!el.target.classList.contains("nav-link")) return;
+  navbar.click(el.target.id.split("_")[1]);
+});
