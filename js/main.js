@@ -9,6 +9,81 @@ function _update_all() {
   skills.buildAll();
 }
 
+/* =========================== EVENTLISTENER =========================== */
+document.querySelector("body").addEventListener("click", (el) => {
+  let target = el.target;
+  if (el.target.localName == "i") target = el.target.parentElement;
+
+  if (!target.getAttribute("func")) return;
+  let func = target.getAttribute("func").split("_");
+
+  if (func[0] == "modal" && func[1] == "att") {
+    DB.getAttribute(func[2]).openModal();
+  }
+
+  if (func[0] == "modal" && func[1] == "skill") {
+    DB.getSkill(func[2]).openModal();
+  }
+
+  if (func[0] == "dmg") {
+    if (func[1] == "heal") DB.health.healDmg();
+    if (func[1] == "bashing") DB.health.takeBashingDmg();
+    if (func[1] == "lethal") DB.health.takeLethalDmg();
+    if (func[1] == "aggravated") DB.health.takeAggravatedDmg();
+    home.buildHealth();
+  }
+
+  if (func[0] == "will") {
+    if (func[1] == "gain") DB.willpower.gainWillpower();
+    if (func[1] == "spend") DB.willpower.spendWillpower();
+    home.buildWillpower();
+  }
+
+  if (func[0] == "addSpecialtie") {
+    DB.getSkill(func[1]).specialties.push("");
+    _update_all();
+  }
+
+  if (func[0] == "delete") {
+    DB.getSkill(func[1]).specialties.splice(func[2], 1);
+    _update_all();
+  }
+});
+
+document.querySelector("body").addEventListener("input", (el) => {
+  let target = el.target;
+  if (el.target.localName == "i") target = el.target.parentElement;
+
+  if (!target.getAttribute("func")) return;
+  let func = target.getAttribute("func").split("_");
+
+  if (func[0] == "set" && func[1] == "att") {
+    DB.getAttribute(func[2]).value = +func[3];
+    _update_all();
+  }
+
+  if (func[0] == "set" && func[1] == "skill") {
+    DB.getSkill(func[2]).value = +func[3];
+    _update_all();
+  }
+
+  if (func[0] == "input" && func[1] == "spec") {
+    console.log("hi");
+    DB.getSkill(func[2]).specialties[func[3]] = el.target.value;
+  }
+
+  if (func[0] == "housrule") {
+    DB.getHousrule(func[1]).value = el.target.checked;
+    _update_all();
+  }
+
+  if (func[0] == "concept") {
+    DB.getConcept(func[1]).value = el.target.value;
+    DB.getHousrule(func[1]).value = el.target.checked;
+    _update_all();
+  }
+});
+
 /* =========================== HOME =========================== */
 let home = {
   buildAll() {
@@ -77,7 +152,7 @@ let home = {
     for (let i = 1; i <= health.value; i++) {
       let newDiv = `
       <div class="col-auto">
-        <img class="card-img card-img-top" src="${this.getHealthSymbol(i)}" alt="" />
+        ${this.getHealthSymbol(i)}
         <div class="card-body">
           <p class="text-end card-text">${this.getHealthPenalty(i)}</small></p>
         </div>
@@ -93,10 +168,10 @@ let home = {
   },
 
   getHealthSymbol(i) {
-    if (DB.health.dmg[i - 1] == 2) return `./img/healthbox_aggravated.png`;
-    if (DB.health.dmg[i - 1] == 1) return `./img/healthbox_lethal.png`;
-    if (DB.health.dmg[i - 1] == 0) return `./img/healthbox_bashing.png`;
-    return `./img/healthbox_empty.png`;
+    if (DB.health.dmg[i - 1] == 2) return `<i class="fa-solid fa-skull fs-1"></i>`; // aggravated
+    if (DB.health.dmg[i - 1] == 1) return `<i class="fa-solid fa-square-xmark fs-1"></i>`; // lethal
+    if (DB.health.dmg[i - 1] == 0) return `<i class="fa-solid fa-square-minus fs-1"></i>`; // bashing
+    return `<i class="fa-regular fa-square fs-1"></i>`; // empty
   },
 
   buildWillpower() {
@@ -106,7 +181,7 @@ let home = {
     for (let i = 1; i <= DB.willpower.value; i++) {
       let newDiv = `
       <div class="col-auto">
-          <img class="card-img card-img-top" src="${this.getWillpowerSymbol(i)}" alt="" />
+          ${this.getWillpowerSymbol(i)}
           <div class="card-body">
             <p class="text-end card-text invisible">1</small></p>
           </div>
@@ -116,38 +191,10 @@ let home = {
   },
 
   getWillpowerSymbol(i) {
-    if (DB.willpower.spend >= i) return `./img/healthbox_lethal.png`;
-    return `./img/healthbox_empty.png`;
+    if (DB.willpower.spend >= i) return `<i class="fa-solid fa-square-xmark fs-1"></i>`; // spend
+    return `<i class="fa-regular fa-square fs-1"></i>`; // unused
   },
 };
-
-// eventListener
-document.querySelector("#section_home").addEventListener("click", (el) => {
-  if (!el.target.getAttribute("func")) return;
-  let func = el.target.getAttribute("func").split("_");
-
-  if (func[0] == "modal" && func[1] == "att") {
-    DB.getAttribute(func[2]).openModal();
-  }
-
-  if (func[0] == "modal" && func[1] == "skill") {
-    DB.getSkill(func[2]).openModal();
-  }
-
-  if (func[0] == "dmg") {
-    if (func[1] == "heal") DB.health.healDmg();
-    if (func[1] == "bashing") DB.health.takeBashingDmg();
-    if (func[1] == "lethal") DB.health.takeLethalDmg();
-    if (func[1] == "aggravated") DB.health.takeAggravatedDmg();
-    home.buildHealth();
-  }
-
-  if (func[0] == "will") {
-    if (func[1] == "gain") DB.willpower.gainWillpower();
-    if (func[1] == "spend") DB.willpower.spendWillpower();
-    home.buildWillpower();
-  }
-});
 
 /* =========================== BASICS =========================== */
 let basics = {
@@ -161,7 +208,7 @@ let basics = {
       let container = document.querySelector("#basics_housrules");
       let content = `
       <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="${rule.id}" ${rule.checked}/>
+        <input func="housrule_${rule.id}" class="form-check-input" type="checkbox" id="${rule.id}" ${rule.checked}/>
         <label class="form-check-label" for="${rule.id}">${rule.description}</label>
       </div>`;
       container.insertAdjacentHTML("beforeend", content);
@@ -175,24 +222,12 @@ let basics = {
       let content = `
       <div class="m-2">
         <label class="form-label">${concept.label}</label>
-        <input value="${concept.value}" concept="${concept.id}" type="text" class="form-control"/>
+        <input func="concept_${concept.id}" value="${concept.value}" type="text" class="form-control"/>
       </div>`;
       container.insertAdjacentHTML("beforeend", content);
     });
   },
 };
-
-// eventListener
-document.querySelector("#basics_housrules").addEventListener("input", (el) => {
-  DB.getHousrule(el.target.id).value = el.target.checked;
-  _update_all();
-});
-
-document.querySelector("#basics_concepts").addEventListener("input", (el) => {
-  let value = el.target.value;
-  let concept = el.target.getAttribute("concept");
-  DB.getConcept(concept).value = value;
-});
 
 /* =========================== ATTRIBUTES =========================== */
 let attributes = {
@@ -219,7 +254,7 @@ let attributes = {
       let content = `
       <div class="row m-2 gap-2 mb-3">
         <div class="col-sm-12 col-md-3 btn btn-primary" data-bs-toggle="modal" 
-        data-bs-target="#myModal" func="modal_${attribute.id}">
+        data-bs-target="#myModal" func="modal_att_${attribute.id}">
           ${attribute.label}
         </div>
         <div class="col-auto btn-group p-0" role="group" >${this.getButtongroup(attribute)}</div>
@@ -233,32 +268,13 @@ let attributes = {
     for (let i = 1; i <= 5; i++) {
       let checked = attribute.value == i ? `checked` : ``;
       buttons += `
-      <input type="radio" class="btn-check" id="btnradio_${attribute.id}_${i}" autocomplete="off" ${checked} func="set_${attribute.id}_${i}">
+      <input type="radio" class="btn-check" id="btnradio_${attribute.id}_${i}" autocomplete="off" ${checked} func="set_att_${attribute.id}_${i}">
       <label class="btn btn-outline-primary" for="btnradio_${attribute.id}_${i}">${i}</label>
       `;
     }
     return buttons;
   },
 };
-
-document.querySelector("#section_attributes").addEventListener("input", (el) => {
-  if (!el.target.getAttribute("func")) return;
-  let func = el.target.getAttribute("func").split("_");
-
-  if (func[0] == "set") {
-    DB.getAttribute(func[1]).value = Number(func[2]);
-    _update_all();
-  }
-});
-
-document.querySelector("#section_attributes").addEventListener("click", (el) => {
-  if (!el.target.getAttribute("func")) return;
-  let func = el.target.getAttribute("func").split("_");
-
-  if (func[0] == "modal") {
-    DB.getAttribute(func[1]).openModal();
-  }
-});
 
 /* =========================== SKILLS =========================== */
 let skills = {
@@ -284,7 +300,7 @@ let skills = {
       let container = document.querySelector(`#skills_${skill.type}`);
       let content = `
       <div class="row m-2 gap-2">
-        <div class="col-sm-12 col-md-3 btn btn-primary" func="modal_${skill.id}"
+        <div class="col-sm-12 col-md-3 btn btn-primary" func="modal_skill_${skill.id}"
           data-bs-toggle="modal" data-bs-target="#myModal">${skill.label}
         </div>
         
@@ -307,7 +323,7 @@ let skills = {
     for (let i = 0; i <= 5; i++) {
       let checked = skill.value == i ? `checked` : ``;
       buttons += `
-      <input type="radio" class="btn-check" name="btnradio_${skill.id}" id="btnradio_${skill.id}_${i}" autocomplete="off" ${checked} func="set_${skill.id}_${i}">
+      <input type="radio" class="btn-check" name="btnradio_${skill.id}" id="btnradio_${skill.id}_${i}" autocomplete="off" ${checked} func="set_skill_${skill.id}_${i}">
       <label class="btn btn-outline-primary" for="btnradio_${skill.id}_${i}">${i}</label>
       `;
     }
@@ -320,7 +336,7 @@ let skills = {
       inputs += `
       <div class="col-sm-12 col-md-3 p-1">
         <div class="input-group">
-          <input value="${el}" type="text" func="input_${skill.id}_${i}" class="form-control ">
+          <input value="${el}" type="text" func="input_spec_${skill.id}_${i}" class="form-control ">
           <button func="delete_${skill.id}_${i}" class="btn btn-outline-primary" type="button" func="remove_${skill.id}">X</button>
         </div>
       </div>`;
@@ -328,36 +344,3 @@ let skills = {
     return inputs;
   },
 };
-
-document.querySelector("#section_skills").addEventListener("input", (el) => {
-  if (!el.target.getAttribute("func")) return;
-  let func = el.target.getAttribute("func").split("_");
-
-  if (func[0] == "set") {
-    DB.getSkill(func[1]).value = Number(func[2]);
-    _update_all();
-  }
-
-  if (func[0] == "input") {
-    DB.getSkill(func[1]).specialties[func[2]] = el.target.value;
-  }
-});
-
-document.querySelector("#section_skills").addEventListener("click", (el) => {
-  if (!el.target.getAttribute("func")) return;
-  let func = el.target.getAttribute("func").split("_");
-
-  if (func[0] == "modal") {
-    DB.getSkill(func[1]).openModal();
-  }
-
-  if (func[0] == "addSpecialtie") {
-    DB.getSkill(func[1]).specialties.push("");
-    _update_all();
-  }
-
-  if (func[0] == "delete") {
-    DB.getSkill(func[1]).specialties.splice(func[2], 1);
-    _update_all();
-  }
-});

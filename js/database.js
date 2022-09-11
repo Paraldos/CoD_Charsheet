@@ -42,8 +42,8 @@ class Ability {
 
   get dots() {
     if (DB.getHousrule("useNumbers").value) return this.value;
-    let dots = new Array(5).fill("⚪");
-    for (let i = 0; i < this.value; i++) dots[i] = "⚫";
+    let dots = new Array(5).fill(`<i class="fa-regular fa-circle"></i> `);
+    for (let i = 0; i < this.value; i++) dots[i] = `<i class="fa-solid fa-circle"></i> `;
     return dots.join("");
   }
 }
