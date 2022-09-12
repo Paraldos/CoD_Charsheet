@@ -1,36 +1,18 @@
 "use strict";
 
-async function getData(file) {
-  // get data as string and put it in csvData
-  let response = await fetch(file);
-  let csvData = await response.text();
-
-  // transform csvData from string into array of arrays
-  csvData = csvData.split("\r\n");
-  csvData.pop(); // pop empty last line
-  csvData = csvData.map((el) => el.split(";"));
-
-  // get keys (first row in the csv file) and delete it from csvData
-  let keys = csvData[0];
-  csvData.shift();
-
-  // construct myArray (finall array full of objects) from csvData
-  let myArray = [];
-  csvData.forEach((data) => {
-    let myObject = {};
-    keys.forEach((key, i) => (myObject[key] = data[i]));
-    myArray.push(myObject);
-  });
-
-  // return csv content as array
-  return myArray;
-}
-
 /* ============================== Basics ============================== */
 class Ability {
-  constructor(value, id) {
+  constructor(_baseValue, id) {
+    this._baseValue = _baseValue;
     this.id = id;
-    this.value = value;
+  }
+
+  get value() {
+    return this._baseValue;
+  }
+
+  set value(x) {
+    this._baseValue = x;
   }
 
   get label() {
@@ -49,30 +31,23 @@ class Ability {
 }
 
 class Concept extends Ability {
-  constructor(value, id) {
-    super(value, id);
+  constructor(_baseValue, id) {
+    super(_baseValue, id);
   }
 }
 
 class Attribute extends Ability {
-  constructor(value, id, type, description, tasks) {
-    super(value, id);
+  constructor(_baseValue, id, type, description, tasks) {
+    super(_baseValue, id);
     this.type = type;
     this.description = description;
     this.tasks = tasks;
-  }
-
-  openModal() {
-    document.querySelector("#myModal_title").innerText = this.label;
-    document.querySelector("#myModal_body").innerHTML = `
-    <p>${this.description}</p>
-    <p><b>Attribute Tasks: </b>${this.tasks}</p>`;
   }
 }
 
 class Skill extends Ability {
   constructor(
-    value,
+    _baseValue,
     id,
     type,
     description,
@@ -81,7 +56,7 @@ class Skill extends Ability {
     sampleSpecialties,
     sampleContacts
   ) {
-    super(value, id);
+    super(_baseValue, id);
     this.description = description;
     this.specialties = specialties;
     this.sampleActions = sampleActions;
@@ -94,42 +69,31 @@ class Skill extends Ability {
     if (this.specialties.length <= 0) return "";
     else return `(${this.specialties.join(", ")})`;
   }
-
-  openModal() {
-    document.querySelector("#myModal_title").innerText = this.label;
-    document.querySelector("#myModal_body").innerHTML = `
-    <p>${this.description}</p>
-    <p><b>Sample Actions: </b>${this.sampleActions}</p>
-    <p><b>Sample Specialties: </b>${this.sampleSpecialties}</p>
-    <p><b>Sample Contacts: </b>${this.sampleContacts}</p>`;
-  }
-
-  deleteEmptySpecialties() {
-    this.specialties = this.specialties.filter((el) => el != "");
-  }
 }
 
 class Advantage extends Ability {
-  constructor(value, id) {
-    super(value, id);
+  constructor(_baseValue, id, description, calc) {
+    super(_baseValue, id);
+    this.description = description;
+    this.calc = calc;
   }
 
-  getValue() {
+  get value() {
     let wits = DB.getAttribute("wits").value;
     let str = DB.getAttribute("strength").value;
     let dex = DB.getAttribute("dexterity").value;
     let com = DB.getAttribute("composure").value;
     let athletics = DB.getSkill("athletics").value;
 
-    if (this.id == "size") return this.value;
+    if (this.id == "size") return this._baseValue;
     if (this.id == "speed") return str + dex + 5;
     if (this.id == "initiative") return dex + com;
     if (this.id == "defense")
       if (DB.getHousrule("noAthletics").value) return Math.min(wits, dex);
       else return Math.min(wits, dex) + athletics;
-    if (this.id == "speed") return this.value;
-    if (this.id == "beats") return this.value;
-    if (this.id == "experience") return this.value;
+    if (this.id == "speed") return this._baseValue;
+    if (this.id == "beats") return this._baseValue;
+    if (this.id == "experience") return this._baseValue;
   }
 }
 
@@ -495,337 +459,10 @@ const DB = {
     new Housrule(false, "noAspirations", "Don't use aspirations."),
     new Housrule(false, "useNumbers", "Use numbers instead of dots."),
   ],
-  concepts: [
-    new Concept("", "name"),
-    new Concept("", "age"),
-    new Concept("", "player"),
-    new Concept("", "chronicle"),
-    new Concept("", "concept"),
-    new Concept("", "vice"),
-    new Concept("", "virtue"),
-    new Concept("", "aspiration1"),
-    new Concept("", "aspiration2"),
-    new Concept("", "aspiration3"),
-  ],
-  attributes: [
-    new Attribute(
-      1,
-      "intelligence",
-      "mental",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Attribute(
-      1,
-      "wits",
-      "mental",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Attribute(
-      1,
-      "resolve",
-      "mental",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      "Lorem ipsum dolor sit."
-    ),
-    // ============================
-    new Attribute(
-      1,
-      "strength",
-      "physical",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Attribute(
-      1,
-      "dexterity",
-      "physical",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Attribute(
-      1,
-      "stamina",
-      "physical",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      "Lorem ipsum dolor sit."
-    ),
-    // ============================
-    new Attribute(
-      1,
-      "presence",
-      "social",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Attribute(
-      1,
-      "manipulation",
-      "social",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Attribute(
-      1,
-      "composure",
-      "social",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      "Lorem ipsum dolor sit."
-    ),
-  ],
-  skills: [
-    new Skill(
-      0,
-      "academics",
-      "mental",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "computer",
-      "mental",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "crafts",
-      "mental",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "investigation",
-      "mental",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "medicine",
-      "mental",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "occult",
-      "mental",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "politics",
-      "mental",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "science",
-      "mental",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    // ============================
-    new Skill(
-      0,
-      "athletics",
-      "physical",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "brawl",
-      "physical",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "drive",
-      "physical",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "firearms",
-      "physical",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "larceny",
-      "physical",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "stealth",
-      "physical",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "survival",
-      "physical",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "weaponry",
-      "physical",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    // ============================
-    new Skill(
-      0,
-      "animalKen",
-      "social",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "empathy",
-      "social",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "expression",
-      "social",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "intimidation",
-      "social",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "persuasion",
-      "social",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "socialize",
-      "social",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "streetwise",
-      "social",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-    new Skill(
-      0,
-      "subterfuge",
-      "social",
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      [],
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit.",
-      "Lorem ipsum dolor sit."
-    ),
-  ],
-  advantages: [
-    new Advantage(5, "size"),
-    new Advantage(0, "speed"),
-    new Advantage(0, "initiative"),
-    new Advantage(0, "defense"),
-    new Advantage(0, "beats"),
-    new Advantage(0, "experience"),
-  ],
+  concepts: [],
+  attributes: [],
+  skills: [],
+  advantages: [],
   health: new Health(),
   willpower: new Willpower(),
 
@@ -883,6 +520,343 @@ const DB = {
   },
 
   updateSkills() {
-    DB.skills.forEach((el) => el.deleteEmptySpecialties());
+    DB.skills.forEach((skill) => {
+      skill.specialties = skill.specialties.filter((el) => el != "");
+    });
   },
 };
+
+let CONCEPTS = [
+  new Concept("", "name"),
+  new Concept("", "age"),
+  new Concept("", "player"),
+  new Concept("", "chronicle"),
+  new Concept("", "concept"),
+  new Concept("", "vice"),
+  new Concept("", "virtue"),
+  new Concept("", "aspiration1"),
+  new Concept("", "aspiration2"),
+  new Concept("", "aspiration3"),
+];
+
+let ATTRIBUTES = [
+  new Attribute(
+    1,
+    "intelligence",
+    "mental",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Attribute(
+    1,
+    "wits",
+    "mental",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Attribute(
+    1,
+    "resolve",
+    "mental",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    "Lorem ipsum dolor sit."
+  ),
+  // ============================
+  new Attribute(
+    1,
+    "strength",
+    "physical",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Attribute(
+    1,
+    "dexterity",
+    "physical",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Attribute(
+    1,
+    "stamina",
+    "physical",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    "Lorem ipsum dolor sit."
+  ),
+  // ============================
+  new Attribute(
+    1,
+    "presence",
+    "social",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Attribute(
+    1,
+    "manipulation",
+    "social",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Attribute(
+    1,
+    "composure",
+    "social",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    "Lorem ipsum dolor sit."
+  ),
+];
+
+let SKILLS = [
+  new Skill(
+    0,
+    "academics",
+    "mental",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "computer",
+    "mental",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "crafts",
+    "mental",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "investigation",
+    "mental",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "medicine",
+    "mental",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "occult",
+    "mental",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "politics",
+    "mental",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "science",
+    "mental",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  // ============================
+  new Skill(
+    0,
+    "athletics",
+    "physical",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "brawl",
+    "physical",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "drive",
+    "physical",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "firearms",
+    "physical",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "larceny",
+    "physical",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "stealth",
+    "physical",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "survival",
+    "physical",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "weaponry",
+    "physical",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  // ============================
+  new Skill(
+    0,
+    "animalKen",
+    "social",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "empathy",
+    "social",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "expression",
+    "social",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "intimidation",
+    "social",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "persuasion",
+    "social",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "socialize",
+    "social",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "streetwise",
+    "social",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+  new Skill(
+    0,
+    "subterfuge",
+    "social",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+    [],
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit.",
+    "Lorem ipsum dolor sit."
+  ),
+];
+
+let ADVANTAGES = [
+  new Advantage(5, "size"),
+  new Advantage(0, "speed"),
+  new Advantage(0, "initiative"),
+  new Advantage(0, "defense"),
+  new Advantage(0, "beats"),
+  new Advantage(0, "experience"),
+];

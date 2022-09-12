@@ -2,6 +2,7 @@
 
 /* =========================== UPDATE ALL =========================== */
 function _update_all() {
+  DB.updateSkills();
   document.querySelectorAll(".empty").forEach((el) => (el.innerHTML = ``));
   home.buildAll();
   basics.buildAll();
@@ -9,22 +10,86 @@ function _update_all() {
   skills.buildAll();
 }
 
+/* =========================== NAVBAR =========================== */
+let navbar = {
+  navLinks: document.querySelectorAll(".nav-link"),
+  sections: document.querySelectorAll(".section"),
+
+  click(target) {
+    this._updateNavLinks(target);
+    this._updateSections(target);
+    _update_all();
+  },
+
+  _updateNavLinks(target) {
+    this.navLinks.forEach((btn) => btn.classList.remove("active"));
+    document.querySelector(`#navbar_${target}`).classList.add("active");
+  },
+
+  _updateSections(target) {
+    this.sections.forEach((sec) => sec.classList.add(`visually-hidden`));
+    document.querySelector(`#section_${target}`).classList.remove(`visually-hidden`);
+  },
+};
+
+document.querySelector("#navbarNav").addEventListener("click", (el) => {
+  if (!el.target.classList.contains("nav-link")) return;
+  navbar.click(el.target.id.split("_")[1]);
+});
+
+/* =========================== MODAL =========================== */
+let modal = {
+  modalTitle: document.querySelector("#myModal_title"),
+  modalBody: document.querySelector("#myModal_body"),
+
+  attribute(att) {
+    this.modalTitle.innerText = att.label;
+    this.modalBody.innerHTML = `
+    <p>${att.description}</p>
+    <p><b>Attribute Tasks: </b>${att.tasks}</p>`;
+  },
+
+  skill(skill) {
+    this.modalTitle.innerText = skill.label;
+    this.modalBody.innerHTML = `
+    <p>${skill.description}</p>
+    <p><b>Sample Actions: </b>${skill.sampleActions}</p>
+    <p><b>Sample Specialties: </b>${skill.sampleSpecialties}</p>
+    <p><b>Sample Contacts: </b>${skill.sampleContacts}</p>`;
+  },
+
+  advantage(advantage) {
+    this.modalTitle.innerText = advantage.label;
+    this.modalBody.innerHTML = `
+    <p>${advantage.description}</p>
+    <p><b>Calculation: </b>${advantage.calc}</p>
+    `;
+  },
+};
+
 /* =========================== EVENTLISTENER =========================== */
 document.querySelector("body").addEventListener("click", (el) => {
   let target = el.target;
   if (el.target.localName == "i") target = el.target.parentElement;
-
   if (!target.getAttribute("func")) return;
   let func = target.getAttribute("func").split("_");
 
+  // attribute modal
   if (func[0] == "modal" && func[1] == "att") {
-    DB.getAttribute(func[2]).openModal();
+    modal.attribute(DB.getAttribute(func[2]));
   }
 
+  // skill modal
   if (func[0] == "modal" && func[1] == "skill") {
-    DB.getSkill(func[2]).openModal();
+    modal.skill(DB.getSkill(func[2]));
   }
 
+  // advantage modal
+  if (func[0] == "modal" && func[1] == "adv") {
+    modal.advantage(DB.getAdvantage(func[2]));
+  }
+
+  // take and heal dmg
   if (func[0] == "dmg") {
     if (func[1] == "heal") DB.health.healDmg();
     if (func[1] == "bashing") DB.health.takeBashingDmg();
@@ -33,17 +98,20 @@ document.querySelector("body").addEventListener("click", (el) => {
     home.buildHealth();
   }
 
+  // gain and spend willpower
   if (func[0] == "will") {
     if (func[1] == "gain") DB.willpower.gainWillpower();
     if (func[1] == "spend") DB.willpower.spendWillpower();
     home.buildWillpower();
   }
 
+  // add specialtie
   if (func[0] == "addSpecialtie") {
     DB.getSkill(func[1]).specialties.push("");
     _update_all();
   }
 
+  // delete specaltie
   if (func[0] == "delete") {
     DB.getSkill(func[1]).specialties.splice(func[2], 1);
     _update_all();
@@ -127,7 +195,8 @@ let home = {
           class="btn btn-outline-primary text-start"
           func="modal_skill_${skill.id}"
           data-bs-toggle="modal"
-          data-bs-target="#myModal">${skill.label} ${skill.dots} ${skill.stringOfSpecialties}
+          data-bs-target="#myModal">
+          ${skill.label} ${skill.dots} ${skill.stringOfSpecialties}
         </div>`;
       container.insertAdjacentHTML("beforeend", content);
     });
@@ -137,8 +206,12 @@ let home = {
     DB.advantages.forEach((advantage) => {
       let container = document.querySelector("#container_advantages");
       let content = `
-      <div class="col-sm-12 col-md-4 col-lg-2">
-        <b>${advantage.label}: </b>${advantage.getValue()}
+      <div 
+        class="col-sm-12 col-md-4 col-lg-2 text-center"
+        func="modal_adv_${advantage.id}"
+        data-bs-toggle="modal"
+        data-bs-target="#myModal">
+        ${advantage.label}: ${advantage.value}
       </div>`;
       container.insertAdjacentHTML("beforeend", content);
     });
@@ -182,9 +255,7 @@ let home = {
       let newDiv = `
       <div class="col-auto">
           ${this.getWillpowerSymbol(i)}
-          <div class="card-body">
-            <p class="text-end card-text invisible">1</small></p>
-          </div>
+
       </div>`;
       container.insertAdjacentHTML("beforeend", newDiv);
     }
@@ -237,11 +308,11 @@ let attributes = {
   social: document.querySelector("#att_points_social"),
 
   buildAll() {
-    this.updatePoints();
+    this.updatePointCounter();
     this.buildAttributes();
   },
 
-  updatePoints() {
+  updatePointCounter() {
     this.total.innerHTML = DB.getAttributePoints("all") - 9;
     this.mental.innerHTML = DB.getAttributePoints("mental") - 3;
     this.physical.innerHTML = DB.getAttributePoints("physical") - 3;
@@ -284,11 +355,11 @@ let skills = {
   social: document.querySelector("#skill_points_social"),
 
   buildAll() {
-    this.updatePoints();
+    this.updatePointCounter();
     this.buildSkills();
   },
 
-  updatePoints() {
+  updatePointCounter() {
     this.total.innerHTML = DB.getSkillPoints("all");
     this.mental.innerHTML = DB.getSkillPoints("mental");
     this.physical.innerHTML = DB.getSkillPoints("physical");
@@ -344,3 +415,62 @@ let skills = {
     return inputs;
   },
 };
+
+/* =========================== INIT =========================== */
+let init = {
+  async fillDB() {
+    await this._fillConcepts();
+    await this._fillAttributes();
+    await this._fillSkills();
+    await this._fillAdvantages();
+
+    navbar.click("home");
+  },
+
+  // ========
+  async _getFile(url) {
+    let file = await fetch(url);
+    file = await file.text();
+    return file;
+  },
+
+  _parseCSVData(file) {
+    file = file.split("\r\n");
+    file.pop();
+    file.shift();
+    file = file.map((el) => el.split(";"));
+    return file;
+  },
+
+  // ========
+  async _fillConcepts() {
+    let file = await this._getFile("./csv/concepts.csv");
+    file = this._parseCSVData(file);
+    DB.concepts = [];
+    file.forEach((el) => DB.concepts.push(new Concept(el[0], el[1])));
+  },
+
+  async _fillAttributes() {
+    let file = await this._getFile("./csv/attributes.csv");
+    file = this._parseCSVData(file);
+    DB.attributes = [];
+    file.forEach((el) => DB.attributes.push(new Attribute(+el[0], el[1], el[2], el[3], el[4])));
+  },
+
+  async _fillSkills() {
+    let file = await this._getFile("./csv/skills.csv");
+    file = this._parseCSVData(file);
+    DB.skills = [];
+    file.forEach((el) => {
+      DB.skills.push(new Skill(+el[0], el[1], el[2], el[3], el[4].split(","), el[5], el[6], el[7]));
+    });
+  },
+
+  async _fillAdvantages() {
+    let file = await this._getFile("./csv/advantages.csv");
+    file = this._parseCSVData(file);
+    DB.advantages = [];
+    file.forEach((el) => DB.advantages.push(new Advantage(+el[0], el[1], el[2], el[3])));
+  },
+};
+init.fillDB();

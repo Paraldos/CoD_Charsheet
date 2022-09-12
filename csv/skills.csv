@@ -1,0 +1,25 @@
+value;id;type;description;specialties;sampleActions;sampleSpecialties;sampleContacts
+0;academics;mental;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;computer;mental;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;crafts;mental;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;investigation;mental;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;medicine;mental;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;occult;mental;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;politics;mental;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;science;mental;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;athletics;physical;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;brawl;physical;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;drive;physical;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;firearms;physical;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;larceny;physical;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;stleath;physical;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;survival;physical;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;weaponry;physical;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;animalKen;social;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;empathy;social;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;expression;social;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;intimidation;social;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;persuasion;social;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;socialize;social;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;streetwise;social;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.
+0;subterfuge;social;Lorem ipsum dolor sit, amet consectetur adipisicing elit.;;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.;Lorem ipsum dolor sit.

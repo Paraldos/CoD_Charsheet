@@ -15,7 +15,6 @@
     <script src="https://kit.fontawesome.com/12bc7dd6b9.js" crossorigin="anonymous"></script>
     <script defer src="./js/database.js"></script>
     <script defer src="./js/main.js"></script>
-    <script defer src="./js/navbar.js"></script>
   <body class="bg-primary">
     <!-- ################### navbar ################### -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
@@ -136,31 +135,35 @@
         </div>
 
         <!-- health and willpower -->
-        <div id="healthAndWillpower" class="box row gap-4">
-          <!-- health -->
-          <div class="col-xl-6 col-lg-12 row d-grid gap-1">
-            <h5 id="health_header" class="text-center">Health</h5>
-            <div id="health_container" class="col-auto row justify-content-center gap-1"></div>
-            <div class="btn-group" role="group">
-              <button func="dmg_heal" type="button" class="btn btn-outline-primary"><i class="fa-regular fa-square"></i> Heal</button>
-              <button func="dmg_bashing" type="button" class="btn btn-primary"><i class="fa-solid fa-square-minus"></i> Bashing</button>
-              <button func="dmg_lethal" type="button" class="btn btn-primary"><i class="fa-solid fa-square-xmark"></i> Lethal</button>
-              <button func="dmg_aggravated" type="button" class="btn btn-primary">
-                <i class="fa-solid fa-skull"></i> Aggravated
-              </button>
+        <div id="healthAndWillpower" class="box row">
+          <div class="col-6 row m-0 justify-content-center align-items-center">
+            <div id="health_container" class="col-auto row gap-1"></div>
+            <div class="row justify-content-center align-items-center">
+              <h5 id="health_header" class="text-center col-auto">Health</h5>
+              <div class="btn-group align-items-center col-auto" role="group">
+                <button func="dmg_heal" type="button" class="btn btn-outline-primary"><i class="fa-regular fa-square"></i> Heal</button>
+                <button func="dmg_bashing" type="button" class="btn btn-primary"><i class="fa-solid fa-square-minus"></i> Bashing</button>
+                <button func="dmg_lethal" type="button" class="btn btn-primary"><i class="fa-solid fa-square-xmark"></i> Lethal</button>
+                <button func="dmg_aggravated" type="button" class="btn btn-primary">
+                  <i class="fa-solid fa-skull"></i> Aggravated
+                </button>
+              </div>
             </div>
           </div>
-
-          <!-- willpower -->
-          <div class="col-xl-6 col-lg-12 row d-grid gap-1">
-            <h5 id="willpower_header" class="text-center">Willpower</h5>
+          <div class="col-6 row m-0 justify-content-center align-items-center">
             <div id="willpower_container" class="col-auto row justify-content-center gap-1"></div>
-            <div class="btn-group" role="group">
-              <button func="will_gain" type="button" class="btn btn-outline-primary"><i class="fa-regular fa-square"></i> Gain</button>
-              <button func="will_spend" type="button" class="btn btn-primary"><i class="fa-solid fa-square-xmark"></i> Spend</button>
+            <div class="row justify-content-center align-items-center">
+              <h5 id="willpower_header" class="text-center col-auto">Willpower</h5>
+              <div class="btn-group align-items-center col-auto" role="group">
+                <button func="will_gain" type="button" class="col-auto btn btn-outline-primary"><i class="fa-regular fa-square"></i> Gain</button>
+                <button func="will_spend" type="button" class="col-auto btn btn-primary"><i class="fa-solid fa-square-xmark"></i> Spend</button>
+              </div>
             </div>
+
           </div>
         </div>
+
+      <!-- end -->
       </div>
 
       <!-- ### basics section ### -->
