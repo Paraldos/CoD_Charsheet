@@ -2,12 +2,12 @@
 
 /* =========================== UPDATE ALL =========================== */
 function _update_all() {
-  DB.updateSkills();
   document.querySelectorAll(".empty").forEach((el) => (el.innerHTML = ``));
   home.buildAll();
   basics.buildAll();
   attributes.buildAll();
   skills.buildAll();
+  DB.updateSkills();
 }
 
 /* =========================== NAVBAR =========================== */
@@ -417,60 +417,8 @@ let skills = {
 };
 
 /* =========================== INIT =========================== */
-let init = {
-  async fillDB() {
-    await this._fillConcepts();
-    await this._fillAttributes();
-    await this._fillSkills();
-    await this._fillAdvantages();
-
-    navbar.click("home");
-  },
-
-  // ========
-  async _getFile(url) {
-    let file = await fetch(url);
-    file = await file.text();
-    return file;
-  },
-
-  _parseCSVData(file) {
-    file = file.split("\r\n");
-    file.pop();
-    file.shift();
-    file = file.map((el) => el.split(";"));
-    return file;
-  },
-
-  // ========
-  async _fillConcepts() {
-    let file = await this._getFile("./csv/concepts.csv");
-    file = this._parseCSVData(file);
-    DB.concepts = [];
-    file.forEach((el) => DB.concepts.push(new Concept(el[0], el[1])));
-  },
-
-  async _fillAttributes() {
-    let file = await this._getFile("./csv/attributes.csv");
-    file = this._parseCSVData(file);
-    DB.attributes = [];
-    file.forEach((el) => DB.attributes.push(new Attribute(+el[0], el[1], el[2], el[3], el[4])));
-  },
-
-  async _fillSkills() {
-    let file = await this._getFile("./csv/skills.csv");
-    file = this._parseCSVData(file);
-    DB.skills = [];
-    file.forEach((el) => {
-      DB.skills.push(new Skill(+el[0], el[1], el[2], el[3], el[4].split(","), el[5], el[6], el[7]));
-    });
-  },
-
-  async _fillAdvantages() {
-    let file = await this._getFile("./csv/advantages.csv");
-    file = this._parseCSVData(file);
-    DB.advantages = [];
-    file.forEach((el) => DB.advantages.push(new Advantage(+el[0], el[1], el[2], el[3])));
-  },
-};
-init.fillDB();
+async function init(startpage) {
+  await DB.loadDB();
+  navbar.click(startpage);
+}
+init("home");
