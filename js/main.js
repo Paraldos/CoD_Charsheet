@@ -136,7 +136,6 @@ document.querySelector("body").addEventListener("input", (el) => {
   }
 
   if (func[0] == "input" && func[1] == "spec") {
-    console.log("hi");
     DB.getSkill(func[2]).specialties[func[3]] = el.target.value;
   }
 
@@ -353,6 +352,7 @@ let skills = {
   mental: document.querySelector("#skill_points_mental"),
   physical: document.querySelector("#skill_points_physical"),
   social: document.querySelector("#skill_points_social"),
+  specialties_counter: document.querySelector("#specialties_counter"),
 
   buildAll() {
     this.updatePointCounter();
@@ -361,6 +361,7 @@ let skills = {
 
   updatePointCounter() {
     this.total.innerHTML = DB.getSkillPoints("all");
+    this.specialties_counter.innerHTML = DB.getCountOfSpecalties();
     this.mental.innerHTML = DB.getSkillPoints("mental");
     this.physical.innerHTML = DB.getSkillPoints("physical");
     this.social.innerHTML = DB.getSkillPoints("social");
@@ -421,4 +422,4 @@ async function init(startpage) {
   await DB.loadDB();
   navbar.click(startpage);
 }
-init("home");
+init("skills");

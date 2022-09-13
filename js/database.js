@@ -97,11 +97,10 @@ class Advantage extends Ability {
   }
 }
 
-class Health {
-  constructor() {
-    this.id = "health";
-    this.label = "Health";
-    this.dmg = [];
+class Health extends Ability {
+  constructor(dmg, _baseValue = 0, id = "health") {
+    super(_baseValue, id);
+    this.dmg = dmg;
   }
 
   get value() {
@@ -138,11 +137,10 @@ class Health {
   }
 }
 
-class Willpower {
-  constructor() {
-    this.id = "willpower";
-    this.label = "Willpower";
-    this.spend = 0;
+class Willpower extends Ability {
+  constructor(spend, _baseValue = 0, id = "willpower") {
+    super(_baseValue, id);
+    this.spend = spend;
   }
 
   get value() {
@@ -184,8 +182,8 @@ const DB = {
   attributes: [],
   skills: [],
   advantages: [],
-  health: new Health(),
-  willpower: new Willpower(),
+  health: new Health([]),
+  willpower: new Willpower(0),
 
   armor: 0,
 
@@ -199,6 +197,12 @@ const DB = {
 
   getSkill(skill) {
     return this.skills.find((el) => el.id == skill);
+  },
+
+  getCountOfSpecalties() {
+    let count = 0;
+    this.skills.forEach((el) => (count += el.specialties.length));
+    return count;
   },
 
   getAdvantage(adv) {
