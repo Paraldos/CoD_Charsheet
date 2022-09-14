@@ -45,6 +45,9 @@
             <li class="nav-item">
               <a id="navbar_skills" class="nav-link" href="#">Skills</a>
             </li>
+            <li class="nav-item">
+              <a id="navbar_merits" class="nav-link" href="#">Merits</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -224,7 +227,7 @@
 
         <div class="info">
           <div><b>Points Total:</b> <span id="skills_points_total">xxx</span></div>
-          <div><b>Specialties Count:</b> <span id="specialties_counter">xxx</span></div>
+          <div class="mb-1"><b>Specialties Count:</b> <span id="specialties_counter">xxx</span></div>
           <div>
             <b>Character Creation (Skills):</b> Prioritize categories. They receive 11/7/4 dots (22 points in
             total). Distributed in any combination.
@@ -256,6 +259,40 @@
           <div id="skills_social" class="empty"></div>
           <hr class="border border-primary border-4 opacity-100" />
         </div>
+      </div>
+
+      <!-- ### merits section ### -->
+      <div id="section_merits" class="section">
+        <h2>Merits</h2>
+
+        <div class="info">
+          <div><b>Points Total:</b> <span id="merits_points_total">xxx</span></div>
+          <div>
+            <b>Character Creation:</b> Select 7 dots of Merits.
+          </div>
+          <hr class="border border-primary border-4 opacity-100" />
+        </div>
+
+        <div>
+          <h5>Mental</h5>
+          <div id="myMerits_mental" class="empty accordion accordion-flush"></div>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Add Mental Merit</button>
+            <ul id="merits_dropdown_mental" class="dropdown-menu empty"></ul>
+          </div>
+          <hr class="border border-primary border-4 opacity-100" />
+        </div>
+
+        <div>
+          <h5>Social</h5>
+          <div id="myMerits_social" class="empty"></div>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Add Social Merit</button>
+            <ul id="merits_dropdown_social" class="dropdown-menu empty"></ul>
+          </div>
+          <hr class="border border-primary border-4 opacity-100" />
+        </div>
+
       </div>
     </div>
 

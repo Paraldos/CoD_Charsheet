@@ -7,7 +7,9 @@ function _update_all() {
   basics.buildAll();
   attributes.buildAll();
   skills.buildAll();
+  merits.buildAll();
   DB.updateSkills();
+  DB.updateMerits();
 }
 
 /* =========================== NAVBAR =========================== */
@@ -58,6 +60,12 @@ let modal = {
     <p><b>Sample Contacts: </b>${skill.sampleContacts}</p>`;
   },
 
+  merit(merit) {
+    this.modalTitle.innerText = merit.label;
+    this.modalBody.innerHTML = `
+      <p>${merit.description}</p>`;
+  },
+
   advantage(advantage) {
     this.modalTitle.innerText = advantage.label;
     this.modalBody.innerHTML = `
@@ -74,22 +82,67 @@ document.querySelector("body").addEventListener("click", (el) => {
   if (!target.getAttribute("func")) return;
   let func = target.getAttribute("func").split("_");
 
-  // attribute modal
+  // attributes
   if (func[0] == "modal" && func[1] == "att") {
     modal.attribute(DB.getAttribute(func[2]));
   }
 
-  // skill modal
+  // skills
   if (func[0] == "modal" && func[1] == "skill") {
     modal.skill(DB.getSkill(func[2]));
   }
 
-  // advantage modal
+  if (func[0] == "addSpecialtie") {
+    DB.getSkill(func[1]).specialties.push("");
+    _update_all();
+  }
+
+  if (func[0] == "delSpec") {
+    DB.getSkill(func[1]).specialties.splice(func[2], 1);
+    _update_all();
+  }
+
+  // merites
+  if (func[0] === "delMerit") {
+    DB.myMerits.splice(func[2], 1);
+    _update_all();
+  }
+
+  if (func[0] === "addMerit") {
+    let merit = DB.getMerit(func[1]);
+    DB.myMerits.push(
+      new Merit(
+        merit.id,
+        merit.type,
+        merit.points,
+        merit.prerequisite,
+        merit.description,
+        merit.notes
+      )
+    );
+    _update_all();
+  }
+
+  if (func[0] === "modal" && func[1] === "merit") {
+    modal.merit(DB.getMerit(func[2]));
+  }
+
+  if (func[0] === "addMeritNote") {
+    DB.myMerits[func[1]].notes.push("");
+    _update_all();
+  }
+
+  if (func[0] === "delMeriteNote") {
+    DB.myMerits[func[1]].notes.splice(func[2], 1);
+    _update_all();
+  }
+
+  // advantages
   if (func[0] == "modal" && func[1] == "adv") {
     modal.advantage(DB.getAdvantage(func[2]));
   }
 
-  // take and heal dmg
+  // health
   if (func[0] == "dmg") {
     if (func[1] == "heal") DB.health.healDmg();
     if (func[1] == "bashing") DB.health.takeBashingDmg();
@@ -98,23 +151,11 @@ document.querySelector("body").addEventListener("click", (el) => {
     home.buildHealth();
   }
 
-  // gain and spend willpower
+  // willpower
   if (func[0] == "will") {
     if (func[1] == "gain") DB.willpower.gainWillpower();
     if (func[1] == "spend") DB.willpower.spendWillpower();
     home.buildWillpower();
-  }
-
-  // add specialtie
-  if (func[0] == "addSpecialtie") {
-    DB.getSkill(func[1]).specialties.push("");
-    _update_all();
-  }
-
-  // delete specaltie
-  if (func[0] == "delete") {
-    DB.getSkill(func[1]).specialties.splice(func[2], 1);
-    _update_all();
   }
 });
 
@@ -135,8 +176,17 @@ document.querySelector("body").addEventListener("input", (el) => {
     _update_all();
   }
 
-  if (func[0] == "input" && func[1] == "spec") {
-    DB.getSkill(func[2]).specialties[func[3]] = el.target.value;
+  if (func[0] == "inputSpecialtie") {
+    DB.getSkill(func[1]).specialties[func[2]] = el.target.value;
+  }
+
+  if (func[0] == "meritNote") {
+    DB.myMerits[func[1]].notes[func[2]] = el.target.value;
+  }
+
+  if (func[0] === "set" && func[1] === "merit") {
+    DB.myMerits[func[2]].value = +func[3];
+    _update_all();
   }
 
   if (func[0] == "housrule") {
@@ -322,12 +372,13 @@ let attributes = {
     DB.attributes.forEach((attribute) => {
       let container = document.querySelector(`#attribute_${attribute.type}`);
       let content = `
-      <div class="row m-2 gap-2 mb-3">
-        <div class="col-sm-12 col-md-3 btn btn-primary" data-bs-toggle="modal" 
-        data-bs-target="#myModal" func="modal_att_${attribute.id}">
-          ${attribute.label}
-        </div>
-        <div class="col-auto btn-group p-0" role="group" >${this.getButtongroup(attribute)}</div>
+      <div class="mb-1">
+        <!---->
+        <button func="modal_att_${attribute.id}" class="me-2 mb-2 col-sm-12 col-md-3 btn 
+        btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">${attribute.label}</button>
+        <!---->
+        <div class="mb-2 btn-group" role="group">${this.getButtongroup(attribute)}</div>
+        <!---->
       </div>`;
       container.insertAdjacentHTML("beforeend", content);
     });
@@ -339,8 +390,7 @@ let attributes = {
       let checked = attribute.value == i ? `checked` : ``;
       buttons += `
       <input type="radio" class="btn-check" id="btnradio_${attribute.id}_${i}" autocomplete="off" ${checked} func="set_att_${attribute.id}_${i}">
-      <label class="btn btn-outline-primary" for="btnradio_${attribute.id}_${i}">${i}</label>
-      `;
+      <label class="btn btn-outline-primary" for="btnradio_${attribute.id}_${i}">${i}</label>`;
     }
     return buttons;
   },
@@ -371,20 +421,18 @@ let skills = {
     DB.skills.forEach((skill) => {
       let container = document.querySelector(`#skills_${skill.type}`);
       let content = `
-      <div class="row m-2 gap-2">
-        <div class="col-sm-12 col-md-3 btn btn-primary" func="modal_skill_${skill.id}"
-          data-bs-toggle="modal" data-bs-target="#myModal">${skill.label}
-        </div>
-        
-        <div class="col-auto btn btn-primary" 
-        type="button" func="addSpecialtie_${skill.id}">
-          Add Specialtie
-        </div>
-
-        <div class="col-auto btn-group p-0" 
-        role="group">${this.getButtongroup(skill)}</div>
-
-        <div class="col-12 row p-0 m-0">${this.getSpecialties(skill)}</div>
+      <div class="mb-1">
+        <!---->
+        <button func="modal_skill_${skill.id}" class="me-2 mb-2 col-12 col-md-3 btn 
+        btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">${skill.label}</button>
+        <!---->
+        <div class="me-2 mb-2 btn-group" role="group">${this.getButtongroup(skill)}</div>
+        <!---->
+        <button func="addSpecialtie_${skill.id}" class="mb-2 btn btn-primary">
+        Add Specialtie</button>
+        <!---->
+        <div class="col-12 input-group">${this.getSpecialties(skill)}</div>
+        <!---->
       </div>`;
       container.insertAdjacentHTML("beforeend", content);
     });
@@ -395,8 +443,8 @@ let skills = {
     for (let i = 0; i <= 5; i++) {
       let checked = skill.value == i ? `checked` : ``;
       buttons += `
-      <input type="radio" class="btn-check" name="btnradio_${skill.id}" id="btnradio_${skill.id}_${i}" autocomplete="off" ${checked} func="set_skill_${skill.id}_${i}">
-      <label class="btn btn-outline-primary" for="btnradio_${skill.id}_${i}">${i}</label>
+      <input type="radio" class="btn-check" id="rad_${skill.id}_${i}" autocomplete="off" ${checked} func="set_skill_${skill.id}_${i}">
+      <label class="btn btn-outline-primary" for="rad_${skill.id}_${i}">${i}</label>
       `;
     }
     return buttons;
@@ -406,20 +454,83 @@ let skills = {
     let inputs = ``;
     skill.specialties.forEach((el, i) => {
       inputs += `
-      <div class="col-sm-12 col-md-3 p-1">
-        <div class="input-group">
-          <input value="${el}" type="text" func="input_spec_${skill.id}_${i}" class="form-control ">
-          <button func="delete_${skill.id}_${i}" class="btn btn-outline-primary" type="button" func="remove_${skill.id}">X</button>
-        </div>
+      <div class="input-group mb-2">
+        <button func="delSpec_${skill.id}_${i}" class="btn btn-outline-danger" type="button" func="remove_${skill.id}">X</button>
+        <input func="inputSpecialtie_${skill.id}_${i}" value="${el}" type="text" class="form-control" placeholder="Specialtie">
       </div>`;
     });
     return inputs;
   },
 };
 
+/* =========================== MERITS =========================== */
+let merits = {
+  merits_points_total: document.querySelector("#merits_points_total"),
+
+  buildAll() {
+    this.merits_points_total.innerHTML = DB.getMeritsPoints();
+    this.buildDropdown();
+    this.buildMyMerits();
+  },
+
+  buildDropdown() {
+    DB.merits.forEach((merit) => {
+      let container = document.querySelector(`#merits_dropdown_${merit.type}`);
+      let content = `<li><a func="addMerit_${merit.id}" class="dropdown-item" href="#">${merit.label}</a></li>`;
+      container.insertAdjacentHTML("beforeend", content);
+    });
+  },
+
+  buildMyMerits() {
+    DB.myMerits.forEach((merit, i) => {
+      let container = document.querySelector(`#myMerits_${merit.type}`);
+      let content = `
+      <div class="mb-2">
+        <!---->
+        <button func="delMerit_${i}" class="mb-2 btn btn-danger">X</button>
+        <!---->
+        <button func="modal_merit_${merit.id}" class="me-2 mb-2 col-10 col-md-3 btn 
+        btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">${merit.label}</button>
+        <!---->
+        <div class="me-2 mb-2 btn-group" role="group">${this.getButtongroup(merit, i)}</div>
+        <!---->
+        <button func="addMeritNote_${i}" class="mb-2 btn btn-primary">
+        Add Note</button>
+        <!---->
+        <div class="col-12 input-group">${this.getNotes(merit, i)}</div>
+        <!---->
+      </div>`;
+      container.insertAdjacentHTML("beforeend", content);
+    });
+  },
+
+  getButtongroup(merit, myIndex) {
+    let buttons = ``;
+    merit.points.forEach((points) => {
+      let checked = merit.value === points ? `checked` : ``;
+      buttons += `
+      <input type="radio" class="btn-check" id="rad_${merit.id}_${myIndex}_${points}" autocomplete="off" ${checked} func="set_merit_${myIndex}_${points}">
+      <label class="btn btn-outline-primary" for="rad_${merit.id}_${myIndex}_${points}">${points}</label>`;
+    });
+    return buttons;
+  },
+
+  getNotes(merit, myIndex) {
+    let notes = ``;
+    merit.notes.forEach((el, i) => {
+      notes += `
+      <div class="input-group mb-2">
+        <button func="delMeriteNote_${myIndex}_${i}" class="btn btn-outline-danger" type="button">X</button>
+        <input func="meritNote_${myIndex}_${i}" value="${el}" type="text" class="form-control" placeholder="Note">
+      </div>`;
+    });
+    return notes;
+  },
+};
+
 /* =========================== INIT =========================== */
 async function init(startpage) {
-  await DB.loadDB();
+  // await DB.loadDB();
   navbar.click(startpage);
 }
-init("skills");
+init("merits");
