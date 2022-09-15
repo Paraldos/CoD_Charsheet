@@ -23,7 +23,7 @@ class Ability {
   }
 
   get dots() {
-    if (DB.getHousrule("useNumbers").value) return this.value;
+    if (HOUSRULES.find("useNumbers").value) return this.value;
     let dots = new Array(5).fill(`<i class="fa-regular fa-circle"></i> `);
     for (let i = 0; i < this.value; i++) dots[i] = `<i class="fa-solid fa-circle"></i> `;
     return dots.join("");
@@ -83,89 +83,27 @@ class Merit extends Ability {
 }
 
 class Advantage extends Ability {
-  constructor(_baseValue, id, description, calc) {
+  constructor(_baseValue, id, description) {
     super(_baseValue, id);
     this.description = description;
-    this.calc = calc;
   }
 
   get value() {
-    let wits = DB.getAttribute("wits").value;
-    let str = DB.getAttribute("strength").value;
-    let dex = DB.getAttribute("dexterity").value;
-    let com = DB.getAttribute("composure").value;
-    let athletics = DB.getSkill("athletics").value;
+    let wits = ATTRIBUTES.find("wits").value;
+    let str = ATTRIBUTES.find("strength").value;
+    let dex = ATTRIBUTES.find("dexterity").value;
+    let com = ATTRIBUTES.find("composure").value;
+    let athletics = SKILLS.find("athletics").value;
 
     if (this.id == "size") return this._baseValue;
     if (this.id == "speed") return str + dex + 5;
     if (this.id == "initiative") return dex + com;
     if (this.id == "defense")
-      if (DB.getHousrule("noAthletics").value) return Math.min(wits, dex);
+      if (HOUSRULES.find("noAthletics").value) return Math.min(wits, dex);
       else return Math.min(wits, dex) + athletics;
     if (this.id == "speed") return this._baseValue;
     if (this.id == "beats") return this._baseValue;
     if (this.id == "experience") return this._baseValue;
-  }
-}
-
-class Health extends Ability {
-  constructor(dmg, _baseValue = 0, id = "health") {
-    super(_baseValue, id);
-    this.dmg = dmg;
-  }
-
-  get value() {
-    let size = DB.getAdvantage("size").value;
-    let stamina = DB.getAttribute("stamina").value;
-    return size + stamina;
-  }
-
-  _takeDmg(type) {
-    let lastIndex = this.dmg.length - 1;
-    if (this.dmg.length >= this.value) {
-      if (this.dmg[lastIndex] == 1) this.dmg[lastIndex] = 2;
-      if (this.dmg[lastIndex] == 0 && type == 2) this.dmg[lastIndex] = 2;
-      if (this.dmg[lastIndex] == 0 && type <= 1) this.dmg[lastIndex] = 1;
-    }
-    if (this.dmg.length < this.value) this.dmg.push(type);
-    this.dmg.sort((a, b) => b - a);
-  }
-
-  takeBashingDmg() {
-    this._takeDmg(0);
-  }
-
-  takeLethalDmg() {
-    this._takeDmg(1);
-  }
-
-  takeAggravatedDmg() {
-    this._takeDmg(2);
-  }
-
-  healDmg() {
-    this.dmg.pop();
-  }
-}
-
-class Willpower extends Ability {
-  constructor(spend, _baseValue = 0, id = "willpower") {
-    super(_baseValue, id);
-    this.spend = spend;
-  }
-
-  get value() {
-    let res = DB.getAttribute("resolve").value;
-    let com = DB.getAttribute("composure").value;
-    return res + com;
-  }
-
-  gainWillpower() {
-    if (this.spend > 0) this.spend += -1;
-  }
-
-  spendWillpower() {
-    if (this.spend < this.value) this.spend += 1;
   }
 }
 
@@ -183,13 +121,20 @@ class Housrule extends Ability {
 }
 
 /* ============================== Database ============================== */
-const DB = {
-  housrules: [
+let HOUSRULES = {
+  DB: [
     new Housrule(false, "noAthletics", "Don't add athletics to defense."),
     new Housrule(false, "noAspirations", "Don't use aspirations."),
     new Housrule(false, "useNumbers", "Use numbers instead of dots."),
   ],
-  concepts: [
+
+  find(rule) {
+    return this.DB.find((el) => el.id == rule);
+  },
+};
+
+let CONCEPTS = {
+  DB: [
     new Concept("", "name"),
     new Concept("", "age"),
     new Concept("", "player"),
@@ -201,7 +146,14 @@ const DB = {
     new Concept("", "aspiration2"),
     new Concept("", "aspiration3"),
   ],
-  attributes: [
+
+  find(concept) {
+    return this.DB.find((el) => el.id == concept);
+  },
+};
+
+let ATTRIBUTES = {
+  DB: [
     new Attribute(
       1,
       "intelligence",
@@ -268,13 +220,26 @@ const DB = {
       "Lorem ipsum dolor sit."
     ),
   ],
-  skills: [
+
+  find(att) {
+    return this.DB.find((el) => el.id === att);
+  },
+
+  getPoints(type) {
+    let array = this.DB.filter((el) => el.type === type);
+    if (type === "all") array = this.DB;
+    return array.reduce((sum, el) => sum + el.value, 0);
+  }, // all, mental, physical or social
+};
+
+let SKILLS = {
+  DB: [
     new Skill(
       0,
       "academics",
       "mental",
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-      ["test1", "test2"],
+      [],
       "Lorem ipsum dolor sit.",
       "Lorem ipsum dolor sit.",
       "Lorem ipsum dolor sit."
@@ -512,11 +477,43 @@ const DB = {
       "Lorem ipsum dolor sit."
     ),
   ],
-  merits: [
+
+  addSpec(name) {
+    this.find(name).specialties.push("");
+  },
+
+  deleteSpec(name, nr) {
+    this.find(name).specialties.splice(nr, 1);
+  },
+
+  find(skill) {
+    return this.DB.find((el) => el.id === skill);
+  },
+
+  getPoints(type) {
+    let array = this.DB.filter((el) => el.type === type);
+    if (type === "all") array = this.DB;
+    return array.reduce((sum, el) => sum + el.value, 0);
+  }, // all, mental, physical or social
+
+  getCountOfSpecalties() {
+    return this.DB.reduce((sum, el) => sum + el.specialties.length, 0);
+  },
+
+  update() {
+    this.DB.forEach((skill) => {
+      skill.specialties = skill.specialties.filter((el) => el != "");
+    });
+  },
+};
+
+let MERITS = {
+  myMerits: [],
+  DB: [
     new Merit(
       "areaOfEpxertise",
       "mental",
-      [1],
+      [1, 2, 3],
       ["Resolve 2 and one Skill Specialty"],
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
       []
@@ -531,87 +528,127 @@ const DB = {
     ),
     new Merit("test3", "social", [1], [], "Test number 3", []),
   ],
-  myMerits: [],
-  advantages: [
-    new Advantage(5, "size"),
-    new Advantage(0, "speed"),
-    new Advantage(0, "initiative"),
-    new Advantage(0, "defense"),
-    new Advantage(0, "beats"),
-    new Advantage(0, "experience"),
-  ],
-  health: new Health([]),
-  willpower: new Willpower(0),
 
-  armor: 0,
-
-  getConcept(con) {
-    return this.concepts.find((el) => el.id == con);
+  add(name) {
+    let template = this.find(name);
+    this.myMerits.push(
+      new Merit(
+        template.id,
+        template.type,
+        template.points,
+        template.prerequisite,
+        template.description,
+        template.notes
+      )
+    );
   },
 
-  getAttribute(att) {
-    return this.attributes.find((el) => el.id == att);
+  delete(nr) {
+    this.myMerits.splice(nr, 1);
   },
 
-  getSkill(skill) {
-    return this.skills.find((el) => el.id == skill);
+  addNote(nr) {
+    this.myMerits[nr].notes.push("");
   },
 
-  getMerit(merit) {
-    return this.merits.find((el) => el.id === merit);
+  deleteNote(nr1, nr2) {
+    this.myMerits[nr1].notes.splice(nr2, 1);
   },
 
-  getCountOfSpecalties() {
-    let count = 0;
-    this.skills.forEach((el) => (count += el.specialties.length));
-    return count;
+  changeNote(nr1, nr2, txt) {
+    this.myMerits[nr1].notes[nr2] = txt;
   },
 
-  getAdvantage(adv) {
-    return this.advantages.find((el) => el.id == adv);
+  find(merit) {
+    return this.DB.find((el) => el.id === merit);
   },
 
-  getHousrule(hou) {
-    return this.housrules.find((el) => el.id == hou);
+  getPoints() {
+    return this.DB.reduce((sum, el) => sum + el.value, 0);
   },
 
-  getAttributePoints(type) {
-    return this._getPoints(type, "attributes");
-  }, // all, mental, physical or social
-
-  getSkillPoints(type) {
-    return this._getPoints(type, "skills");
-  }, // all, mental, physical or social
-
-  _getPoints(type, ability) {
-    let points = 0;
-    if (type == "all") {
-      DB[ability].forEach((el) => (points += el.value));
-    } else {
-      DB[ability].filter((el) => el.type == type).forEach((el2) => (points += el2.value));
-    }
-    return points;
-  },
-
-  updateSkills() {
-    DB.skills.forEach((skill) => {
-      skill.specialties = skill.specialties.filter((el) => el != "");
-    });
-  },
-
-  updateMerits() {
-    DB.myMerits.forEach((merit) => {
+  update() {
+    this.myMerits.forEach((merit) => {
       merit.notes = merit.notes.filter((el) => el != "");
     });
   },
+};
 
-  getMeritsPoints() {
-    let x = 0;
-    DB.myMerits.forEach((el) => (x += el.value));
-    return x;
+let ADVANTAGES = {
+  DB: [
+    new Advantage(5, "size", "All adult human chracters are size 5, unless modified by a Merit."),
+    new Advantage(0, "speed", "Lorem ipsum."),
+    new Advantage(0, "initiative", "Lorem ipsum."),
+    new Advantage(0, "defense", "Lorem ipsum."),
+    new Advantage(0, "beats", "Lorem ipsum."),
+    new Advantage(0, "experience", "Lorem ipsum."),
+  ],
+
+  find(advantage) {
+    return this.DB.find((el) => el.id === advantage);
+  },
+};
+
+let HEALTH = {
+  dmg: [],
+  id: "health",
+  label: "Health",
+
+  get value() {
+    let size = ADVANTAGES.find("size").value;
+    let stamina = ATTRIBUTES.find("stamina").value;
+    return size + stamina;
   },
 
-  // ===============
+  _takeDmg(type) {
+    let lastIndex = this.dmg.length - 1;
+    if (this.dmg.length >= this.value) {
+      if (this.dmg[lastIndex] == 1) this.dmg[lastIndex] = 2;
+      if (this.dmg[lastIndex] == 0 && type == 2) this.dmg[lastIndex] = 2;
+      if (this.dmg[lastIndex] == 0 && type <= 1) this.dmg[lastIndex] = 1;
+    }
+    if (this.dmg.length < this.value) this.dmg.push(type);
+    this.dmg.sort((a, b) => b - a);
+  },
+
+  takeBashingDmg() {
+    this._takeDmg(0);
+  },
+
+  takeLethalDmg() {
+    this._takeDmg(1);
+  },
+
+  takeAggravatedDmg() {
+    this._takeDmg(2);
+  },
+
+  healDmg() {
+    this.dmg.pop();
+  },
+};
+
+let WILLPOWER = {
+  id: "willpower",
+  label: "Willpower",
+  spend: 0,
+
+  get value() {
+    let res = ATTRIBUTES.find("resolve").value;
+    let com = ATTRIBUTES.find("composure").value;
+    return res + com;
+  },
+
+  gainWillpower() {
+    if (this.spend > 0) this.spend += -1;
+  },
+
+  spendWillpower() {
+    if (this.spend < this.value) this.spend += 1;
+  },
+};
+
+const DB = {
   async loadDB() {
     await this._loadConcepts();
     await this._loadAttributes();

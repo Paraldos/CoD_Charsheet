@@ -8,8 +8,8 @@ function _update_all() {
   attributes.buildAll();
   skills.buildAll();
   merits.buildAll();
-  DB.updateSkills();
-  DB.updateMerits();
+  SKILLS.update();
+  MERITS.update();
 }
 
 /* =========================== NAVBAR =========================== */
@@ -44,14 +44,16 @@ let modal = {
   modalTitle: document.querySelector("#myModal_title"),
   modalBody: document.querySelector("#myModal_body"),
 
-  attribute(att) {
-    this.modalTitle.innerText = att.label;
+  attribute(name) {
+    let attribute = ATTRIBUTES.find(name);
+    this.modalTitle.innerText = attribute.label;
     this.modalBody.innerHTML = `
-    <p>${att.description}</p>
-    <p><b>Attribute Tasks: </b>${att.tasks}</p>`;
+    <p>${attribute.description}</p>
+    <p><b>Attribute Tasks: </b>${attribute.tasks}</p>`;
   },
 
-  skill(skill) {
+  skill(name) {
+    let skill = SKILLS.find(name);
     this.modalTitle.innerText = skill.label;
     this.modalBody.innerHTML = `
     <p>${skill.description}</p>
@@ -66,12 +68,11 @@ let modal = {
       <p>${merit.description}</p>`;
   },
 
-  advantage(advantage) {
+  advantage(name) {
+    let advantage = ADVANTAGES.find(name);
     this.modalTitle.innerText = advantage.label;
     this.modalBody.innerHTML = `
-    <p>${advantage.description}</p>
-    <p><b>Calculation: </b>${advantage.calc}</p>
-    `;
+    <p>${advantage.description}</p>`;
   },
 };
 
@@ -83,78 +84,68 @@ document.querySelector("body").addEventListener("click", (el) => {
   let func = target.getAttribute("func").split("_");
 
   // attributes
-  if (func[0] == "modal" && func[1] == "att") {
-    modal.attribute(DB.getAttribute(func[2]));
+  if (func[0] == "attModal") {
+    modal.attribute(func[1]);
   }
 
   // skills
-  if (func[0] == "modal" && func[1] == "skill") {
-    modal.skill(DB.getSkill(func[2]));
+  if (func[0] == "skillModal") {
+    modal.skill(func[1]);
   }
 
-  if (func[0] == "addSpecialtie") {
-    DB.getSkill(func[1]).specialties.push("");
+  if (func[0] == "skillAddSpec") {
+    SKILLS.addSpec(func[1]);
     _update_all();
   }
 
-  if (func[0] == "delSpec") {
-    DB.getSkill(func[1]).specialties.splice(func[2], 1);
+  if (func[0] == "skillDeleteSpec") {
+    SKILLS.deleteSpec(func[1], func[2]);
     _update_all();
   }
 
   // merites
-  if (func[0] === "delMerit") {
-    DB.myMerits.splice(func[2], 1);
+  if (func[0] === "meritDelete") {
+    MERITS.delete(func[1]);
     _update_all();
   }
 
-  if (func[0] === "addMerit") {
-    let merit = DB.getMerit(func[1]);
-    DB.myMerits.push(
-      new Merit(
-        merit.id,
-        merit.type,
-        merit.points,
-        merit.prerequisite,
-        merit.description,
-        merit.notes
-      )
-    );
+  if (func[0] === "meritAdd") {
+    MERITS.add(func[1]);
     _update_all();
   }
 
-  if (func[0] === "modal" && func[1] === "merit") {
-    modal.merit(DB.getMerit(func[2]));
+  if (func[0] === "meritModal") {
+    modal.merit(MERITS.find(func[1]));
   }
 
-  if (func[0] === "addMeritNote") {
-    DB.myMerits[func[1]].notes.push("");
+  if (func[0] === "meritAddNote") {
+    MERITS.addNote(func[1]);
     _update_all();
   }
 
-  if (func[0] === "delMeriteNote") {
-    DB.myMerits[func[1]].notes.splice(func[2], 1);
+  if (func[0] === "meriteDeleteNote") {
+    MERITS.deleteNote(func[1], func[2]);
     _update_all();
   }
 
   // advantages
-  if (func[0] == "modal" && func[1] == "adv") {
-    modal.advantage(DB.getAdvantage(func[2]));
+  if (func[0] == "advModal") {
+    modal.advantage(func[1]);
   }
 
   // health
-  if (func[0] == "dmg") {
-    if (func[1] == "heal") DB.health.healDmg();
-    if (func[1] == "bashing") DB.health.takeBashingDmg();
-    if (func[1] == "lethal") DB.health.takeLethalDmg();
-    if (func[1] == "aggravated") DB.health.takeAggravatedDmg();
+  if (func[0] === "dmg") {
+    if (func[1] === "heal") HEALTH.healDmg();
+    if (func[1] === "bashing") HEALTH.takeBashingDmg();
+    if (func[1] === "lethal") HEALTH.takeLethalDmg();
+    if (func[1] === "aggravated") HEALTH.takeAggravatedDmg();
     home.buildHealth();
   }
 
   // willpower
-  if (func[0] == "will") {
-    if (func[1] == "gain") DB.willpower.gainWillpower();
-    if (func[1] == "spend") DB.willpower.spendWillpower();
+  if (func[0] === "will") {
+    if (func[1] === "gain") WILLPOWER.gainWillpower();
+    if (func[1] === "spend") WILLPOWER.spendWillpower();
     home.buildWillpower();
   }
 });
@@ -166,37 +157,40 @@ document.querySelector("body").addEventListener("input", (el) => {
   if (!target.getAttribute("func")) return;
   let func = target.getAttribute("func").split("_");
 
-  if (func[0] == "set" && func[1] == "att") {
-    DB.getAttribute(func[2]).value = +func[3];
-    _update_all();
-  }
-
-  if (func[0] == "set" && func[1] == "skill") {
-    DB.getSkill(func[2]).value = +func[3];
-    _update_all();
-  }
-
-  if (func[0] == "inputSpecialtie") {
-    DB.getSkill(func[1]).specialties[func[2]] = el.target.value;
-  }
-
-  if (func[0] == "meritNote") {
-    DB.myMerits[func[1]].notes[func[2]] = el.target.value;
-  }
-
-  if (func[0] === "set" && func[1] === "merit") {
-    DB.myMerits[func[2]].value = +func[3];
-    _update_all();
-  }
-
+  // housrules
   if (func[0] == "housrule") {
-    DB.getHousrule(func[1]).value = el.target.checked;
+    HOUSRULES.find(func[1]).value = el.target.checked;
     _update_all();
   }
 
-  if (func[0] == "concept") {
-    DB.getConcept(func[1]).value = el.target.value;
-    DB.getHousrule(func[1]).value = el.target.checked;
+  // concepts
+  if (func[0] == "meritChangeConcept") {
+    CONCEPTS.find(func[1]).value = el.target.value;
+  }
+
+  // attributes
+  if (func[0] == "attValue") {
+    ATTRIBUTES.find(func[1]).value = +func[2];
+    _update_all();
+  }
+
+  // skills
+  if (func[0] == "skillValue") {
+    SKILLS.find(func[1]).value = +func[2];
+    _update_all();
+  }
+
+  if (func[0] == "skillChangeSpec") {
+    SKILLS.find(func[1]).specialties[func[2]] = el.target.value;
+  }
+
+  // merits
+  if (func[0] == "meritChangeNote") {
+    MERITS.changeNote(func[1], func[2], el.target.value);
+  }
+
+  if (func[0] === "meritValue") {
+    MERITS.myMerits[func[1]].value = +func[2];
     _update_all();
   }
 });
@@ -213,8 +207,8 @@ let home = {
   },
 
   buildConcepts() {
-    DB.concepts.forEach((concept) => {
-      if (DB.getHousrule("noAspirations").value && concept.label.includes("Aspiration")) return;
+    CONCEPTS.DB.forEach((concept) => {
+      if (HOUSRULES.find("noAspirations").value && concept.label.includes("Aspiration")) return;
       let container = document.querySelector(`#home_concepts`);
       let content = `<div class="col-lg-6 col-sm-12"><b>${concept.label}:</b> ${concept.value}</div>`;
       container.insertAdjacentHTML("beforeend", content);
@@ -222,12 +216,12 @@ let home = {
   },
 
   buildAttributes() {
-    DB.attributes.forEach((attribute) => {
+    ATTRIBUTES.DB.forEach((attribute) => {
       let container = document.querySelector(`#home_att_${attribute.type}`);
       let content = `
       <div 
         class="btn btn-outline-primary text-start"
-        func="modal_att_${attribute.id}"
+        func="attModal_${attribute.id}"
         data-bs-toggle="modal"
         data-bs-target="#myModal">
         ${attribute.label} ${attribute.dots}
@@ -237,12 +231,12 @@ let home = {
   },
 
   buildSkills() {
-    DB.skills.forEach((skill) => {
+    SKILLS.DB.forEach((skill) => {
       let container = document.querySelector(`#home_skill_${skill.type}`);
       let content = `
         <div
           class="btn btn-outline-primary text-start"
-          func="modal_skill_${skill.id}"
+          func="skillModal_${skill.id}"
           data-bs-toggle="modal"
           data-bs-target="#myModal">
           ${skill.label} ${skill.dots} ${skill.stringOfSpecialties}
@@ -252,12 +246,12 @@ let home = {
   },
 
   buildAdvantage() {
-    DB.advantages.forEach((advantage) => {
+    ADVANTAGES.DB.forEach((advantage) => {
       let container = document.querySelector("#container_advantages");
       let content = `
       <div 
         class="col-sm-12 col-md-4 col-lg-2 text-center"
-        func="modal_adv_${advantage.id}"
+        func="advModal_${advantage.id}"
         data-bs-toggle="modal"
         data-bs-target="#myModal">
         ${advantage.label}: ${advantage.value}
@@ -267,13 +261,12 @@ let home = {
   },
 
   buildHealth() {
-    let health = DB.health;
-    document.querySelector("#health_header").innerText = `Health (${health.value})`;
+    document.querySelector("#health_header").innerText = `Health (${HEALTH.value})`;
     let container = document.querySelector("#health_container");
     container.innerHTML = ``;
-    for (let i = 1; i <= health.value; i++) {
+    for (let i = 1; i <= HEALTH.value; i++) {
       let newDiv = `
-      <div class="col-auto">
+      <div class="col-auto p-1">
         ${this.getHealthSymbol(i)}
         <div class="card-body">
           <p class="text-end card-text">${this.getHealthPenalty(i)}</small></p>
@@ -284,34 +277,33 @@ let home = {
   },
 
   getHealthPenalty(i) {
-    let penalty = i - DB.health.value + 3;
+    let penalty = i - HEALTH.value + 3;
     if (penalty > 0) return `-${penalty}`;
     return ``;
   },
 
   getHealthSymbol(i) {
-    if (DB.health.dmg[i - 1] == 2) return `<i class="fa-solid fa-skull fs-1"></i>`; // aggravated
-    if (DB.health.dmg[i - 1] == 1) return `<i class="fa-solid fa-square-xmark fs-1"></i>`; // lethal
-    if (DB.health.dmg[i - 1] == 0) return `<i class="fa-solid fa-square-minus fs-1"></i>`; // bashing
+    if (HEALTH.dmg[i - 1] == 2) return `<i class="fa-solid fa-skull fs-1"></i>`; // aggravated
+    if (HEALTH.dmg[i - 1] == 1) return `<i class="fa-solid fa-square-xmark fs-1"></i>`; // lethal
+    if (HEALTH.dmg[i - 1] == 0) return `<i class="fa-solid fa-square-minus fs-1"></i>`; // bashing
     return `<i class="fa-regular fa-square fs-1"></i>`; // empty
   },
 
   buildWillpower() {
-    document.querySelector("#willpower_header").innerText = `Willpower (${DB.willpower.value})`;
+    document.querySelector("#willpower_header").innerText = `Willpower (${WILLPOWER.value})`;
     let container = document.querySelector("#willpower_container");
     container.innerHTML = ``;
-    for (let i = 1; i <= DB.willpower.value; i++) {
+    for (let i = 1; i <= WILLPOWER.value; i++) {
       let newDiv = `
-      <div class="col-auto">
+      <div class="col-auto p-1">
           ${this.getWillpowerSymbol(i)}
-
       </div>`;
       container.insertAdjacentHTML("beforeend", newDiv);
     }
   },
 
   getWillpowerSymbol(i) {
-    if (DB.willpower.spend >= i) return `<i class="fa-solid fa-square-xmark fs-1"></i>`; // spend
+    if (WILLPOWER.spend >= i) return `<i class="fa-solid fa-square-xmark fs-1"></i>`; // spend
     return `<i class="fa-regular fa-square fs-1"></i>`; // unused
   },
 };
@@ -324,7 +316,7 @@ let basics = {
   },
 
   buildHousrules() {
-    DB.housrules.forEach((rule) => {
+    HOUSRULES.DB.forEach((rule) => {
       let container = document.querySelector("#basics_housrules");
       let content = `
       <div class="form-check form-switch">
@@ -336,13 +328,13 @@ let basics = {
   },
 
   buildConcepts() {
-    DB.concepts.forEach((concept) => {
-      if (DB.getHousrule("noAspirations").value && concept.label.includes("Aspiration")) return;
+    CONCEPTS.DB.forEach((concept) => {
+      if (HOUSRULES.find("noAspirations").value && concept.label.includes("Aspiration")) return;
       let container = document.getElementById("basics_concepts");
       let content = `
       <div class="m-2">
         <label class="form-label">${concept.label}</label>
-        <input func="concept_${concept.id}" value="${concept.value}" type="text" class="form-control"/>
+        <input func="meritChangeConcept_${concept.id}" value="${concept.value}" type="text" class="form-control"/>
       </div>`;
       container.insertAdjacentHTML("beforeend", content);
     });
@@ -362,19 +354,19 @@ let attributes = {
   },
 
   updatePointCounter() {
-    this.total.innerHTML = DB.getAttributePoints("all") - 9;
-    this.mental.innerHTML = DB.getAttributePoints("mental") - 3;
-    this.physical.innerHTML = DB.getAttributePoints("physical") - 3;
-    this.social.innerHTML = DB.getAttributePoints("social") - 3;
+    this.total.innerHTML = ATTRIBUTES.getPoints("all") - 9;
+    this.mental.innerHTML = ATTRIBUTES.getPoints("mental") - 3;
+    this.physical.innerHTML = ATTRIBUTES.getPoints("physical") - 3;
+    this.social.innerHTML = ATTRIBUTES.getPoints("social") - 3;
   },
 
   buildAttributes() {
-    DB.attributes.forEach((attribute) => {
+    ATTRIBUTES.DB.forEach((attribute) => {
       let container = document.querySelector(`#attribute_${attribute.type}`);
       let content = `
       <div class="mb-1">
         <!---->
-        <button func="modal_att_${attribute.id}" class="me-2 mb-2 col-sm-12 col-md-3 btn 
+        <button func="attModal_${attribute.id}" class="me-2 mb-2 col-sm-12 col-md-3 btn 
         btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">${attribute.label}</button>
         <!---->
         <div class="mb-2 btn-group" role="group">${this.getButtongroup(attribute)}</div>
@@ -389,7 +381,7 @@ let attributes = {
     for (let i = 1; i <= 5; i++) {
       let checked = attribute.value == i ? `checked` : ``;
       buttons += `
-      <input type="radio" class="btn-check" id="btnradio_${attribute.id}_${i}" autocomplete="off" ${checked} func="set_att_${attribute.id}_${i}">
+      <input type="radio" class="btn-check" id="btnradio_${attribute.id}_${i}" autocomplete="off" ${checked} func="attValue_${attribute.id}_${i}">
       <label class="btn btn-outline-primary" for="btnradio_${attribute.id}_${i}">${i}</label>`;
     }
     return buttons;
@@ -410,25 +402,25 @@ let skills = {
   },
 
   updatePointCounter() {
-    this.total.innerHTML = DB.getSkillPoints("all");
-    this.specialties_counter.innerHTML = DB.getCountOfSpecalties();
-    this.mental.innerHTML = DB.getSkillPoints("mental");
-    this.physical.innerHTML = DB.getSkillPoints("physical");
-    this.social.innerHTML = DB.getSkillPoints("social");
+    this.total.innerHTML = SKILLS.getPoints("all");
+    this.specialties_counter.innerHTML = SKILLS.getCountOfSpecalties();
+    this.mental.innerHTML = SKILLS.getPoints("mental");
+    this.physical.innerHTML = SKILLS.getPoints("physical");
+    this.social.innerHTML = SKILLS.getPoints("social");
   },
 
   buildSkills() {
-    DB.skills.forEach((skill) => {
+    SKILLS.DB.forEach((skill) => {
       let container = document.querySelector(`#skills_${skill.type}`);
       let content = `
       <div class="mb-1">
         <!---->
-        <button func="modal_skill_${skill.id}" class="me-2 mb-2 col-12 col-md-3 btn 
+        <button func="skillModal_${skill.id}" class="me-2 mb-2 col-12 col-md-3 btn 
         btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">${skill.label}</button>
         <!---->
         <div class="me-2 mb-2 btn-group" role="group">${this.getButtongroup(skill)}</div>
         <!---->
-        <button func="addSpecialtie_${skill.id}" class="mb-2 btn btn-primary">
+        <button func="skillAddSpec_${skill.id}" class="mb-2 btn btn-primary">
         Add Specialtie</button>
         <!---->
         <div class="col-12 input-group">${this.getSpecialties(skill)}</div>
@@ -443,7 +435,7 @@ let skills = {
     for (let i = 0; i <= 5; i++) {
       let checked = skill.value == i ? `checked` : ``;
       buttons += `
-      <input type="radio" class="btn-check" id="rad_${skill.id}_${i}" autocomplete="off" ${checked} func="set_skill_${skill.id}_${i}">
+      <input type="radio" class="btn-check" id="rad_${skill.id}_${i}" autocomplete="off" ${checked} func="skillValue_${skill.id}_${i}">
       <label class="btn btn-outline-primary" for="rad_${skill.id}_${i}">${i}</label>
       `;
     }
@@ -455,8 +447,8 @@ let skills = {
     skill.specialties.forEach((el, i) => {
       inputs += `
       <div class="input-group mb-2">
-        <button func="delSpec_${skill.id}_${i}" class="btn btn-outline-danger" type="button" func="remove_${skill.id}">X</button>
-        <input func="inputSpecialtie_${skill.id}_${i}" value="${el}" type="text" class="form-control" placeholder="Specialtie">
+        <button func="skillDeleteSpec_${skill.id}_${i}" class="btn btn-outline-danger" type="button" func="remove_${skill.id}">X</button>
+        <input func="skillChangeSpec_${skill.id}_${i}" value="${el}" type="text" class="form-control" placeholder="Specialtie">
       </div>`;
     });
     return inputs;
@@ -468,33 +460,33 @@ let merits = {
   merits_points_total: document.querySelector("#merits_points_total"),
 
   buildAll() {
-    this.merits_points_total.innerHTML = DB.getMeritsPoints();
+    this.merits_points_total.innerHTML = MERITS.getPoints();
     this.buildDropdown();
     this.buildMyMerits();
   },
 
   buildDropdown() {
-    DB.merits.forEach((merit) => {
+    MERITS.DB.forEach((merit) => {
       let container = document.querySelector(`#merits_dropdown_${merit.type}`);
-      let content = `<li><a func="addMerit_${merit.id}" class="dropdown-item" href="#">${merit.label}</a></li>`;
+      let content = `<li><a func="meritAdd_${merit.id}" class="dropdown-item" href="#">${merit.label}</a></li>`;
       container.insertAdjacentHTML("beforeend", content);
     });
   },
 
   buildMyMerits() {
-    DB.myMerits.forEach((merit, i) => {
+    MERITS.myMerits.forEach((merit, i) => {
       let container = document.querySelector(`#myMerits_${merit.type}`);
       let content = `
       <div class="mb-2">
         <!---->
-        <button func="delMerit_${i}" class="mb-2 btn btn-danger">X</button>
+        <button func="meritDelete_${i}" class="mb-2 btn btn-danger">X</button>
         <!---->
-        <button func="modal_merit_${merit.id}" class="me-2 mb-2 col-10 col-md-3 btn 
+        <button func="meritModal_${merit.id}" class="me-2 mb-2 col-10 col-md-3 btn 
         btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">${merit.label}</button>
         <!---->
         <div class="me-2 mb-2 btn-group" role="group">${this.getButtongroup(merit, i)}</div>
         <!---->
-        <button func="addMeritNote_${i}" class="mb-2 btn btn-primary">
+        <button func="meritAddNote_${i}" class="mb-2 btn btn-primary">
         Add Note</button>
         <!---->
         <div class="col-12 input-group">${this.getNotes(merit, i)}</div>
@@ -509,7 +501,7 @@ let merits = {
     merit.points.forEach((points) => {
       let checked = merit.value === points ? `checked` : ``;
       buttons += `
-      <input type="radio" class="btn-check" id="rad_${merit.id}_${myIndex}_${points}" autocomplete="off" ${checked} func="set_merit_${myIndex}_${points}">
+      <input type="radio" class="btn-check" id="rad_${merit.id}_${myIndex}_${points}" autocomplete="off" ${checked} func="meritValue_${myIndex}_${points}">
       <label class="btn btn-outline-primary" for="rad_${merit.id}_${myIndex}_${points}">${points}</label>`;
     });
     return buttons;
@@ -520,8 +512,8 @@ let merits = {
     merit.notes.forEach((el, i) => {
       notes += `
       <div class="input-group mb-2">
-        <button func="delMeriteNote_${myIndex}_${i}" class="btn btn-outline-danger" type="button">X</button>
-        <input func="meritNote_${myIndex}_${i}" value="${el}" type="text" class="form-control" placeholder="Note">
+        <button func="meriteDeleteNote_${myIndex}_${i}" class="btn btn-outline-danger" type="button">X</button>
+        <input func="meritChangeNote_${myIndex}_${i}" value="${el}" type="text" class="form-control" placeholder="Note">
       </div>`;
     });
     return notes;
@@ -533,4 +525,4 @@ async function init(startpage) {
   // await DB.loadDB();
   navbar.click(startpage);
 }
-init("merits");
+init("home");
