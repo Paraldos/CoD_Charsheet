@@ -133,6 +133,37 @@ document.querySelector("body").addEventListener("click", (el) => {
     modal.advantage(func[1]);
   }
 
+  if (func[0] === "advGainBeat") {
+    let beats = ADVANTAGES.find("beats");
+    let xp = ADVANTAGES.find("experience");
+
+    beats.value += 1;
+    if (beats.value >= 5) {
+      beats.value -= 5;
+      xp.value += 1;
+    }
+    _update_all();
+  }
+
+  if (func[0] === "advGainXP") {
+    let xp = ADVANTAGES.find("experience");
+    xp.value += 1;
+    _update_all();
+  }
+
+  if (func[0] === "advSpendXP") {
+    let xp = ADVANTAGES.find("experience");
+    if (xp.value <= 0) return;
+    xp.value -= 1;
+    _update_all();
+  }
+
+  /*
+  <button func="advGainBeat" type="button" class="btn btn-primary">Gain Beat</button>
+  <button func="advGainXP" type="button" class="btn btn-primary">Gain EXP</button>
+  <button func="advSpendXP" type="button" class="btn btn-primary">Spend EXP</button>
+  */
+
   // health
   if (func[0] === "dmg") {
     if (func[1] === "heal") HEALTH.healDmg();
@@ -246,18 +277,24 @@ let home = {
   },
 
   buildAdvantage() {
+    let container = document.querySelector("#container_advantages");
+
     ADVANTAGES.DB.forEach((advantage) => {
-      let container = document.querySelector("#container_advantages");
       let content = `
-      <div 
-        class="col-sm-12 col-md-4 col-lg-2 text-center"
-        func="advModal_${advantage.id}"
-        data-bs-toggle="modal"
-        data-bs-target="#myModal">
-        ${advantage.label}: ${advantage.value}
-      </div>`;
+      <button func="advModal_${advantage.id}" type="button" 
+      class="col-auto text-center btn btn-outline-primary mb-1" 
+      data-bs-toggle="modal" data-bs-target="#myModal">
+      ${advantage.label}: ${advantage.value}</button>`;
       container.insertAdjacentHTML("beforeend", content);
     });
+
+    let buttons = `
+    <button func="advGainBeat" type="button" class="col-auto text-center btn btn-primary mb-1">Gain Beat</button>
+    <button func="advGainXP" type="button" class="col-auto text-center btn btn-primary mb-1">Gain EXP</button>
+    <button func="advSpendXP" type="button" class="col-auto text-center btn btn-primary mb-1">Spend EXP</button>
+    `;
+
+    container.insertAdjacentHTML("beforeend", buttons);
   },
 
   buildHealth() {

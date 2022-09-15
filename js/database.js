@@ -105,6 +105,10 @@ class Advantage extends Ability {
     if (this.id == "beats") return this._baseValue;
     if (this.id == "experience") return this._baseValue;
   }
+
+  set value(x) {
+    this._baseValue = x;
+  }
 }
 
 /* ============================== HOUSRULES ============================== */
